@@ -1,10 +1,12 @@
 import axios from "axios";
 
 const API = axios.create({
- baseURL: "https://earnaco-backend.onrender.com/api",
-
-  withCredentials: true // 🔥 IMPORTANT
+  baseURL: "https://earnaco-backend.onrender.com/api",
+  withCredentials: true
 });
+
+
+
 
 // 🔴 AUTO LOGOUT IF SESSION EXPIRED
 API.interceptors.response.use(
