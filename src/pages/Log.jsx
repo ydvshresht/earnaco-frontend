@@ -11,7 +11,10 @@ function Login() {
   const handleLogin = async () => {
   try {
     const res = await API.post("/auth/login", { email, password });
- navigate("/entry");
+ setTimeout(() => {
+      navigate("/dashboard");
+    }, 500); // wait for cookie
+
     console.log("LOGIN SUCCESS", res.data); // 👈 ADD THIS
      
   } catch (err) {

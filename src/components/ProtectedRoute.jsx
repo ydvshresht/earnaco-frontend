@@ -1,29 +1,21 @@
-import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import API from "../api/api";
 
-function ProtectedRoute({ children }) {
+const ProtectedRoute = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [auth, setAuth] = useState(false);
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        await API.get("/auth/me"); // cookie check
-        setAuth(true);
-      } catch {
-        setAuth(false);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    checkAuth();
+    API.get("/auth/me")
+      .then(() => setAuth(true))
+      .catch(() => setAuth(false))
+      .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <div>Loading...</div>;
 
-  return auth ? children : <Navigate to="/" replace />;
-}
+  return auth ? children : <Navigate to="/login" />;
+};
 
 export default ProtectedRoute;
