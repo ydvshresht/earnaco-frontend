@@ -1,20 +1,17 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api",
-  withCredentials: true // 🔥 REQUIRED
+ baseURL: "https://earnaco-backend.onrender.com",
+
+  withCredentials: true // 🔥 IMPORTANT
 });
 
-
-
-
-// 🔴 AUTO LOGOUT IF USER DELETED / TOKEN INVALID
+// 🔴 AUTO LOGOUT IF SESSION EXPIRED
 API.interceptors.response.use(
   (res) => res,
   (err) => {
     if (err.response?.status === 401) {
-      localStorage.removeItem("token");
-      window.location.href = "/register";
+      window.location.href = "/"; // redirect to login
     }
     return Promise.reject(err);
   }
