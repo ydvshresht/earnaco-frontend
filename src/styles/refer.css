@@ -1,0 +1,74 @@
+.refer-container{
+  padding:20px;
+  text-align:center;
+}
+
+.refer-header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:18px;
+  font-weight:bold;
+}
+
+.back-icon{
+  cursor:pointer;
+}
+
+.refer-banner{
+  width:100%;
+  border-radius:12px;
+  margin:15px 0;
+}
+
+.subtitle{
+  color:#555;
+}
+
+.code-box{
+  background:#f2f2f2;
+  padding:15px;
+  border-radius:10px;
+  margin:15px 0;
+  font-size:16px;
+}
+
+.insta-btn{
+  background:#E1306C;
+  color:white;
+  border:none;
+  padding:12px;
+  border-radius:8px;
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  font-size:16px;
+}
+
+.insta-btn img{
+  width:20px;
+}
+
+.insta-id{
+  margin-top:10px;
+  font-weight:bold;
+  color:#E1306C;
+}
+.whatsapp-btn{
+  background:#19630f;
+  color:white;
+  border:none;
+  padding:12px;
+  border-radius:8px;
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  font-size:16px;
+}
+.whatsapp-btn img{
+  width:20px;
+}

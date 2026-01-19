@@ -1,0 +1,11 @@
+ .ques{ display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 10px;
+            border: 1px solid #000;
+          text-align: center;
+            margin: 10px 0;
+            background-color: #fff;
+            transition: 00.2s;
+            color: #000;
+        width: 95%;}

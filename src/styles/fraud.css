@@ -1,0 +1,20 @@
+.admin-container{
+ padding:30px;
+}
+
+.admin-card{
+ background:#111;
+ padding:15px;
+ margin:10px 0;
+ border-radius:8px;
+}
+
+.danger{
+ color:red;
+ font-weight:bold;
+}
+
+.warning{
+ color:orange;
+ font-weight:bold;
+}

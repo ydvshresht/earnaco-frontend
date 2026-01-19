@@ -1,0 +1,78 @@
+
+    
+    h2 {
+      font-size: 22px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+   
+
+    .filter {
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+
+    .transaction {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .transaction:last-child {
+      border-bottom: none;
+    }
+
+    .left {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .left-type {
+      font-weight: bold;
+      
+    }
+
+    .left-date {
+      font-size: 13px;
+      color: #3f3c3c;
+    }
+
+    .amount {
+      font-weight: bold;
+      font-size: 15px;
+      text-align: right;
+      margin-top: -20px;
+      
+    }
+.added{
+  color: green;
+}
+    .withdraw {
+      color: #c91818;
+    }
+
+    .balance {
+      text-align: left;
+      margin-top: 20px;
+      font-size: 16px;
+     
+    }
+    .status{
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.pending{
+  color: orange;
+}
+
+.success{
+  color: green;
+}
+
+.failed{
+  color: red;
+}

@@ -1,0 +1,93 @@
+.back {
+    font-size: 16px;
+    color: #0d0d0e;
+    cursor: pointer;
+    margin-bottom: 15px;
+    display: inline-block;
+    margin-right: 90%;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-top: -35px;
+    }
+
+    .photo-section {
+      text-align: center;
+      margin-bottom: 20px;
+       position: relative;
+            display: center;
+            
+    }
+
+    .photo-section img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ccc;
+      cursor: pointer;
+    }
+
+    .photo-section input {
+      display: none;
+    }
+
+    .edit-btn{
+      margin-top: -30px;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin: 10px 0 5px;
+      background-color: #0f0f0fa4;
+      border-radius: 5px;
+      width: 100%;
+      color: #ffffffd5;
+      padding: 6px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="email"],
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #ffffff8e;
+      color: #000;
+      outline: #0d0d0e;
+      font-size: 15px;
+    }
+
+    .gender {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .gender label {
+      font-weight: normal;
+    }
+
+    .save-btn {
+      width: 100%;
+      background: #4aa5d2;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 20px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .save-btn:hover {
+      background: #4aa5d2;
+    }
+   

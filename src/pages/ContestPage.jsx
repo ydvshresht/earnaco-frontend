@@ -1,0 +1,188 @@
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import API from "../api/api";
+import "../styles/contest.css";
+
+function ContestPage() {
+  const { contestId } = useParams();
+  const navigate = useNavigate();
+
+  const [contest, setContest] = useState(null);
+  const [user, setUser] = useState(null);
+  const [attempted, setAttempted] = useState(false);
+  const [agree, setAgree] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  /**
+   * 🔹 LOAD USER + CONTEST + ATTEMPT STATUS
+   */
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const userRes = await API.get("/auth/me");
+        setUser(userRes.data);
+
+        const contestRes = await API.get(`/contests/${contestId}`);
+        setContest(contestRes.data);
+
+        const attemptRes = await API.get(
+          `/results/attempted/${contestRes.data.test._id}`
+        );
+        setAttempted(attemptRes.data.attempted);
+      } catch (err) {
+        alert("Failed to load contest");
+        navigate("/entry");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, [contestId, navigate]);
+
+  if (loading) return <h3>Loading...</h3>;
+  if (!contest || !contest.test || !user) return null;
+
+  const userMongoId = user._id;
+
+  const alreadyJoined = contest.joinedUsers.some(
+    (u) => u.toString() === userMongoId
+  );
+
+  /**
+   * 🛒 BUY CONTEST
+   */
+  const buyContest = async () => {
+    try {
+      await API.post(`/contests/buy/${contestId}`);
+      const updated = await API.get(`/contests/${contestId}`);
+      setContest(updated.data);
+      alert("Contest purchased successfully");
+    } catch (err) {
+      alert(err.response?.data?.msg || "Buy failed");
+    }
+  };
+
+  /**
+   * ▶ START TEST
+   */
+  const startTest = () => {
+    navigate(`/test/${contest.test._id}?contest=${contest._id}`);
+  };
+
+
+  /**
+   * 🏆 GO TO LEADERBOARD
+   */
+  const goToLeaderboard = () => {
+    navigate(`/leaderboard/${contest.test._id}?contest=${contest._id}`);
+  };
+
+  /**
+   * 🧾 GO TO MY TEST
+   */
+  const goToMyTest = () => {
+    navigate("/my-test");
+  };
+
+  return (
+    <div className="container">
+ <i className="material-icons" onClick={() => navigate("/entry")}>arrow_back</i>
+      {/* ✅ COUPON HEADER (SAME AS OTHER PAGES) */}
+      <div className="coupon-header">
+        <div
+          className="header-item"
+          onClick={() => navigate(`/contest/${contest._id}`)}
+        >
+          CONTEST
+        </div>
+
+        <div
+          className="header-item"
+          onClick={goToLeaderboard}
+        >
+          LEADERBOARD
+        </div>
+
+        <div
+          className="header-item"
+          onClick={goToMyTest}
+        >
+          MY TEST
+        </div>
+      </div>
+
+      {/* TEST DETAILS */}
+      <div className="test-container">
+        <div className="test-details">
+          <span>Duration: {contest.test.duration} mins</span>
+          <span>
+            Maximum Marks: {contest.test.questions.length * 1}
+          </span>
+        </div>
+
+        <ul className="instructions">
+          <li>Total questions: {contest.test.questions.length}</li>
+          <li>Each question has 4 options</li>
+          <li>+1 for correct answer</li>
+          <li>No negative marking
+
+          </li>
+          <li>Test can be attempted only once</li>
+        </ul>
+
+        <div className="bottom-section">
+          <label>Choose Language:</label>
+          <select>
+            <option>English</option>
+            <option>Hindi</option>
+          </select>
+
+          {/* ❌ NOT JOINED */}
+          {!alreadyJoined && (
+            <button
+              className="agree-btn"
+              disabled={!agree}
+              onClick={buyContest}
+            >
+              Buy Contest ₹{contest.entryFee}
+            </button>
+          )}
+
+          {/* ✅ JOINED BUT NOT ATTEMPTED */}
+          {alreadyJoined && !attempted && (
+            <button
+              className="agree-btn"
+              disabled={!agree}
+              onClick={startTest}
+            >
+              Start Test 🚀
+            </button>
+          )}
+
+          {/* 🛑 ALREADY ATTEMPTED */}
+          {alreadyJoined && attempted && (
+            <>
+              <p style={{ color: "red", fontWeight: "bold" }}>
+                Test already attempted
+                check leaderboard
+              </p>
+             
+            </>
+          )}
+
+          <div style={{ marginTop: "10px" }}>
+            <input
+              type="checkbox"
+              checked={agree}
+              onChange={() => setAgree(!agree)}
+            />{" "}
+            I agree to instructions
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default ContestPage;
