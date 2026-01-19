@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
- baseURL: "https://earnaco-backend.onrender.com",
+ baseURL: "https://earnaco-backend.onrender.com/api",
 
   withCredentials: true // 🔥 IMPORTANT
 });
