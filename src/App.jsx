@@ -43,9 +43,9 @@ function App() {
       <Route
         path="/entry"
         element={
-          <ProtectedRoute>
+          
             <Entry />
-          </ProtectedRoute>
+          
         }
       />
 
