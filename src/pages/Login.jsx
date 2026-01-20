@@ -12,7 +12,7 @@ function Login() {
   try {
     const res = await API.post("/auth/login", { email, password });
  
-      navigate("/register");
+      navigate("/my-entry");
    
 
     console.log("LOGIN SUCCESS", res.data); // 👈 ADD THIS
