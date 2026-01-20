@@ -43,7 +43,7 @@ function Entry() {
   <div className="profile">
     <div
       className="photo-sect"
-      onClick={() => navigate("/Profile")}
+      onClick={() => navigate("/profile")}
       style={{ cursor: "pointer" }}
     >
       <img
