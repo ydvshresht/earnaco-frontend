@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import API from "../api/api";
 import "../styles/Profile.css";
 import "../styles/body.css";
-
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 function Profile() {
   const navigate = useNavigate();
 
@@ -38,8 +38,8 @@ function Profile() {
         });
 
         if (res.data.profilePhoto) {
-          setPhoto(`http://localhost:5000${res.data.profilePhoto}`);
-        }
+        setPhoto(`${BASE_URL}${res.data.profilePhoto}`);
+      }
       } catch {
         alert("Failed to load profile");
       } finally {
