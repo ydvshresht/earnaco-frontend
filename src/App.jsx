@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Log from "./pages/Log";
+import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Entry from "./pages/Entry";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -34,7 +34,7 @@ function App() {
   return (
     <Routes>
       
-      <Route path="/" element={<Log />} />
+      <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
 <Route path="/verify/:token" element={<Verify />} />
 <Route path="/forgot" element={<Forgot/>}/>
