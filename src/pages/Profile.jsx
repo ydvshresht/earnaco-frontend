@@ -70,11 +70,9 @@ function Profile() {
       const res = await API.put("/auth/update-profile", formData, {
         headers: { "Content-Type": "multipart/form-data" }
       });
-
-      if (res.data.profilePhoto) {
-       setPhoto(`${BASE_URL}${res.data.profilePhoto}`);
-      }
-console.log("BACKEND:", import.meta.env.VITE_BACKEND_URL);
+if (res.data.profilePhoto) {
+  setPhoto(res.data.profilePhoto);
+}
 
       alert("Profile saved successfully");
     } catch {
