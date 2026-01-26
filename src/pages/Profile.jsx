@@ -72,8 +72,9 @@ function Profile() {
       });
 
       if (res.data.profilePhoto) {
-        setPhoto(`http://localhost:5000${res.data.profilePhoto}`);
+       setPhoto(`${BASE_URL}${res.data.profilePhoto}`);
       }
+console.log("BACKEND:", import.meta.env.VITE_BACKEND_URL);
 
       alert("Profile saved successfully");
     } catch {
