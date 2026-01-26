@@ -1,24 +1,30 @@
 import { useEffect, useState } from "react";
 import API from "../api/api";
 
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+const DEFAULT_PHOTO =
+  "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+
 export default function useProfile() {
-  const [user, setUser] = useState(null);
-  const [photo, setPhoto] = useState(
-    "https://cdn-icons-png.flaticon.com/512/149/149071.png"
-  );
+  const [photo, setPhoto] = useState(DEFAULT_PHOTO);
 
   useEffect(() => {
-    const load = async () => {
-      const res = await API.get("/auth/me");
-      setUser(res.data);
+    const loadProfile = async () => {
+      try {
+        const res = await API.get("/auth/me");
 
-      if (res.data.profilePhoto) {
-        setPhoto(`http://localhost:5000${res.data.profilePhoto}`);
+        if (res.data.profilePhoto) {
+          setPhoto(`${BASE_URL}${res.data.profilePhoto}`);
+        } else {
+          setPhoto(DEFAULT_PHOTO);
+        }
+      } catch {
+        setPhoto(DEFAULT_PHOTO);
       }
     };
 
-    load();
+    loadProfile();
   }, []);
 
-  return { user, photo };
+  return { photo };
 }
