@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import API from "../api/api";
 import "../styles/Profile.css";
 import "../styles/body.css";
-const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+
 function Profile() {
   const navigate = useNavigate();
 
@@ -19,36 +19,36 @@ function Profile() {
     gender: ""
   });
 
-  const [photo, setPhoto] = useState(
-    "https://cdn-icons-png.flaticon.com/512/149/149071.png"
-  );
+ const [photo, setPhoto] = useState(
+  "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+);
 
-  useEffect(() => {
-    const loadProfile = async () => {
-      try {
-        const res = await API.get("/auth/me");
+useEffect(() => {
+  const loadProfile = async () => {
+    try {
+      const res = await API.get("/auth/me");
 
-        setForm({
-          fullName: res.data.fullName || "",
-          dob: res.data.dob?.slice(0, 10) || "",
-          mobile: res.data.mobile || "",
-          email: res.data.email || "",
-          pan: res.data.pan || "",
-          gender: res.data.gender || ""
-        });
+      setForm({
+        fullName: res.data.fullName || "",
+        dob: res.data.dob?.slice(0, 10) || "",
+        mobile: res.data.mobile || "",
+        email: res.data.email || "",
+        pan: res.data.pan || "",
+        gender: res.data.gender || ""
+      });
 
-        if (res.data.profilePhoto) {
-        setPhoto(`${BASE_URL}${res.data.profilePhoto}`);
+      if (res.data.profilePhoto?.startsWith("http")) {
+        setPhoto(res.data.profilePhoto);
       }
-      } catch {
-        alert("Failed to load profile");
-      } finally {
-        setLoading(false);
-      }
-    };
+    } catch {
+      alert("Failed to load profile");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    loadProfile();
-  }, []);
+  loadProfile();
+}, []);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.id]: e.target.value });
@@ -67,10 +67,9 @@ function Profile() {
     }
 
     try {
-      const res = await API.put("/auth/update-profile", formData, {
-        headers: { "Content-Type": "multipart/form-data" }
-      });
-if (res.data.profilePhoto) {
+    const res = await API.put("/auth/update-profile", formData);
+
+if (res.data.profilePhoto?.startsWith("http")) {
   setPhoto(res.data.profilePhoto);
 }
 
@@ -102,11 +101,19 @@ if (res.data.profilePhoto) {
             id="imageUpload"
             hidden
             accept="image/*"
-            onChange={(e) => {
-              const file = e.target.files[0];
-              setImageFile(file);
-              setPhoto(URL.createObjectURL(file));
-            }}
+           onChange={(e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  setImageFile(file);
+
+  const reader = new FileReader();
+  reader.onloadend = () => {
+    setPhoto(reader.result); // ✅ mobile-safe preview
+  };
+  reader.readAsDataURL(file);
+}}
+
           />
         </div>
         <div className="edit-btn">📷</div>
@@ -143,6 +150,7 @@ if (res.data.profilePhoto) {
         </div>
 
         <button className="save-btn">Save Details</button>
+        
       </form>
     </div>
   );
