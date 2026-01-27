@@ -9,7 +9,8 @@ function MyEntry() {
   const [wallet, setWallet] = useState(0);
 const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { user: profileUser, photo } = useProfile();
+  const { photo } = useProfile();
+
   const navigate = useNavigate();
 const handleContestClick = async (contest) => {
   try {
