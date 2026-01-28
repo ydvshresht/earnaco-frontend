@@ -29,6 +29,7 @@ import AdminAnalytics from "./pages/AdminAnalytics";
 import AdminWithdraw from "./pages/AdminWithdraw";
 import AdminFraud from "./pages/AdminFraud";
 import CreateContest from "./pages/CreateContest";
+import CreateTest from "./pages/CreateTest";
 
 function App() {
   return (
@@ -148,6 +149,7 @@ function App() {
 <Route path="/admin/manage-questions" element={<ManageQuestions />} />
 <Route path="/admin/manage-tests" element={<ManageTests />} />
 <Route path="/admin/manage-contests" element={<ManageContests />} />
+<Route path="/admin/create-test" element={<CreateTest />} />
 <Route
   path="/admin/create-contest"
   element={<CreateContest />}

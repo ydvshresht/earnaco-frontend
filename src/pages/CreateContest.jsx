@@ -27,8 +27,11 @@ function CreateContest() {
 
   return (
     <div className="container">
+        <div className="back-btn" onClick={() => navigate(-1)}>
+        ← Back
+      </div>
       <h3>Create Contest</h3>
-
+<div className="selectest">
       <select onChange={(e) => setTest(e.target.value)}>
         <option value="">Select Test</option>
         {tests.map(t => (
@@ -36,7 +39,7 @@ function CreateContest() {
             {t.testName}
           </option>
         ))}
-      </select>
+      </select></div>
 
       <input
         placeholder="Prize Pool"

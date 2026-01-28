@@ -33,6 +33,9 @@ const navigate = useNavigate();
           <button onClick={() => deleteTest(t._id)}>Delete</button>
         </div>
       ))}
+       <button onClick={() => navigate("/admin/create-test")}>
+  + Create Test
+</button>
     </div>
   );
 }
