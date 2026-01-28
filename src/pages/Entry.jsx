@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/api";
 import "../styles/entry.css";
-
 import useProfile from "../hooks/useProfile";
 
 function Entry() {
@@ -35,7 +34,7 @@ function Entry() {
   }, []);
 
   return (
-    <div className="page">
+    <div className="screen">
       {/* HEADER */}
       <header>
         <div className="profile">
