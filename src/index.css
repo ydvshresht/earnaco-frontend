@@ -37,3 +37,7 @@ body {
     overflow: hidden;
   }
 }
+.screen {
+  padding: 16px;
+  flex: 1;
+}
