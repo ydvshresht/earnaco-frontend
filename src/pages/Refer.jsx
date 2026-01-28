@@ -27,8 +27,8 @@ ${WEBSITE_LINK}`;
     );
   };
 
-  return (
-    <div className="container">
+  return (<div id="app">
+    <div className="page">
       {/* HEADER */}
       <div className="icon-text">
         <i className="material-icons" onClick={() => navigate(-1)}>
@@ -63,7 +63,7 @@ ${WEBSITE_LINK}`;
           Share on Instagram
         </button>
       </div>
-    </div>
+    </div></div>
   );
 }
 

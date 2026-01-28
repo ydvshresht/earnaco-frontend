@@ -17,8 +17,8 @@ function AdminAnalytics() {
 
   if (!data) return <h3>Loading analytics...</h3>;
 
-  return (
-    <div className="container">
+  return (<div id="app">
+    <div className="page">
          <div className="back-btn" onClick={() => navigate(-1)}>
         ← Back
       </div>
@@ -37,7 +37,7 @@ function AdminAnalytics() {
           #{i + 1} {u.fullName} → ₹{u.wallet}
         </div>
       ))}
-    </div>
+    </div></div>
   );
 }
 

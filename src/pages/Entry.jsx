@@ -34,8 +34,8 @@ function Entry() {
     loadData();
   }, []);
 
-  return (
-    <div className="container">
+  return (<div id="app">
+    <div className="page">
       {/* HEADER */}
       <header>
         <div className="profile">
@@ -91,7 +91,7 @@ function Entry() {
           ))
         )}
       </div>
-    </div>
+    </div></div>
   );
 }
 

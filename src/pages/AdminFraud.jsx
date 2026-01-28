@@ -23,9 +23,9 @@ const navigate = useNavigate();
   };
 
 
- return(
-  <div className="container">
-     <div className="icon-text"> <i className="material-icons" onClick={() => navigate("/wallet")}>arrow_back</i>
+ return(<div id="app">
+  <div className="page">
+     <div className="icon-text"> <i className="material-icons" onClick={() => navigate("/admin")}>arrow_back</i>
 </div>
    <h2>Fraud Logs</h2>
 
@@ -42,7 +42,7 @@ const navigate = useNavigate();
     </div>
     
    ))}
-  </div>
+  </div></div>
  );
 }
 

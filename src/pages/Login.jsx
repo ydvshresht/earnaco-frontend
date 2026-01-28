@@ -39,8 +39,8 @@ function Login() {
     }
   };
 
-  return (
-    <div className="container">
+  return (<div id="app">
+    <div className="page">
     <div style={{ padding: "40px" }}>
       <h2>Login</h2>
 
@@ -82,7 +82,7 @@ function Login() {
       <span onClick={resend}>
         Resend verification email
       </span>
-    </div></div>
+    </div></div></div>
   );
 }
 

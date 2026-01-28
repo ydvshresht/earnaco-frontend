@@ -35,8 +35,8 @@ const [user, setUser] = useState(null);
 
   
 
-  return (
-    <div className="container">
+  return (<div id="app">
+    <div className="page">
       <i className="material-icons" onClick={() => navigate("/entry")}>arrow_back</i>
      
       <div className="coupon-header">
@@ -94,7 +94,7 @@ const [user, setUser] = useState(null);
 </tbody>
 
       </table>
-    </div>
+    </div></div>
   );
 }
 

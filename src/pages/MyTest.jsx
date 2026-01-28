@@ -28,8 +28,8 @@ function MyTest() {
   const headerContestId = tests[0]?.contest || null;
   const headerTestId = tests[0]?.test?._id || null;
 
-  return (
-    <div className="container">
+  return (<div id="app">
+    <div className="page">
  <div className="icon-text"><i className="material-icons" onClick={() => navigate("/entry")}>arrow_back</i>
       </div>
       {/* ✅ COUPON HEADER */}
@@ -104,7 +104,7 @@ function MyTest() {
           );
         })
       )}
-    </div>
+    </div></div>
   );
 }
 

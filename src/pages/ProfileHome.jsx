@@ -34,8 +34,8 @@ function ProfileHome() {
     loadData();
   }, []);
 
-  return (
-    <div className="container">
+  return (<div id="app">
+    <div className="page">
       <div className="icon-text">
 <i className="material-icons" onClick={() => navigate("/entry")}>arrow_back</i>Profile
 </div>
@@ -88,7 +88,7 @@ function ProfileHome() {
       <button className="logout-btn" onClick={handleLogout}>
         Logout
       </button>
-    </div>
+    </div></div>
   );
 }
 

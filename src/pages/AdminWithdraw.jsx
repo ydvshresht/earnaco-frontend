@@ -22,8 +22,8 @@ const navigate = useNavigate();
     setList(list.filter(i => i._id !== id));
   };
 
-  return (
-    <div className="container">
+  return (<div id="app">
+    <div className="page">
          <div className="icon-text"><i className="material-icons" onClick={() => navigate("/admin")}>arrow_back</i>
    Withdraw Requests</div>
       <h2>Withdraw Requests</h2>
@@ -46,7 +46,7 @@ const navigate = useNavigate();
           </button></div>
         </div>
       ))}
-    </div>
+    </div></div>
   );
 }
 

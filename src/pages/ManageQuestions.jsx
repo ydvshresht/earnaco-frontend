@@ -33,8 +33,8 @@ function ManageQuestions() {
     }
   };
 
-  return (
-    <div className="container">
+  return (<div id="app">
+    <div className="page">
       <div className="back-btn" onClick={() => navigate(-1)}>
         ← Back
       </div>
@@ -67,7 +67,7 @@ function ManageQuestions() {
           </div>
         ))
       )}
-    </div>
+    </div></div>
   );
 }
 

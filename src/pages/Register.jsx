@@ -35,8 +35,8 @@ function Register() {
     }
   };
 
-  return (
-    <div style={{ padding: "40px", maxWidth: "400px" }}>
+  return (<div id="app">
+    <div className="page">
       <h2>Register</h2>
 
       <input
@@ -74,7 +74,7 @@ function Register() {
           Login
         </span>
       </p>
-    </div>
+    </div></div>
   );
 }
 

@@ -20,8 +20,8 @@ function Wallet() {
     fetchWallet();
   }, []);
 
-  return (
-    <div className="container">
+  return (<div id="app">
+    <div className="page">
       {/* BACK */}
     <i className="material-icons" onClick={() => navigate("/entry")}>arrow_back</i>
       <h1>My Wallet</h1>
@@ -99,7 +99,7 @@ function Wallet() {
         </div>
         <div>›</div>
       </div>
-    </div>
+    </div></div>
   );
 }
 

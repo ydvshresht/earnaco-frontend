@@ -81,7 +81,8 @@ function AddMoney() {
   };
 
   return (
-    <div className="container">
+    <div id="app">
+    <div className="page">
      <div className="icon-text"> <i className="material-icons" onClick={() => navigate("/wallet")}>arrow_back</i>
 </div>
       <h1>Add Money</h1>
@@ -126,7 +127,7 @@ function AddMoney() {
       <button className="addmoney-btn" onClick={addMoney}>
         Add Money
       </button>
-    </div>
+    </div></div>
   );
 }
 

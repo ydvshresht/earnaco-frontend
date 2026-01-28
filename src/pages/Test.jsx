@@ -101,7 +101,8 @@ function Test() {
 
   // 📊 RESULT SCREEN
   if (result) {
-    return (
+    return (<div id="app">
+      <div className="page">
       <div style={{ padding: "40px" }}>
         <h2>📊 Test Result</h2>
         <p>Total Questions: {result.total}</p>
@@ -117,13 +118,14 @@ function Test() {
         <button onClick={() => navigate("/entry")}>
           Back to Entry
         </button>
-      </div>
+      </div></div></div>
     );
   }
 
   const currentQuestion = questions[currentIndex];
 
-  return (
+  return (<div id="app">
+    <div className="page">
     <div style={{ padding: "40px" }}>
       <h3>
         ⏱️ {Math.floor(timeLeft / 60)}:
@@ -181,7 +183,7 @@ function Test() {
   >
     Next
   </button>)}
-    </div>
+    </div></div></div>
   );
 }
 

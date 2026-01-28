@@ -39,8 +39,8 @@ const navigate = useNavigate();
     }
   };
 
-  return (
-    <div className="container">
+  return (<div id="app">
+    <div className="page">
         <div className="icon-text"><i className="material-icons" onClick={() => navigate("/profile")}>arrow_back</i>
       Customer Support</div>
 
@@ -87,7 +87,7 @@ const navigate = useNavigate();
           </div>
         ))
       )}
-    </div>
+    </div></div>
   );
 }
 

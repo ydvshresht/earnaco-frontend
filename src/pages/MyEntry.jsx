@@ -66,8 +66,8 @@ const joinedContests = contests.filter((contest) =>
 
   if (loading) return <h3>Loading...</h3>;
 
-  return (
-    <div className="container">
+  return (<div id="app">
+    <div className="page">
       {/* HEADER */}
       <header>
         <div className="profile">
@@ -126,7 +126,7 @@ const joinedContests = contests.filter((contest) =>
   </div>
 )}
 
-    </div>
+    </div></div>
     
   );
 }

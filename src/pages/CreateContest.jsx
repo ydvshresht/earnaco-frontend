@@ -25,21 +25,22 @@ function CreateContest() {
     navigate("/admin/manage-contests");
   };
 
-  return (
-    <div className="container">
+  return (<div id="app">
+    <div className="page">
         <div className="back-btn" onClick={() => navigate(-1)}>
         ← Back
       </div>
       <h3>Create Contest</h3>
 <div className="selectest">
-      <select onChange={(e) => setTest(e.target.value)}>
-        <option value="">Select Test</option>
-        {tests.map(t => (
-          <option key={t._id} value={t._id}>
-            {t.testName}
-          </option>
-        ))}
-      </select></div>
+     <select value={test} onChange={(e) => setTest(e.target.value)}>
+  <option value="">Select Test</option>
+  {tests.map(t => (
+    <option key={t._id} value={t._id}>
+      {t.testName}
+    </option>
+  ))}
+</select>
+</div>
 
       <input
         placeholder="Prize Pool"
@@ -60,7 +61,7 @@ function CreateContest() {
       />
 
       <button onClick={createContest}>Create Contest</button>
-    </div>
+    </div></div>
   );
 }
 

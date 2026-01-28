@@ -81,8 +81,8 @@ if (res.data.profilePhoto?.startsWith("http")) {
 
   if (loading) return <h3>Loading profile...</h3>;
 
-  return (
-    <div className="container">
+  return (<div id="app">
+    <div className="page">
       <div className="icon-text">
 <i className="material-icons" onClick={() => navigate(-1)}>arrow_back</i>
       Personal Details</div>
@@ -152,7 +152,7 @@ if (res.data.profilePhoto?.startsWith("http")) {
         <button className="save-btn">Save Details</button>
         
       </form>
-    </div>
+    </div></div>
   );
 }
 

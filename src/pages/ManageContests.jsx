@@ -20,8 +20,8 @@ const navigate = useNavigate();
     loadContests();
   };
 
-  return (
-    <div className="container">
+  return (<div id="app">
+    <div className="page">
          <div className="back-btn" onClick={() => navigate(-1)}>
         ← Back
       </div>
@@ -37,7 +37,7 @@ const navigate = useNavigate();
   + Create Contest
 </button>
 
-    </div>
+    </div></div>
   );
 }
 

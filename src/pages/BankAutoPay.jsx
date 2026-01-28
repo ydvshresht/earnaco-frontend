@@ -31,8 +31,8 @@ function BankAutoPay() {
     loadBanks();
   };
 
-  return (
-    <div className="container">
+  return (<div id="app">
+    <div className="page">
       <div className="icon-text"> <i className="material-icons" onClick={() => navigate("/profile")}>arrow_back</i>
       Bank & Autopay</div>
 
@@ -61,7 +61,7 @@ function BankAutoPay() {
           <span>+</span> Add new bank
         </div>
       </div>
-    </div>
+    </div></div>
   );
 }
 
