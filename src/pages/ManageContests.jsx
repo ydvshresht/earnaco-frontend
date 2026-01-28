@@ -33,6 +33,10 @@ const navigate = useNavigate();
           <button onClick={() => deleteContest(c._id)}>Delete</button>
         </div>
       ))}
+      <button onClick={() => navigate("/admin/create-contest")}>
+  + Create Contest
+</button>
+
     </div>
   );
 }
