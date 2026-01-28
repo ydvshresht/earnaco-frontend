@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/api";
 import "../styles/entry.css";
-import "../styles/body.css";
+
 import useProfile from "../hooks/useProfile";
 
 function Entry() {
@@ -34,7 +34,7 @@ function Entry() {
     loadData();
   }, []);
 
-  return (<div id="app">
+  return (
     <div className="page">
       {/* HEADER */}
       <header>
@@ -91,7 +91,7 @@ function Entry() {
           ))
         )}
       </div>
-    </div></div>
+    </div>
   );
 }
 

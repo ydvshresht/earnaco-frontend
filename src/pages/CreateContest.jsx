@@ -25,7 +25,7 @@ function CreateContest() {
     navigate("/admin/manage-contests");
   };
 
-  return (<div id="app">
+  return (
     <div className="page">
         <div className="back-btn" onClick={() => navigate(-1)}>
         ← Back
@@ -61,7 +61,7 @@ function CreateContest() {
       />
 
       <button onClick={createContest}>Create Contest</button>
-    </div></div>
+    </div>
   );
 }
 

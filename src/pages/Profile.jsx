@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/api";
 import "../styles/Profile.css";
-import "../styles/body.css";
+
 
 function Profile() {
   const navigate = useNavigate();
@@ -81,7 +81,7 @@ if (res.data.profilePhoto?.startsWith("http")) {
 
   if (loading) return <h3>Loading profile...</h3>;
 
-  return (<div id="app">
+  return (
     <div className="page">
       <div className="icon-text">
 <i className="material-icons" onClick={() => navigate(-1)}>arrow_back</i>
@@ -152,7 +152,7 @@ if (res.data.profilePhoto?.startsWith("http")) {
         <button className="save-btn">Save Details</button>
         
       </form>
-    </div></div>
+    </div>
   );
 }
 

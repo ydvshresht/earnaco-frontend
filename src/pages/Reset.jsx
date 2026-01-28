@@ -11,7 +11,7 @@ const navigate = useNavigate();
     navigate("/");
   };
 
-  return (<div id="app">
+  return (
     <div className="paghe">
     <>
       <input
@@ -21,7 +21,7 @@ const navigate = useNavigate();
       />
       <button onClick={reset}>Update</button>
     </>
-    </div></div>
+    </div>
   );
 }
 export default Reset;

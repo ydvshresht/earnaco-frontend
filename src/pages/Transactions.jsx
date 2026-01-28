@@ -20,7 +20,7 @@ function Transactions() {
     fetchHistory();
   }, []);
 
-  return (<div id="app">
+  return (
     <div className="page">
       <div className="icon-text">
         <i
@@ -82,7 +82,7 @@ function Transactions() {
           );
         })
       )}
-    </div></div>
+    </div>
   );
 }
 

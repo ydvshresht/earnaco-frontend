@@ -37,7 +37,7 @@ function AdminQuestions() {
   };
 
   return ( 
-  <div id="app">
+
   <div className="page">
       <div className="icon-text"><i className="material-icons" onClick={() => navigate("/admin")}>arrow_back</i>
    Add Question</div>
@@ -82,7 +82,7 @@ function AdminQuestions() {
       <hr />
 
       <h3>Total Questions: {questions.length}</h3>
-    </div></div>
+    </div>
   );
 }
 

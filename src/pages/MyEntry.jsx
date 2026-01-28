@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/api";
 import "../styles/entry.css";
-import "../styles/body.css";
+
 import useProfile from "../hooks/useProfile";
 function MyEntry() {
   const [contests, setContests] = useState([]);
@@ -66,7 +66,7 @@ const joinedContests = contests.filter((contest) =>
 
   if (loading) return <h3>Loading...</h3>;
 
-  return (<div id="app">
+  return (
     <div className="page">
       {/* HEADER */}
       <header>
@@ -126,7 +126,7 @@ const joinedContests = contests.filter((contest) =>
   </div>
 )}
 
-    </div></div>
+    </div>
     
   );
 }

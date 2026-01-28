@@ -27,7 +27,7 @@ ${WEBSITE_LINK}`;
     );
   };
 
-  return (<div id="app">
+  return (
     <div className="page">
       {/* HEADER */}
       <div className="icon-text">
@@ -63,7 +63,7 @@ ${WEBSITE_LINK}`;
           Share on Instagram
         </button>
       </div>
-    </div></div>
+    </div>
   );
 }
 

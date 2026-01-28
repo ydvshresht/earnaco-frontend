@@ -45,7 +45,7 @@ function Withdraw() {
     }
   };
 
-  return (<div id="app">
+  return (
     <div className="page">
       <i
         className="material-icons"
@@ -89,7 +89,7 @@ function Withdraw() {
       <button className="withdraw-btn" onClick={withdrawMoney}>
         Withdraw
       </button>
-    </div></div>
+    </div>
   );
 }
 

@@ -34,7 +34,7 @@ import CreateTest from "./pages/CreateTest";
 function App() {
   return (
      <div className="page">
-      <h1>Earnaco</h1>
+     
     
   
 

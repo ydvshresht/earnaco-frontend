@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import API from "../api/api";
 import useProfile from "../hooks/useProfile";
 import "../styles/profileHome.css";
-import "../styles/body.css";
+
 
 function ProfileHome() {
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ function ProfileHome() {
     loadData();
   }, []);
 
-  return (<div id="app">
+  return (
     <div className="page">
       <div className="icon-text">
 <i className="material-icons" onClick={() => navigate("/entry")}>arrow_back</i>Profile
@@ -88,7 +88,7 @@ function ProfileHome() {
       <button className="logout-btn" onClick={handleLogout}>
         Logout
       </button>
-    </div></div>
+    </div>
   );
 }
 

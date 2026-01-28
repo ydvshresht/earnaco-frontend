@@ -20,7 +20,7 @@ const navigate = useNavigate();
     loadTests();
   };
 
-  return (<div id="app">
+  return (
     <div className="page">
          <div className="back-btn" onClick={() => navigate(-1)}>
         ← Back
@@ -36,7 +36,7 @@ const navigate = useNavigate();
        <button onClick={() => navigate("/admin/create-test")}>
   + Create Test
 </button>
-    </div></div>
+    </div>
   );
 }
 

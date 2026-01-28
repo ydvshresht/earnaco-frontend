@@ -35,7 +35,7 @@ function Register() {
     }
   };
 
-  return (<div id="app">
+  return (
     <div className="page">
       <h2>Register</h2>
 
@@ -74,7 +74,7 @@ function Register() {
           Login
         </span>
       </p>
-    </div></div>
+    </div>
   );
 }
 

@@ -23,7 +23,7 @@ const navigate = useNavigate();
   };
 
 
- return(<div id="app">
+ return(
   <div className="page">
      <div className="icon-text"> <i className="material-icons" onClick={() => navigate("/admin")}>arrow_back</i>
 </div>
@@ -42,7 +42,7 @@ const navigate = useNavigate();
     </div>
     
    ))}
-  </div></div>
+  </div>
  );
 }
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/api";
-import "../styles/body.css";
+
 import "../styles/login.css";
 function Login() {
   const [email, setEmail] = useState("");
@@ -39,7 +39,7 @@ function Login() {
     }
   };
 
-  return (<div id="app">
+  return (
     <div className="page">
     <div style={{ padding: "40px" }}>
       <h2>Login</h2>
@@ -82,7 +82,7 @@ function Login() {
       <span onClick={resend}>
         Resend verification email
       </span>
-    </div></div></div>
+    </div></div>
   );
 }
 

@@ -35,7 +35,7 @@ const [user, setUser] = useState(null);
 
   
 
-  return (<div id="app">
+  return (
     <div className="page">
       <i className="material-icons" onClick={() => navigate("/entry")}>arrow_back</i>
      
@@ -94,7 +94,7 @@ const [user, setUser] = useState(null);
 </tbody>
 
       </table>
-    </div></div>
+    </div>
   );
 }
 

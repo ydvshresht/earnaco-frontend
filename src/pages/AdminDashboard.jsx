@@ -13,7 +13,7 @@ function AdminDashboard() {
  },[]);
 
  if(!stats) return <h3>Loading...</h3>;
-  return (<div id="app">
+  return (
     <div className="page">
  <div className="icon-text"><i className="material-icons" onClick={() => navigate("/profile")}>arrow_back</i>
    Admin </div>
@@ -89,7 +89,7 @@ function AdminDashboard() {
 
       </div>
 
-    </div></div>
+    </div>
   );
 }
 

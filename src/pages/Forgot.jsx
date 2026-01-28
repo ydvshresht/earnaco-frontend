@@ -8,7 +8,7 @@ function Forgot() {
     alert("Check email for reset link");
   };
 
-  return (<div id="app">
+  return (
     <div className="page">
     <>
       <input
@@ -16,7 +16,7 @@ function Forgot() {
         onChange={e=>setEmail(e.target.value)}
       />
       <button onClick={send}>Send Reset Link</button>
-    </></div></div>
+    </></div>
   );
 }
 export default Forgot;

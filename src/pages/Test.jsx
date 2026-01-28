@@ -124,7 +124,7 @@ function Test() {
 
   const currentQuestion = questions[currentIndex];
 
-  return (<div id="app">
+  return (
     <div className="page">
     <div style={{ padding: "40px" }}>
       <h3>
@@ -183,7 +183,7 @@ function Test() {
   >
     Next
   </button>)}
-    </div></div></div>
+    </div></div>
   );
 }
 

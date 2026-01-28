@@ -85,7 +85,7 @@ function ContestPage() {
     navigate("/my-test");
   };
 
-  return (<div id="app">
+  return (
     <div className="page">
  <i className="material-icons" onClick={() => navigate("/entry")}>arrow_back</i>
       {/* ✅ COUPON HEADER (SAME AS OTHER PAGES) */}
@@ -181,7 +181,7 @@ function ContestPage() {
           </div>
         </div>
       </div>
-    </div></div>
+    </div>
   );
 }
 

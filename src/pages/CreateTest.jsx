@@ -22,7 +22,7 @@ function CreateTest() {
     navigate("/admin/manage-tests");
   };
 
-  return (<div id="app">
+  return (
     <div className="page">
          <div className="back-btn" onClick={() => navigate(-1)}>
         ← Back
@@ -43,7 +43,7 @@ function CreateTest() {
       />
 
       <button onClick={createTest}>Create Test</button>
-    </div></div>
+    </div>
   );
 }
 
