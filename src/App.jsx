@@ -33,6 +33,12 @@ import CreateTest from "./pages/CreateTest";
 
 function App() {
   return (
+     <div className="page">
+      <h1>Earnaco</h1>
+    
+  
+
+
     <Routes>
       
       <Route path="/" element={<Login />} />
@@ -159,7 +165,7 @@ function App() {
 <Route path="/admin/fraud" element={<AdminFraud />} />
 
     </Routes>
-    
+    </div>
   );
 }
 
