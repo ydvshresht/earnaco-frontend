@@ -36,7 +36,7 @@ function Register() {
   };
 
   return (
-    <div className="page">
+    <div className="screen">
       <h2>Register</h2>
 
       <input

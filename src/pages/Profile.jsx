@@ -82,7 +82,7 @@ if (res.data.profilePhoto?.startsWith("http")) {
   if (loading) return <h3>Loading profile...</h3>;
 
   return (
-    <div className="page">
+    <div className="screen">
       <div className="icon-text">
 <i className="material-icons" onClick={() => navigate(-1)}>arrow_back</i>
       Personal Details</div>

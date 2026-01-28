@@ -40,7 +40,7 @@ const navigate = useNavigate();
   };
 
   return (
-    <div className="page">
+    <div className="screen">
         <div className="icon-text"><i className="material-icons" onClick={() => navigate("/profile")}>arrow_back</i>
       Customer Support</div>
 

@@ -67,7 +67,7 @@ const joinedContests = contests.filter((contest) =>
   if (loading) return <h3>Loading...</h3>;
 
   return (
-    <div className="page">
+    <div className="screen">
       {/* HEADER */}
       <header>
         <div className="profile">

@@ -35,7 +35,7 @@ function ProfileHome() {
   }, []);
 
   return (
-    <div className="page">
+    <div className="screen">
       <div className="icon-text">
 <i className="material-icons" onClick={() => navigate("/entry")}>arrow_back</i>Profile
 </div>

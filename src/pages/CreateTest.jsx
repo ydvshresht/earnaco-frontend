@@ -23,7 +23,7 @@ function CreateTest() {
   };
 
   return (
-    <div className="page">
+    <div className="screen">
          <div className="back-btn" onClick={() => navigate(-1)}>
         ← Back
       </div>

@@ -46,7 +46,7 @@ function Withdraw() {
   };
 
   return (
-    <div className="page">
+    <div className="screen">
       <i
         className="material-icons"
         onClick={() => navigate("/wallet")}

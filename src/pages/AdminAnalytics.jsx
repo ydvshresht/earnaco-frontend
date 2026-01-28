@@ -18,7 +18,7 @@ function AdminAnalytics() {
   if (!data) return <h3>Loading analytics...</h3>;
 
   return (
-    <div className="page">
+    <div className="screen">
          <div className="back-btn" onClick={() => navigate(-1)}>
         ← Back
       </div>

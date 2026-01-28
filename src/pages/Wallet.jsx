@@ -21,7 +21,7 @@ function Wallet() {
   }, []);
 
   return (
-    <div className="page">
+    <div className="screen">
       {/* BACK */}
     <i className="material-icons" onClick={() => navigate("/entry")}>arrow_back</i>
       <h1>My Wallet</h1>

@@ -9,7 +9,7 @@ function Forgot() {
   };
 
   return (
-    <div className="page">
+    <div className="screen">
     <>
       <input
         placeholder="Email"

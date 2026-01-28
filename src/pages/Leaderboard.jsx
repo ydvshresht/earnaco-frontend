@@ -36,7 +36,7 @@ const [user, setUser] = useState(null);
   
 
   return (
-    <div className="page">
+    <div className="screen">
       <i className="material-icons" onClick={() => navigate("/entry")}>arrow_back</i>
      
       <div className="coupon-header">

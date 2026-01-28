@@ -38,7 +38,7 @@ function AdminQuestions() {
 
   return ( 
 
-  <div className="page">
+  <div className="screen">
       <div className="icon-text"><i className="material-icons" onClick={() => navigate("/admin")}>arrow_back</i>
    Add Question</div>
       

@@ -81,7 +81,7 @@ function AddMoney() {
   };
 
   return (
-    <div className="page">
+    <div className="screen">
      <div className="icon-text"> <i className="material-icons" onClick={() => navigate("/wallet")}>arrow_back</i>
 </div>
       <h1>Add Money</h1>

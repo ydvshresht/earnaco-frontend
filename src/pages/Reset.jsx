@@ -12,7 +12,7 @@ const navigate = useNavigate();
   };
 
   return (
-    <div className="paghe">
+    <div className="screen">
     <>
       <input
         type="password"

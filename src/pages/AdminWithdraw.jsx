@@ -23,7 +23,7 @@ const navigate = useNavigate();
   };
 
   return (
-    <div className="page">
+    <div className="screen">
          <div className="icon-text"><i className="material-icons" onClick={() => navigate("/admin")}>arrow_back</i>
    Withdraw Requests</div>
       <h2>Withdraw Requests</h2>

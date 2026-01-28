@@ -29,7 +29,7 @@ function MyTest() {
   const headerTestId = tests[0]?.test?._id || null;
 
   return (
-    <div className="page">
+    <div className="screen">
  <div className="icon-text"><i className="material-icons" onClick={() => navigate("/entry")}>arrow_back</i>
       </div>
       {/* ✅ COUPON HEADER */}

@@ -24,7 +24,7 @@ const navigate = useNavigate();
 
 
  return(
-  <div className="page">
+  <div className="screen">
      <div className="icon-text"> <i className="material-icons" onClick={() => navigate("/admin")}>arrow_back</i>
 </div>
    <h2>Fraud Logs</h2>

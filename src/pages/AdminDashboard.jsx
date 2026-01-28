@@ -14,7 +14,7 @@ function AdminDashboard() {
 
  if(!stats) return <h3>Loading...</h3>;
   return (
-    <div className="page">
+    <div className="screen">
  <div className="icon-text"><i className="material-icons" onClick={() => navigate("/profile")}>arrow_back</i>
    Admin </div>
       

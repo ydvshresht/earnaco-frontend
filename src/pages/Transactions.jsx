@@ -21,7 +21,7 @@ function Transactions() {
   }, []);
 
   return (
-    <div className="page">
+    <div className="screen">
       <div className="icon-text">
         <i
           className="material-icons"

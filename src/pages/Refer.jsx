@@ -28,7 +28,7 @@ ${WEBSITE_LINK}`;
   };
 
   return (
-    <div className="page">
+    <div className="screen">
       {/* HEADER */}
       <div className="icon-text">
         <i className="material-icons" onClick={() => navigate(-1)}>
