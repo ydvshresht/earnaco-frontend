@@ -133,7 +133,15 @@ function Register() {
             {timer > 0 ? `Resend OTP in ${timer}s` : "Resend OTP"}
           </button>
         </>
-      )}
+      )}<p>
+        Already Register?
+        <span
+          className="link"
+          onClick={() => navigate("/")}
+        >
+          Login
+        </span>
+      </p>
     </div>
   );
 }
