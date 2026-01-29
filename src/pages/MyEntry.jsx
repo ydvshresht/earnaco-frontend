@@ -83,11 +83,10 @@ const joinedContests = contests.filter((contest) =>
           
         </div>
 
-        <div className="wallet"
-         onClick={() => navigate("/wallet")}>
-           <i className="material-icons">account_balance_wallet</i>₹{wallet}
-          
-        </div>
+       <div className="wallet" onClick={() => navigate("/wallet")}>
+  🪙 {wallet} 
+</div>
+
       </header>
 
       {/* TAB HEADER */}

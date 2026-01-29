@@ -13,9 +13,9 @@ function ContestPage() {
   const [agree, setAgree] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  /**
-   * 🔹 LOAD USER + CONTEST + ATTEMPT STATUS
-   */
+  /* =====================
+     LOAD USER + CONTEST
+  ===================== */
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -49,65 +49,54 @@ function ContestPage() {
     (u) => u.toString() === userMongoId
   );
 
-  /**
-   * 🛒 BUY CONTEST
-   */
+  /* =====================
+     BUY CONTEST (COINS)
+  ===================== */
   const buyContest = async () => {
     try {
       await API.post(`/contests/buy/${contestId}`);
       const updated = await API.get(`/contests/${contestId}`);
       setContest(updated.data);
-      alert("Contest purchased successfully");
+      alert("Contest unlocked using coins 🪙");
     } catch (err) {
-      alert(err.response?.data?.msg || "Buy failed");
+      alert(err.response?.data?.msg || "Not enough coins");
     }
   };
 
-  /**
-   * ▶ START TEST
-   */
+  /* =====================
+     NAVIGATION
+  ===================== */
   const startTest = () => {
     navigate(`/test/${contest.test._id}?contest=${contest._id}`);
   };
 
-
-  /**
-   * 🏆 GO TO LEADERBOARD
-   */
   const goToLeaderboard = () => {
     navigate(`/leaderboard/${contest.test._id}?contest=${contest._id}`);
   };
 
-  /**
-   * 🧾 GO TO MY TEST
-   */
   const goToMyTest = () => {
     navigate("/my-test");
   };
 
   return (
     <div className="screen">
- <i className="material-icons" onClick={() => navigate("/entry")}>arrow_back</i>
-      {/* ✅ COUPON HEADER (SAME AS OTHER PAGES) */}
-      <div className="coupon-header">
-        <div
-          className="header-item"
-          onClick={() => navigate(`/contest/${contest._id}`)}
-        >
-          CONTEST
-        </div>
+      <i
+        className="material-icons"
+        onClick={() => navigate("/entry")}
+        style={{ cursor: "pointer" }}
+      >
+        arrow_back
+      </i>
 
-        <div
-          className="header-item"
-          onClick={goToLeaderboard}
-        >
+      {/* HEADER */}
+      <div className="coupon-header">
+        <div className="header-item">CONTEST</div>
+
+        <div className="header-item" onClick={goToLeaderboard}>
           LEADERBOARD
         </div>
 
-        <div
-          className="header-item"
-          onClick={goToMyTest}
-        >
+        <div className="header-item" onClick={goToMyTest}>
           MY TEST
         </div>
       </div>
@@ -117,7 +106,7 @@ function ContestPage() {
         <div className="test-details">
           <span>Duration: {contest.test.duration} mins</span>
           <span>
-            Maximum Marks: {contest.test.questions.length * 1}
+            Maximum Marks: {contest.test.questions.length}
           </span>
         </div>
 
@@ -125,9 +114,7 @@ function ContestPage() {
           <li>Total questions: {contest.test.questions.length}</li>
           <li>Each question has 4 options</li>
           <li>+1 for correct answer</li>
-          <li>No negative marking
-
-          </li>
+          <li>No negative marking</li>
           <li>Test can be attempted only once</li>
         </ul>
 
@@ -145,7 +132,7 @@ function ContestPage() {
               disabled={!agree}
               onClick={buyContest}
             >
-              Buy Contest ₹{contest.entryFee}
+              Unlock Contest 🪙 {contest.entryFee} Coins
             </button>
           )}
 
@@ -162,13 +149,9 @@ function ContestPage() {
 
           {/* 🛑 ALREADY ATTEMPTED */}
           {alreadyJoined && attempted && (
-            <>
-              <p style={{ color: "red", fontWeight: "bold" }}>
-                Test already attempted
-                check leaderboard
-              </p>
-             
-            </>
+            <p style={{ color: "red", fontWeight: "bold" }}>
+              Test already attempted — check leaderboard
+            </p>
           )}
 
           <div style={{ marginTop: "10px" }}>

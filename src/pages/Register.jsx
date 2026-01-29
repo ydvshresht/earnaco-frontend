@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import API from "../api/api";
 
@@ -14,6 +14,8 @@ function Register() {
   const [timer, setTimer] = useState(0);
 
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const referralCode = searchParams.get("ref"); // 👈 referral from URL
 
   /* =====================
      OTP TIMER
@@ -27,20 +29,17 @@ function Register() {
   }, [timer]);
 
   /* =====================
-     SEND OTP
+     SEND OTP (FIXED)
   ===================== */
   const sendOtp = async () => {
-    if (!email) {
-      alert("Enter email first");
-      return;
-    }
+    if (!email) return alert("Enter email first");
 
     try {
       setLoading(true);
       await API.post("/auth/send-otp", { email });
-      alert("OTP sent to your email");
       setOtpSent(true);
       setTimer(60);
+      alert("OTP sent to your email");
     } catch (err) {
       alert(err.response?.data?.msg || "Failed to send OTP");
     } finally {
@@ -49,16 +48,15 @@ function Register() {
   };
 
   /* =====================
-     VERIFY & REGISTER
+     VERIFY OTP & REGISTER
   ===================== */
   const verifyAndRegister = async () => {
-    if (!fullName || !email || !password || !otp) {
-      alert("All fields required");
-      return;
-    }
+    if (!fullName || !email || !password || !otp)
+      return alert("All fields required");
 
     try {
       setLoading(true);
+
       await API.post("/auth/verify-otp-register", {
         fullName,
         email,
@@ -66,7 +64,18 @@ function Register() {
         otp
       });
 
-      alert("Registered successfully. Please login.");
+      // 🎁 APPLY REFERRAL (OPTIONAL)
+      if (referralCode) {
+        try {
+          await API.post("/auth/apply-referral", {
+            code: referralCode
+          });
+        } catch (e) {
+          console.log("Referral already used or invalid");
+        }
+      }
+
+      alert("Registered successfully 🎉 You received 5 coins");
       navigate("/");
     } catch (err) {
       alert(err.response?.data?.msg || "Invalid OTP");
@@ -80,22 +89,38 @@ function Register() {
   ===================== */
   const handleGoogleSignup = async (credentialResponse) => {
     try {
-      const res = await API.post("/auth/google-login", {
+      await API.post("/auth/google-login", {
         token: credentialResponse.credential
       });
 
-      console.log("GOOGLE SIGNUP SUCCESS", res.data);
+      // 🎁 APPLY REFERRAL AFTER GOOGLE SIGNUP
+      if (referralCode) {
+        try {
+          await API.post("/auth/apply-referral", {
+            code: referralCode
+          });
+        } catch {}
+      }
+
+      alert("Signup successful 🎉 You received 5 coins");
       navigate("/entry");
-    } catch (err) {
+    } catch {
       alert("Google signup failed");
     }
   };
 
   return (
     <div className="screen">
-      <h2>Register</h2>
+      <h2>Create Account</h2>
 
-     
+      {/* 🔵 GOOGLE SIGNUP */}
+      <div style={{ textAlign: "center", marginBottom: "15px" }}>
+        <GoogleLogin
+          onSuccess={handleGoogleSignup}
+          onError={() => alert("Google signup failed")}
+        />
+        <p style={{ marginTop: "10px" }}>OR</p>
+      </div>
 
       <input
         placeholder="Full Name"
@@ -149,14 +174,13 @@ function Register() {
           </button>
         </>
       )}
- {/* 🔵 GOOGLE SIGNUP */}
-      <div style={{ marginBottom: "20px", textAlign: "center" }}>
-        <GoogleLogin
-          onSuccess={handleGoogleSignup}
-          onError={() => alert("Google signup failed")}
-        />
-        <p style={{ marginTop: "10px" }}>OR</p>
-      </div>
+
+      {referralCode && (
+        <p style={{ marginTop: "10px", color: "green" }}>
+          🎁 Referral applied: +1 bonus coin
+        </p>
+      )}
+
       <p>
         Already registered?{" "}
         <span className="link" onClick={() => navigate("/")}>

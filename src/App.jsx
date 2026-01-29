@@ -10,8 +10,7 @@ import Profile from "./pages/Profile";
 import ContestPage from "./pages/ContestPage";
 import MyEntry from "./pages/MyEntry";
 import Wallet from "./pages/Wallet";
-import AddMoney from "./pages/AddMoney";
-import Withdraw from "./pages/Withdraw";
+import BuyCoins from "./pages/BuyCoins";
 import Transactions from "./pages/Transactions";
 import Refer from "./pages/Refer";
 import CustomerSupport from "./pages/CustomerSupport";
@@ -115,19 +114,12 @@ function App() {
     </ProtectedRoute>
   }
 />
+
 <Route
-  path="/add-money"
+  path="/buycoins"
   element={
     <ProtectedRoute>
-      <AddMoney />
-    </ProtectedRoute>
-  }
-/>
-<Route
-  path="/withdraw"
-  element={
-    <ProtectedRoute>
-      <Withdraw />
+      <BuyCoins />
     </ProtectedRoute>
   }
 />
