@@ -1,47 +1,36 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/api";
-
 import "../styles/login.css";
+
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-  try {
-    const res = await API.post("/auth/login", { email, password });
- 
-      navigate("/entry");
-   
-
-    console.log("LOGIN SUCCESS", res.data); // 👈 ADD THIS
-     
-  } catch (err) {
-    console.log("LOGIN ERROR", err.response); // 👈 ADD
-
-    if (err.response?.status === 403) {
-      alert("Verify your email first");
+    if (!email || !password) {
+      alert("Email and password are required");
       return;
     }
 
-    alert(err.response?.data?.msg || "Login failed");
-  }
-};
-
-
-  const resend = async () => {
     try {
-      const res = await API.post("/auth/resend", { email });
-      alert(res.data.msg);
-    } catch {
-      alert("Error sending email");
+      setLoading(true);
+      const res = await API.post("/auth/login", { email, password });
+      console.log("LOGIN SUCCESS", res.data);
+      navigate("/entry");
+    } catch (err) {
+      console.log("LOGIN ERROR", err.response);
+      alert(err.response?.data?.msg || "Invalid email or password");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="screen">
-    <div style={{ padding: "40px" }}>
       <h2>Login</h2>
 
       <input
@@ -59,30 +48,30 @@ function Login() {
       />
       <br /><br />
 
-      <button onClick={handleLogin}>Login</button>
+      <button onClick={handleLogin} disabled={loading}>
+        {loading ? "Logging in..." : "Login"}
+      </button>
 
       <p>
         No account?{" "}
         <span
-          style={{ color: "blue", cursor: "pointer" }}
+          className="link"
           onClick={() => navigate("/register")}
         >
           Register
         </span>
       </p>
-<p>
+
+      <p>
         Forgot password?{" "}
         <span
-          style={{ color: "blue", cursor: "pointer" }}
+          className="link"
           onClick={() => navigate("/forgot")}
         >
           Forgot
         </span>
       </p>
-      <span onClick={resend}>
-        Resend verification email
-      </span>
-    </div></div>
+    </div>
   );
 }
 
