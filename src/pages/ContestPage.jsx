@@ -13,15 +13,19 @@ function ContestPage() {
   const [agree, setAgree] = useState(false);
   const [loading, setLoading] = useState(true);
   const [buying, setBuying] = useState(false);
+  const [coins, setCoins] = useState(0);
 
   /* =====================
-     LOAD USER + CONTEST
+     LOAD USER + CONTEST + WALLET
   ===================== */
   useEffect(() => {
     const loadData = async () => {
       try {
         const userRes = await API.get("/auth/me");
         setUser(userRes.data);
+
+        const walletRes = await API.get("/wallet");
+        setCoins(walletRes.data.coins);
 
         const contestRes = await API.get(`/contests/${contestId}`);
         setContest(contestRes.data);
@@ -49,7 +53,7 @@ function ContestPage() {
   );
 
   /* =====================
-     BUY CONTEST (COINS + TRANSACTION)
+     BUY CONTEST (COINS)
   ===================== */
   const buyContest = async () => {
     if (!agree) {
@@ -60,15 +64,16 @@ function ContestPage() {
     try {
       setBuying(true);
 
-      const res = await API.post(`/contests/buy/${contestId}`);
+      await API.post(`/contests/buy/${contestId}`);
 
-      // 🔄 Refresh contest after purchase
-      const updated = await API.get(`/contests/${contestId}`);
-      setContest(updated.data);
+      // 🔄 Refresh contest & wallet
+      const updatedContest = await API.get(`/contests/${contestId}`);
+      const updatedWallet = await API.get("/wallet");
 
-      alert(
-        `Contest unlocked 🎉\n${contest.entryFee} coins deducted`
-      );
+      setContest(updatedContest.data);
+      setCoins(updatedWallet.data.coins);
+
+      alert(`Contest unlocked 🎉\n${contest.entryFee} coins deducted`);
     } catch (err) {
       alert(
         err.response?.data?.msg ||
@@ -96,6 +101,7 @@ function ContestPage() {
 
   return (
     <div className="screen">
+      {/* BACK */}
       <i
         className="material-icons"
         onClick={() => navigate("/entry")}
@@ -156,7 +162,6 @@ function ContestPage() {
           {alreadyJoined && !attempted && (
             <button
               className="agree-btn"
-              disabled={!agree}
               onClick={startTest}
             >
               Start Test 🚀
@@ -170,14 +175,22 @@ function ContestPage() {
             </p>
           )}
 
-          <div style={{ marginTop: "10px" }}>
-            <input
-              type="checkbox"
-              checked={agree}
-              onChange={() => setAgree(!agree)}
-            />{" "}
-            I agree to instructions
-          </div>
+          {/* AGREEMENT */}
+          {!alreadyJoined && (
+            <div style={{ marginTop: "10px" }}>
+              <input
+                type="checkbox"
+                checked={agree}
+                onChange={() => setAgree(!agree)}
+              />{" "}
+              I agree to instructions
+            </div>
+          )}
+
+          {/* WALLET INFO */}
+          <p style={{ marginTop: "12px", opacity: 0.7 }}>
+            🪙 Your Coins: <b>{coins}</b>
+          </p>
         </div>
       </div>
     </div>

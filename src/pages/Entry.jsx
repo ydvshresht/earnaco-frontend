@@ -6,7 +6,7 @@ import useProfile from "../hooks/useProfile";
 
 function Entry() {
   const [contests, setContests] = useState([]);
-  const [wallet, setWallet] = useState(0);
+  const [coins, setCoins] = useState(0);
   const [user, setUser] = useState(null);
 
   const navigate = useNavigate();
@@ -15,23 +15,26 @@ function Entry() {
   useEffect(() => {
     const loadData = async () => {
       try {
+        // 👤 USER
         const userRes = await API.get("/auth/me");
         setUser(userRes.data);
 
+        // 🪙 COINS
         const walletRes = await API.get("/wallet");
-        setWallet(walletRes.data.balance);
+        setCoins(walletRes.data.coins);
 
+        // 🏆 CONTESTS
         const contestRes = await API.get("/contests");
-        console.log("CONTESTS:", contestRes.data);
         setContests(contestRes.data);
-      } catch {
-         console.error("ENTRY PAGE ERROR:", err.response || err);
+
+      } catch (err) {
+        console.error("ENTRY PAGE ERROR:", err);
         navigate("/");
       }
     };
 
     loadData();
-  }, []);
+  }, [navigate]);
 
   return (
     <div className="screen">
@@ -52,16 +55,19 @@ function Entry() {
           </div>
         </div>
 
-       <div className="wallet" onClick={() => navigate("/wallet")}>
-  🪙 {wallet} 
-</div>
-
+        {/* 🪙 COINS */}
+        <div className="wallet" onClick={() => navigate("/wallet")}>
+          🪙 {coins}
+        </div>
       </header>
 
       {/* TAB HEADER */}
       <div className="title-row">
-        <div className="row-item">ENTRY</div>
-        <div className="row-item" onClick={() => navigate("/my-entry")}>
+        <div className="row-item active">ENTRY</div>
+        <div
+          className="row-item"
+          onClick={() => navigate("/my-entry")}
+        >
           MY ENTRY
         </div>
       </div>
@@ -80,8 +86,8 @@ function Entry() {
               }
             >
               <div className="entry-left">
-                <span>₹{contest.entryFee}</span>
-                <span>{contest.prizePool} Prize</span>
+                <span>🪙 {contest.entryFee}</span>
+                <span>🏆 {contest.prizePool} Coins</span>
               </div>
 
               <div className="entry-right">
