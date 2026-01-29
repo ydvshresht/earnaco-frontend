@@ -88,6 +88,7 @@ function ContestPage() {
      NAVIGATION
   ===================== */
   const startTest = () => {
+    console.log("Navigating to test:", contest.test._id, contest._id);
     navigate(`/test/${contest.test._id}?contest=${contest._id}`);
   };
 
