@@ -28,6 +28,11 @@ import AdminAnalytics from "./pages/AdminAnalytics";
 import AdminFraud from "./pages/AdminFraud";
 import CreateContest from "./pages/CreateContest";
 import CreateTest from "./pages/CreateTest";
+import ReferralPolicy from "./pages/ReferralPolicy";
+import Terms from "./pages/Terms";
+import Privacy from "./pages/Privacy";
+import Refund from "./pages/Refund";
+import Disclaimer from "./pages/Disclaimer";
 
 function App() {
   return (
@@ -153,6 +158,11 @@ function App() {
 <Route path="/admin/analytics" element={<AdminAnalytics />} />
 
 <Route path="/admin/fraud" element={<AdminFraud />} />
+<Route path="/terms" element={<Terms />} />
+<Route path="/privacy" element={<Privacy />} />
+<Route path="/refund" element={<Refund />} />
+<Route path="/referral-policy" element={<ReferralPolicy />} />
+<Route path="/disclaimer" element={<Disclaimer />} />
 
     </Routes>
     </div>

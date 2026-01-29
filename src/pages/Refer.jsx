@@ -1,52 +1,96 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API from "../api/api";
 import "../styles/refer.css";
 
 function Refer() {
   const navigate = useNavigate();
-
+  const [refCode, setRefCode] = useState("");
   const WEBSITE_LINK = "https://earnaco.com";
 
-  // CLEAN MESSAGE (USED EVERYWHERE)
-  const shareMessage = `Earnaco
+  useEffect(() => {
+    const loadReferral = async () => {
+      const res = await API.get("/auth/me");
+      setRefCode(res.data.referralCode);
+    };
+    loadReferral();
+  }, []);
 
-Learn • Grow • Earn
+  const shareMessage = `Earnaco 🪙
 
-Join here:
-${WEBSITE_LINK}`;
+Learn • Play • Win Coins
 
-  const openInstagram = async () => {
+Use my referral code:
+${refCode}
+
+🎁 You get 1 Coin
+🎁 I get 1 Coin
+
+Join now 👇
+${WEBSITE_LINK}/register?ref=${refCode}`;
+
+  const copyCode = async () => {
     await navigator.clipboard.writeText(shareMessage);
-    alert("Message copied. Paste it on Instagram and attach the image.");
-    window.open("https://www.instagram.com/direct/inbox/", "_blank");
+    alert("Referral message copied 🪙");
   };
 
-  const openWhatsApp = () => {
+  const shareWhatsApp = () => {
     window.open(
       `https://wa.me/?text=${encodeURIComponent(shareMessage)}`,
       "_blank"
     );
   };
 
+  const shareInstagram = async () => {
+    await copyCode();
+    window.open("https://www.instagram.com/direct/inbox/", "_blank");
+  };
+
   return (
-    <div className="screen">
+    <div className="refer-screen">
       {/* HEADER */}
-      <div className="icon-text">
+      <div className="refer-header">
         <i className="material-icons" onClick={() => navigate(-1)}>
           arrow_back
         </i>
         <span>Refer & Earn</span>
       </div>
 
-      <div className="refer-container">
-        {/* POSTER */}
+      {/* CARD */}
+      <div className="refer-card">
         <img
           src="/assets/refer-banner.jpeg"
-          alt="Earnaco Referral"
+          alt="Refer & Earn"
           className="refer-banner"
         />
 
-        {/* WHATSAPP */}
-        <button className="whatsapp-btn" onClick={openWhatsApp}>
+        <h2>Invite Friends & Earn Coins 🪙</h2>
+        <p className="subtitle">
+          Share your referral code and earn coins when your friend joins.
+        </p>
+
+        {/* COIN INFO */}
+        <div className="reward-box">
+          <div>
+            <span>🪙</span>
+            <p>You earn</p>
+            <strong>1 Coin</strong>
+          </div>
+          <div>
+            <span>🪙</span>
+            <p>Friend earns</p>
+            <strong>1 Coin</strong>
+          </div>
+        </div>
+
+        {/* REF CODE */}
+        <div className="ref-code">
+          <span>{refCode}</span>
+          <button onClick={copyCode}>Copy</button>
+        </div>
+
+        {/* ACTIONS */}
+        <button className="whatsapp-btn" onClick={shareWhatsApp}>
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
             alt="WhatsApp"
@@ -54,14 +98,17 @@ ${WEBSITE_LINK}`;
           Share on WhatsApp
         </button>
 
-        {/* INSTAGRAM */}
-        <button className="insta-btn" onClick={openInstagram}>
+        <button className="insta-btn" onClick={shareInstagram}>
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
             alt="Instagram"
           />
           Share on Instagram
         </button>
+
+        <p className="note">
+          ⚠ Coins are virtual and can be used to join contests only.
+        </p>
       </div>
     </div>
   );

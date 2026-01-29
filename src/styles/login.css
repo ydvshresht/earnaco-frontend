@@ -64,6 +64,42 @@
          }
           
          
+.auth-screen {
+  max-width: 420px;
+  margin: auto;
+}
+
+.divider {
+  margin: 20px 0;
+  text-align: center;
+  opacity: 0.7;
+}
+
+.auth-links {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.legal-box {
+  margin-top: 25px;
+  font-size: 12px;
+  opacity: 0.75;
+  text-align: center;
+}
+
+.footer-links a {
+  color: #646cff;
+  text-decoration: none;
+  margin: 0 4px;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.legal-note {
+  margin-top: 8px;
+}
 
  
          .or {

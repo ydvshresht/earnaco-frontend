@@ -11,6 +11,9 @@ function Login() {
 
   const navigate = useNavigate();
 
+  /* =====================
+     EMAIL + PASSWORD LOGIN
+  ===================== */
   const handleLogin = async () => {
     if (!email || !password) {
       alert("Email and password are required");
@@ -40,15 +43,17 @@ function Login() {
 
       console.log("GOOGLE LOGIN SUCCESS", res.data);
       navigate("/entry");
-    } catch (err) {
+    } catch {
       alert("Google login failed");
     }
   };
 
   return (
-    <div className="screen">
-      <h2>Login</h2>
+    <div className="screen auth-screen">
+      {/* TITLE */}
+      <h2>Login to Earnaco</h2>
 
+      {/* EMAIL */}
       <input
         placeholder="Email"
         value={email}
@@ -56,6 +61,7 @@ function Login() {
       />
       <br /><br />
 
+      {/* PASSWORD */}
       <input
         placeholder="Password"
         type="password"
@@ -64,32 +70,53 @@ function Login() {
       />
       <br /><br />
 
+      {/* LOGIN BUTTON */}
       <button onClick={handleLogin} disabled={loading}>
         {loading ? "Logging in..." : "Login"}
       </button>
 
-      <div style={{ margin: "20px 0", textAlign: "center" }}>
-        <p>OR</p>
+      {/* GOOGLE LOGIN */}
+      <div className="divider">
+        <span>OR</span>
+      </div>
 
+      <div style={{ display: "flex", justifyContent: "center" }}>
         <GoogleLogin
           onSuccess={handleGoogleLogin}
           onError={() => alert("Google login failed")}
         />
       </div>
 
-      <p>
+      {/* LINKS */}
+      <p className="auth-links">
         No account?{" "}
         <span className="link" onClick={() => navigate("/register")}>
           Register
         </span>
       </p>
 
-      <p>
+      <p className="auth-links">
         Forgot password?{" "}
         <span className="link" onClick={() => navigate("/forgot")}>
-          Forgot
+          Reset
         </span>
       </p>
+
+      {/* 🔐 LEGAL CONSENT (VERY IMPORTANT) */}
+      <div className="legal-box">
+        <p className="footer-links">
+          By continuing, you agree to Earnaco’s{" "}
+          <a href="/terms" target="_blank">Terms of Service</a>,{" "}
+          <a href="/privacy" target="_blank">Privacy Policy</a>,{" "}
+          <a href="/refund" target="_blank">Refund Policy</a> and{" "}
+          <a href="/disclaimer" target="_blank">Disclaimer</a>.
+        </p>
+
+        <p className="legal-note">
+          Coins are virtual, non-withdrawable, and used only for contests.
+          Watching ads and referrals provide promotional rewards only.
+        </p>
+      </div>
     </div>
   );
 }

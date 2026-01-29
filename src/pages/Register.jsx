@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import API from "../api/api";
+import "../styles/login.css"; // reuse auth styles
 
 function Register() {
   const [fullName, setFullName] = useState("");
@@ -15,7 +16,7 @@ function Register() {
 
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const referralCode = searchParams.get("ref"); // 👈 referral from URL
+  const referralCode = searchParams.get("ref");
 
   /* =====================
      OTP TIMER
@@ -29,7 +30,7 @@ function Register() {
   }, [timer]);
 
   /* =====================
-     SEND OTP (FIXED)
+     SEND OTP
   ===================== */
   const sendOtp = async () => {
     if (!email) return alert("Enter email first");
@@ -52,7 +53,7 @@ function Register() {
   ===================== */
   const verifyAndRegister = async () => {
     if (!fullName || !email || !password || !otp)
-      return alert("All fields required");
+      return alert("All fields are required");
 
     try {
       setLoading(true);
@@ -67,15 +68,11 @@ function Register() {
       // 🎁 APPLY REFERRAL (OPTIONAL)
       if (referralCode) {
         try {
-          await API.post("/auth/apply-referral", {
-            code: referralCode
-          });
-        } catch (e) {
-          console.log("Referral already used or invalid");
-        }
+          await API.post("/auth/apply-referral", { code: referralCode });
+        } catch {}
       }
 
-      alert("Registered successfully 🎉 You received 5 coins");
+      alert("Account created 🎉 You received 5 coins");
       navigate("/");
     } catch (err) {
       alert(err.response?.data?.msg || "Invalid OTP");
@@ -93,12 +90,9 @@ function Register() {
         token: credentialResponse.credential
       });
 
-      // 🎁 APPLY REFERRAL AFTER GOOGLE SIGNUP
       if (referralCode) {
         try {
-          await API.post("/auth/apply-referral", {
-            code: referralCode
-          });
+          await API.post("/auth/apply-referral", { code: referralCode });
         } catch {}
       }
 
@@ -110,8 +104,8 @@ function Register() {
   };
 
   return (
-    <div className="screen">
-      <h2>Create Account</h2>
+    <div className="screen auth-screen">
+      <h2>Create your Earnaco account</h2>
 
       {/* 🔵 GOOGLE SIGNUP */}
       <div style={{ textAlign: "center", marginBottom: "15px" }}>
@@ -119,9 +113,10 @@ function Register() {
           onSuccess={handleGoogleSignup}
           onError={() => alert("Google signup failed")}
         />
-        <p style={{ marginTop: "10px" }}>OR</p>
+        <p className="divider">OR</p>
       </div>
 
+      {/* NAME */}
       <input
         placeholder="Full Name"
         value={fullName}
@@ -129,6 +124,7 @@ function Register() {
       />
       <br /><br />
 
+      {/* EMAIL */}
       <input
         placeholder="Email"
         value={email}
@@ -136,12 +132,14 @@ function Register() {
       />
       <br /><br />
 
+      {/* OTP BUTTON */}
       {!otpSent && (
         <button onClick={sendOtp} disabled={loading}>
           {loading ? "Sending OTP..." : "Send OTP"}
         </button>
       )}
 
+      {/* OTP + PASSWORD */}
       {otpSent && (
         <>
           <input
@@ -175,18 +173,37 @@ function Register() {
         </>
       )}
 
+      {/* REFERRAL MESSAGE */}
       {referralCode && (
         <p style={{ marginTop: "10px", color: "green" }}>
-          🎁 Referral applied: +1 bonus coin
+          🎁 Referral applied — you’ll get +1 bonus coin
         </p>
       )}
 
-      <p>
-        Already registered?{" "}
+      {/* LOGIN LINK */}
+      <p className="auth-links">
+        Already have an account?{" "}
         <span className="link" onClick={() => navigate("/")}>
           Login
         </span>
       </p>
+
+      {/* 🔐 LEGAL CONSENT */}
+      <div className="legal-box">
+        <p className="footer-links">
+          By signing up, you agree to Earnaco’s{" "}
+          <a href="/terms" target="_blank">Terms</a>,{" "}
+          <a href="/privacy" target="_blank">Privacy Policy</a>,{" "}
+          <a href="/refund" target="_blank">Refund Policy</a> and{" "}
+          <a href="/disclaimer" target="_blank">Disclaimer</a>.
+        </p>
+
+        <p className="legal-note">
+          🎯 New users receive 5 promotional coins.  
+          Coins are virtual, non-withdrawable and usable only for contests.  
+          Referral & ad rewards are promotional in nature.
+        </p>
+      </div>
     </div>
   );
 }

@@ -1,74 +1,127 @@
-.refer-container{
-  padding:20px;
-  text-align:center;
+.refer-screen {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0f172a, #020617);
+  color: #fff;
+  padding: 16px;
 }
 
-.refer-header{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:18px;
-  font-weight:bold;
+.refer-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  margin-bottom: 20px;
 }
 
-.back-icon{
-  cursor:pointer;
+.refer-header i {
+  cursor: pointer;
 }
 
-.refer-banner{
-  width:100%;
-  border-radius:12px;
-  margin:15px 0;
+.refer-card {
+  background: #020617;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  text-align: center;
 }
 
-.subtitle{
-  color:#555;
+.refer-banner {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 12px;
 }
 
-.code-box{
-  background:#f2f2f2;
-  padding:15px;
-  border-radius:10px;
-  margin:15px 0;
-  font-size:16px;
+.subtitle {
+  opacity: 0.8;
+  font-size: 14px;
+  margin-bottom: 16px;
 }
 
-.insta-btn{
-  background:#E1306C;
-  color:white;
-  border:none;
-  padding:12px;
-  border-radius:8px;
-  width:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  font-size:16px;
+.reward-box {
+  display: flex;
+  justify-content: space-around;
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 16px;
 }
 
-.insta-btn img{
-  width:20px;
+.reward-box div span {
+  font-size: 24px;
 }
 
-.insta-id{
-  margin-top:10px;
-  font-weight:bold;
-  color:#E1306C;
+.reward-box p {
+  font-size: 12px;
+  opacity: 0.7;
 }
-.whatsapp-btn{
-  background:#19630f;
-  color:white;
-  border:none;
-  padding:12px;
-  border-radius:8px;
-  width:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  font-size:16px;
+
+.reward-box strong {
+  font-size: 16px;
+  color: #facc15;
 }
-.whatsapp-btn img{
-  width:20px;
+
+.ref-code {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #020617;
+  border: 1px dashed #38bdf8;
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  font-weight: bold;
+}
+
+.ref-code button {
+  background: #38bdf8;
+  color: #020617;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.whatsapp-btn,
+.insta-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.whatsapp-btn {
+  background: #25d366;
+  color: #fff;
+}
+
+.insta-btn {
+  background: linear-gradient(
+    45deg,
+    #f58529,
+    #dd2a7b,
+    #8134af,
+    #515bd4
+  );
+  color: #fff;
+}
+
+.whatsapp-btn img,
+.insta-btn img {
+  width: 22px;
+  height: 22px;
+}
+
+.note {
+  margin-top: 12px;
+  font-size: 12px;
+  opacity: 0.6;
 }

@@ -12,6 +12,7 @@ function ContestPage() {
   const [attempted, setAttempted] = useState(false);
   const [agree, setAgree] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [buying, setBuying] = useState(false);
 
   /* =====================
      LOAD USER + CONTEST
@@ -43,23 +44,38 @@ function ContestPage() {
   if (loading) return <h3>Loading...</h3>;
   if (!contest || !contest.test || !user) return null;
 
-  const userMongoId = user._id;
-
   const alreadyJoined = contest.joinedUsers.some(
-    (u) => u.toString() === userMongoId
+    (u) => u.toString() === user._id
   );
 
   /* =====================
-     BUY CONTEST (COINS)
+     BUY CONTEST (COINS + TRANSACTION)
   ===================== */
   const buyContest = async () => {
+    if (!agree) {
+      alert("Please agree to instructions");
+      return;
+    }
+
     try {
-      await API.post(`/contests/buy/${contestId}`);
+      setBuying(true);
+
+      const res = await API.post(`/contests/buy/${contestId}`);
+
+      // 🔄 Refresh contest after purchase
       const updated = await API.get(`/contests/${contestId}`);
       setContest(updated.data);
-      alert("Contest unlocked using coins 🪙");
+
+      alert(
+        `Contest unlocked 🎉\n${contest.entryFee} coins deducted`
+      );
     } catch (err) {
-      alert(err.response?.data?.msg || "Not enough coins");
+      alert(
+        err.response?.data?.msg ||
+          "Not enough coins to join contest"
+      );
+    } finally {
+      setBuying(false);
     }
   };
 
@@ -91,11 +107,9 @@ function ContestPage() {
       {/* HEADER */}
       <div className="coupon-header">
         <div className="header-item">CONTEST</div>
-
         <div className="header-item" onClick={goToLeaderboard}>
           LEADERBOARD
         </div>
-
         <div className="header-item" onClick={goToMyTest}>
           MY TEST
         </div>
@@ -129,10 +143,12 @@ function ContestPage() {
           {!alreadyJoined && (
             <button
               className="agree-btn"
-              disabled={!agree}
+              disabled={!agree || buying}
               onClick={buyContest}
             >
-              Unlock Contest 🪙 {contest.entryFee} Coins
+              {buying
+                ? "Unlocking..."
+                : `Unlock Contest 🪙 ${contest.entryFee} Coins`}
             </button>
           )}
 
