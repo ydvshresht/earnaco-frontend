@@ -4,19 +4,24 @@ import API from "../api/api";
 import useProfile from "../hooks/useProfile";
 import "../styles/profileHome.css";
 
-
 function ProfileHome() {
   const navigate = useNavigate();
-
   const { photo } = useProfile();
-  const [wallet, setWallet] = useState(0);
+
+  const [coins, setCoins] = useState(0);
   const [user, setUser] = useState(null);
 
-  const handleLogout = () => {
+  /* =====================
+     LOGOUT
+  ===================== */
+  const handleLogout = async () => {
     localStorage.removeItem("token");
     navigate("/", { replace: true });
   };
 
+  /* =====================
+     LOAD USER + COINS
+  ===================== */
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -24,7 +29,7 @@ function ProfileHome() {
         const walletRes = await API.get("/wallet");
 
         setUser(userRes.data);
-        setWallet(walletRes.data.balance);
+        setCoins(walletRes.data.coins);
       } catch {
         alert("Session expired");
         handleLogout();
@@ -36,56 +41,91 @@ function ProfileHome() {
 
   return (
     <div className="screen">
+      {/* HEADER */}
       <div className="icon-text">
-<i className="material-icons" onClick={() => navigate("/entry")}>arrow_back</i>Profile
-</div>
-      <div className="profile-header">
-        <img className="profile-pic" src={photo} alt="Profile" />
-        <h5>{user?.fullName}</h5>
-
-        <div className="wallet" onClick={() => navigate("/wallet")}>
-          <i className="material-icons">account_balance_wallet</i>₹{wallet}
-          </div>
+        <i
+          className="material-icons"
+          onClick={() => navigate("/entry")}
+        >
+          arrow_back
+        </i>
+        Profile
       </div>
 
+      {/* PROFILE CARD */}
+      <div className="profile-header">
+        <img
+          className="profile-pic"
+          src={photo}
+          alt="Profile"
+        />
+
+        <h5>{user?.fullName}</h5>
+        <p className="user-id">ID: {user?.userId}</p>
+
+        {/* COIN WALLET */}
+        <div
+          className="wallet"
+          onClick={() => navigate("/wallet")}
+        >
+          <i className="material-icons">monetization_on</i>
+          🪙 {coins}
+        </div>
+      </div>
+
+      {/* MENU */}
       <div className="menu">
-        <div className="menu-item" onClick={() => navigate("/Profile/Details")}>
-          <i className="material-icons">person</i>Personal Detail
+        <div
+          className="menu-item"
+          onClick={() => navigate("/profile/details")}
+        >
+          <i className="material-icons">person</i>
+          Personal Details
         </div>
 
-        <div className="menu-item" onClick={() => navigate("/my-entry")}>
-          <i className="material-icons">credit_card</i>
- My Entry
+        <div
+          className="menu-item"
+          onClick={() => navigate("/my-entry")}
+        >
+          <i className="material-icons">assignment</i>
+          My Entry
         </div>
 
-        <div className="menu-item" onClick={() => navigate("/bank-autopay")}>
-          <i className="material-icons">account_balance</i>
- Bank & Autopay
-        </div>
-
-        <div className="menu-item" onClick={() => navigate("/refer")}>
+        <div
+          className="menu-item"
+          onClick={() => navigate("/refer")}
+        >
           <i className="material-icons">group_add</i>
- Refer & Earn
+          Refer & Earn
         </div>
 
-        <div className="menu-item" onClick={() => navigate("/support")}>
+        <div
+          className="menu-item"
+          onClick={() => navigate("/support")}
+        >
           <i className="material-icons">support_agent</i>
- Customer Support
+          Customer Support
         </div>
 
-        {/* ✅ ADMIN PANEL */}
+        {/* ADMIN PANEL */}
         {user?.role === "admin" && (
           <div
             className="menu-item admin"
             onClick={() => navigate("/admin")}
           >
-            <i className="material-icons">admin_panel_settings</i>
- Admin Panel
+            <i className="material-icons">
+              admin_panel_settings
+            </i>
+            Admin Panel
           </div>
         )}
       </div>
 
-      <button className="logout-btn" onClick={handleLogout}>
+      {/* LOGOUT */}
+      <button
+        className="logout-btn"
+        onClick={handleLogout}
+      >
         Logout
       </button>
     </div>

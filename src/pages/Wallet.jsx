@@ -5,7 +5,6 @@ import "../styles/wallet.css";
 
 function Wallet() {
   const [coins, setCoins] = useState(0);
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   /* =====================
@@ -24,48 +23,13 @@ function Wallet() {
   }, []);
 
   /* =====================
-     BUY COINS (RAZORPAY)
-  ===================== */
-  const buyCoins = async (coinPack) => {
-    try {
-      setLoading(true);
-
-      // backend creates razorpay order
-      const { data } = await API.post("/payments/buy-coins", {
-        coins: coinPack
-      });
-
-      const options = {
-        key: import.meta.env.VITE_RAZORPAY_KEY,
-        amount: data.amount,
-        currency: "INR",
-        name: "Earnaco Coins",
-        description: `${coinPack} Coins`,
-        order_id: data.orderId,
-        handler: async function (response) {
-          await API.post("/payments/verify-coin-payment", response);
-          alert("Coins added successfully 🪙");
-          const updated = await API.get("/wallet");
-          setCoins(updated.data.coins);
-        }
-      };
-
-      new window.Razorpay(options).open();
-    } catch {
-      alert("Payment failed");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  /* =====================
      WATCH AD → +1 COIN
   ===================== */
   const watchAd = async () => {
     try {
       await API.post("/wallet/watch-ad");
-      alert("+1 coin added 🎉");
-      setCoins((c) => c + 1);
+      alert("+1 coin added 🪙");
+      setCoins((prev) => prev + 1);
     } catch {
       alert("Ad reward failed");
     }
@@ -74,7 +38,10 @@ function Wallet() {
   return (
     <div className="screen">
       {/* BACK */}
-      <i className="material-icons" onClick={() => navigate("/entry")}>
+      <i
+        className="material-icons"
+        onClick={() => navigate("/entry")}
+      >
         arrow_back
       </i>
 
@@ -82,10 +49,10 @@ function Wallet() {
 
       {/* COIN BALANCE */}
       <div className="balance">
-        🪙 {coins}
+        
       </div>
-      <div className="balance-text">Available Coins</div>
-
+      <div className="balance-text">🪙 {coins}</div>
+<p>Available Coins</p> 
       {/* BUY COINS */}
       <div className="card">
         <div className="left-part">
@@ -94,15 +61,14 @@ function Wallet() {
           </div>
           <div>
             <div className="text-title">Buy Coins</div>
-            <div className="sub-text">Use real money</div>
+            <div className="sub-text">Purchase using real money</div>
           </div>
         </div>
         <button
           className="action-btn"
-          disabled={loading}
-          onClick={() => buyCoins(50)}
+          onClick={() => navigate("/buy-coins")}
         >
-          Buy 50 🪙
+          Buy
         </button>
       </div>
 
@@ -130,7 +96,7 @@ function Wallet() {
           </div>
           <div>
             <div className="text-title">Refer & Earn</div>
-            <div className="sub-text">Invite friends</div>
+            <div className="sub-text">Invite friends & earn coins</div>
           </div>
         </div>
         <button
@@ -141,7 +107,7 @@ function Wallet() {
         </button>
       </div>
 
-      {/* TRANSACTIONS */}
+      {/* QUICK ACTIONS */}
       <div className="section-title">Quick Actions</div>
 
       <div

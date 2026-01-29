@@ -1,67 +1,80 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import API from "../api/api";   // ✅ FIXED
+import API from "../api/api";
 import "../styles/admin.css";
 
 function AdminDashboard() {
   const navigate = useNavigate();
-  const [stats,setStats]=useState(null);
+  const [stats, setStats] = useState(null);
 
- useEffect(()=>{
-  API.get("/admin/stats")
-   .then(res=>setStats(res.data));
- },[]);
+  useEffect(() => {
+    const loadStats = async () => {
+      try {
+        const res = await API.get("/admin/stats");
+        setStats(res.data);
+      } catch {
+        alert("Failed to load admin stats");
+      }
+    };
+    loadStats();
+  }, []);
 
- if(!stats) return <h3>Loading...</h3>;
+  if (!stats) return <h3>Loading...</h3>;
+
   return (
     <div className="screen">
- <div className="icon-text"><i className="material-icons" onClick={() => navigate("/profile")}>arrow_back</i>
-   Admin </div>
-      
+      {/* HEADER */}
+      <div className="icon-text">
+        <i
+          className="material-icons"
+          onClick={() => navigate("/profile")}
+        >
+          arrow_back
+        </i>
+        Admin
+      </div>
+
       <h2>⚙️ Admin Dashboard</h2>
 
+      {/* STATS GRID */}
       <div className="grid">
         <div className="card">
-     <h3>Total Users</h3>
-     <p>{stats.totalUsers}</p>
-    </div>
-
-    <div className="card">
-     <h3>Today's Signup</h3>
-     <p>{stats.todayUsers}</p>
-    </div>
-
-    <div className="card">
-     <h3>Total Deposits</h3>
-     <p>₹ {stats.depositTotal}</p>
-    </div>
-
-    <div className="card">
-     <h3>Total Withdrawals</h3>
-     <p>₹ {stats.withdrawTotal}</p>
-    </div>
-
-    <div className="card">
-     <h3>Company Profit</h3>
-     <p>₹ {stats.profit}</p>
-    </div>
-
-    <div className="card">
-     <h3>Total Contests</h3>
-     <p>{stats.contests}</p>
-    </div>
-
-    <div className="card">
-     <h3>Fraud Cases</h3>
-     <p>{stats.frauds}</p>
-    </div>
+          <h3>Total Users</h3>
+          <p>{stats.totalUsers}</p>
+        </div>
 
         <div className="card">
-          ❓ Questions  
-          <h3>{stats.questions}</h3>
+          <h3>Today's Signup</h3>
+          <p>{stats.todayUsers}</p>
         </div>
-</div>
 
+        <div className="card">
+          <h3>🪙 Coins Sold</h3>
+          <p>{stats.coinsSold}</p>
+        </div>
+
+        <div className="card">
+          <h3>🪙 Coins in Circulation</h3>
+          <p>{stats.totalCoins}</p>
+        </div>
+
+        <div className="card">
+          <h3>Total Contests</h3>
+          <p>{stats.contests}</p>
+        </div>
+
+        <div className="card">
+          <h3>Fraud Cases</h3>
+          <p>{stats.frauds}</p>
+        </div>
+
+        <div className="card">
+          <h3>❓ Questions</h3>
+          <p>{stats.questions}</p>
+        </div>
+      </div>
+
+      {/* ADMIN ACTIONS */}
       <div className="admin-menu">
         <button onClick={() => navigate("/admin/questions")}>
           ➕ Add Question
@@ -70,25 +83,23 @@ function AdminDashboard() {
         <button onClick={() => navigate("/admin/manage-questions")}>
           📋 Manage Questions
         </button>
- <button onClick={() => navigate("/admin/manage-tests")}>
-        Manage Tests
-      </button>
 
-      <button onClick={() => navigate("/admin/manage-contests")}>
-        Manage Contests
-      </button>
-      <button onClick={() => navigate("/admin/analytics")}>
-  Analytics Dashboard 📊
-</button>
-<button onClick={() => navigate("/admin/withdraw")}>
-   Withdraw Requests 📊
-</button>
-<button onClick={() => navigate("/admin/fraud")}>
-   Fraud 
-</button>
+        <button onClick={() => navigate("/admin/manage-tests")}>
+          🧪 Manage Tests
+        </button>
 
+        <button onClick={() => navigate("/admin/manage-contests")}>
+          🏆 Manage Contests
+        </button>
+
+        <button onClick={() => navigate("/admin/analytics")}>
+          📊 Analytics Dashboard
+        </button>
+
+        <button onClick={() => navigate("/admin/fraud")}>
+          🚨 Fraud Monitor
+        </button>
       </div>
-
     </div>
   );
 }
