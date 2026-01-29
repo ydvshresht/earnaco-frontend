@@ -20,7 +20,7 @@ import Verify from "./pages/Verify";
 import Forgot from "./pages/Forgot";
 import Reset from "./pages/Reset";
 import AdminDashboard from "./pages/AdminDashboard";
-import ManageQuestions from "./pages/ManageQuestions";
+import ManageTestQuestions from "./pages/ManageTestQuestions";
 import ManageTests from "./pages/ManageTests";
 import ManageContests from "./pages/ManageContests";
 import AdminAnalytics from "./pages/AdminAnalytics";
@@ -147,7 +147,7 @@ function App() {
 <Route path="/my-test" element={<MyTest />} />
 <Route path="/admin/questions" element={<AdminQuestions />} />
 <Route path="/admin" element={<AdminDashboard />} />
-<Route path="/admin/manage-questions" element={<ManageQuestions />} />
+<Route path="/admin/manage-questions" element={<ManageTestQuestions />} />
 <Route path="/admin/manage-tests" element={<ManageTests />} />
 <Route path="/admin/manage-contests" element={<ManageContests />} />
 <Route path="/admin/create-test" element={<CreateTest />} />

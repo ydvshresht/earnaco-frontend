@@ -6,14 +6,10 @@ function CreateTest() {
   const [testName, setTestName] = useState("");
   const [duration, setDuration] = useState(10);
   const [loading, setLoading] = useState(false);
-
   const navigate = useNavigate();
 
   const createTest = async () => {
-    if (!testName) {
-      alert("Test name required");
-      return;
-    }
+    if (!testName) return alert("Test name required");
 
     try {
       setLoading(true);
@@ -23,11 +19,10 @@ function CreateTest() {
         duration
       });
 
-      alert("Test created. Now add questions.");
+      alert("Test created. Add questions now.");
 
-      // 👉 Redirect to add/manage questions for this test
-      navigate(`/admin/manage-questions`);
-    } catch (err) {
+      navigate(`/admin/tests/${res.data._id}/questions`);
+    } catch {
       alert("Failed to create test");
     } finally {
       setLoading(false);
@@ -36,9 +31,7 @@ function CreateTest() {
 
   return (
     <div className="screen">
-      <div className="back-btn" onClick={() => navigate(-1)}>
-        ← Back
-      </div>
+      <div className="back-btn" onClick={() => navigate(-1)}>← Back</div>
 
       <h3>Create Test</h3>
 
@@ -59,8 +52,8 @@ function CreateTest() {
         {loading ? "Creating..." : "Create Test"}
       </button>
 
-      <p style={{ fontSize: "12px", opacity: 0.6, marginTop: "10px" }}>
-        ⚠️ Test will not be playable until questions are added
+      <p style={{ fontSize: 12, opacity: 0.6 }}>
+        ⚠ Test is NOT playable until questions are added
       </p>
     </div>
   );
