@@ -93,7 +93,7 @@ function AdminDashboard() {
         </button>
 
         <button onClick={() => navigate("/admin/analytics")}>
-          📊 Analytics Dashboard
+          📊 Analytics 
         </button>
 
         <button onClick={() => navigate("/admin/fraud")}>

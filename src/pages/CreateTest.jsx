@@ -21,7 +21,8 @@ function CreateTest() {
 
       alert("Test created. Add questions now.");
 
-      navigate(`/admin/tests/${res.data._id}/questions`);
+      navigate(`/admin/tests/${res.data.test._id}/questions`);
+
     } catch {
       alert("Failed to create test");
     } finally {
