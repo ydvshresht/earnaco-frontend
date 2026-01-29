@@ -14,7 +14,6 @@ import BuyCoins from "./pages/BuyCoins";
 import Transactions from "./pages/Transactions";
 import Refer from "./pages/Refer";
 import CustomerSupport from "./pages/CustomerSupport";
-import BankAutoPay from "./pages/BankAutoPay";
 import MyTest from "./pages/MyTest";
 import AdminQuestions from "./pages/AdminQuestions";
 import Verify from "./pages/Verify";
@@ -140,7 +139,6 @@ function App() {
   }
 />
 <Route path="/support" element={<CustomerSupport />} />
-<Route path="/bank-autopay" element={<BankAutoPay />} />
 <Route path="/my-test" element={<MyTest />} />
 <Route path="/admin/questions" element={<AdminQuestions />} />
 <Route path="/admin" element={<AdminDashboard />} />
