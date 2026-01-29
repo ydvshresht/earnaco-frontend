@@ -59,7 +59,7 @@ ${WEBSITE_LINK}/register?ref=${refCode}`;
       {/* CARD */}
       <div className="refer-card">
         <img
-          src="/assets/refer-banner.jpeg"
+          src="/assets/refer-banner.png"
           alt="Refer & Earn"
           className="refer-banner"
         />

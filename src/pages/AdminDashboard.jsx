@@ -92,7 +92,7 @@ function AdminDashboard() {
           🏆 Manage Contests
         </button>
 
-        <button onClick={() => navigate("/admin/analytics")}>
+        <button onClick={() => navigate("/admin/AdminAnalytics")}>
           📊 Analytics Dashboard
         </button>
 
