@@ -68,7 +68,7 @@ function ProfileHome() {
           className="wallet"
           onClick={() => navigate("/wallet")}
         >
-          <i className="material-icons">monetization_on</i>
+        
           🪙 {coins}
         </div>
       </div>

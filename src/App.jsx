@@ -115,7 +115,7 @@ function App() {
 />
 
 <Route
-  path="/buycoins"
+  path="/buy-coins"
   element={
     <ProtectedRoute>
       <BuyCoins />
