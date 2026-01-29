@@ -24,7 +24,7 @@ import ManageQuestions from "./pages/ManageQuestions";
 import ManageTests from "./pages/ManageTests";
 import ManageContests from "./pages/ManageContests";
 import AdminAnalytics from "./pages/AdminAnalytics";
-import AdminWithdraw from "./pages/AdminWithdraw";
+
 import AdminFraud from "./pages/AdminFraud";
 import CreateContest from "./pages/CreateContest";
 import CreateTest from "./pages/CreateTest";
