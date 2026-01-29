@@ -30,9 +30,7 @@ import AdminWithdraw from "./pages/AdminWithdraw";
 import AdminFraud from "./pages/AdminFraud";
 import CreateContest from "./pages/CreateContest";
 import CreateTest from "./pages/CreateTest";
-import Terms from "./pages/Terms";
 
-import Refund from "./pages/Refund";
 function App() {
   return (
      <div className="app-shell">
@@ -165,9 +163,7 @@ function App() {
 <Route path="/admin/analytics" element={<AdminAnalytics />} />
 <Route path="/admin/withdraw" element={<AdminWithdraw />} />
 <Route path="/admin/fraud" element={<AdminFraud />} />
-<Route path="/terms" element={<Terms />} />
 
-<Route path="/refund-policy" element={<Refund />} />
     </Routes>
     </div>
   );
