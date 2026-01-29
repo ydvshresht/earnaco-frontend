@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
 import API from "../api/api";
 import "../styles/login.css";
 
@@ -22,10 +23,25 @@ function Login() {
       console.log("LOGIN SUCCESS", res.data);
       navigate("/entry");
     } catch (err) {
-      console.log("LOGIN ERROR", err.response);
       alert(err.response?.data?.msg || "Invalid email or password");
     } finally {
       setLoading(false);
+    }
+  };
+
+  /* =====================
+     GOOGLE LOGIN
+  ===================== */
+  const handleGoogleLogin = async (credentialResponse) => {
+    try {
+      const res = await API.post("/auth/google-login", {
+        token: credentialResponse.credential
+      });
+
+      console.log("GOOGLE LOGIN SUCCESS", res.data);
+      navigate("/entry");
+    } catch (err) {
+      alert("Google login failed");
     }
   };
 
@@ -52,22 +68,25 @@ function Login() {
         {loading ? "Logging in..." : "Login"}
       </button>
 
+      <div style={{ margin: "20px 0", textAlign: "center" }}>
+        <p>OR</p>
+
+        <GoogleLogin
+          onSuccess={handleGoogleLogin}
+          onError={() => alert("Google login failed")}
+        />
+      </div>
+
       <p>
         No account?{" "}
-        <span
-          className="link"
-          onClick={() => navigate("/register")}
-        >
+        <span className="link" onClick={() => navigate("/register")}>
           Register
         </span>
       </p>
 
       <p>
         Forgot password?{" "}
-        <span
-          className="link"
-          onClick={() => navigate("/forgot")}
-        >
+        <span className="link" onClick={() => navigate("/forgot")}>
           Forgot
         </span>
       </p>
