@@ -156,6 +156,10 @@ function App() {
   element={<CreateContest />}
 />
 <Route path="/admin/analytics" element={<AdminAnalytics />} />
+<Route
+  path="/admin/manage-tests/:testId"
+  element={<ManageTestQuestions />}
+/>
 
 <Route path="/admin/fraud" element={<AdminFraud />} />
 <Route path="/terms" element={<Terms />} />
