@@ -95,14 +95,7 @@ function Register() {
     <div className="screen">
       <h2>Register</h2>
 
-      {/* 🔵 GOOGLE SIGNUP */}
-      <div style={{ marginBottom: "20px", textAlign: "center" }}>
-        <GoogleLogin
-          onSuccess={handleGoogleSignup}
-          onError={() => alert("Google signup failed")}
-        />
-        <p style={{ marginTop: "10px" }}>OR</p>
-      </div>
+     
 
       <input
         placeholder="Full Name"
@@ -156,7 +149,14 @@ function Register() {
           </button>
         </>
       )}
-
+ {/* 🔵 GOOGLE SIGNUP */}
+      <div style={{ marginBottom: "20px", textAlign: "center" }}>
+        <GoogleLogin
+          onSuccess={handleGoogleSignup}
+          onError={() => alert("Google signup failed")}
+        />
+        <p style={{ marginTop: "10px" }}>OR</p>
+      </div>
       <p>
         Already registered?{" "}
         <span className="link" onClick={() => navigate("/")}>
