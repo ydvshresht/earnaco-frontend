@@ -26,7 +26,7 @@ function CreateTest() {
       alert("Test created. Now add questions.");
 
       // 👉 Redirect to add/manage questions for this test
-      navigate(`/admin/manage-questions/${res.data._id}`);
+      navigate(`/admin/manage-questions`);
     } catch (err) {
       alert("Failed to create test");
     } finally {
