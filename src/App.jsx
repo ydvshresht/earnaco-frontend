@@ -151,7 +151,7 @@ function App() {
   element={<CreateContest />}
 />
 <Route path="/admin/analytics" element={<AdminAnalytics />} />
-<Route path="/admin/withdraw" element={<AdminWithdraw />} />
+
 <Route path="/admin/fraud" element={<AdminFraud />} />
 
     </Routes>
