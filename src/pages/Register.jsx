@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
 import API from "../api/api";
 
 function Register() {
@@ -10,8 +11,7 @@ function Register() {
 
   const [otpSent, setOtpSent] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const [timer, setTimer] = useState(0); // resend cooldown
+  const [timer, setTimer] = useState(0);
 
   const navigate = useNavigate();
 
@@ -20,11 +20,9 @@ function Register() {
   ===================== */
   useEffect(() => {
     if (timer <= 0) return;
-
     const interval = setInterval(() => {
       setTimer((t) => t - 1);
     }, 1000);
-
     return () => clearInterval(interval);
   }, [timer]);
 
@@ -41,9 +39,8 @@ function Register() {
       setLoading(true);
       await API.post("/auth/send-otp", { email });
       alert("OTP sent to your email");
-
       setOtpSent(true);
-      setTimer(60); // 60 sec cooldown
+      setTimer(60);
     } catch (err) {
       alert(err.response?.data?.msg || "Failed to send OTP");
     } finally {
@@ -78,9 +75,34 @@ function Register() {
     }
   };
 
+  /* =====================
+     GOOGLE SIGNUP
+  ===================== */
+  const handleGoogleSignup = async (credentialResponse) => {
+    try {
+      const res = await API.post("/auth/google-login", {
+        token: credentialResponse.credential
+      });
+
+      console.log("GOOGLE SIGNUP SUCCESS", res.data);
+      navigate("/entry");
+    } catch (err) {
+      alert("Google signup failed");
+    }
+  };
+
   return (
     <div className="screen">
       <h2>Register</h2>
+
+      {/* 🔵 GOOGLE SIGNUP */}
+      <div style={{ marginBottom: "20px", textAlign: "center" }}>
+        <GoogleLogin
+          onSuccess={handleGoogleSignup}
+          onError={() => alert("Google signup failed")}
+        />
+        <p style={{ marginTop: "10px" }}>OR</p>
+      </div>
 
       <input
         placeholder="Full Name"
@@ -133,12 +155,11 @@ function Register() {
             {timer > 0 ? `Resend OTP in ${timer}s` : "Resend OTP"}
           </button>
         </>
-      )}<p>
-        Already Register?
-        <span
-          className="link"
-          onClick={() => navigate("/")}
-        >
+      )}
+
+      <p>
+        Already registered?{" "}
+        <span className="link" onClick={() => navigate("/")}>
           Login
         </span>
       </p>
