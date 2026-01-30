@@ -1,14 +1,94 @@
-.option {
-  background: var(--bg-soft);
+.timer {
+  background: #fee2e2;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.options label {
+  display: block;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.navigation {
+  margin-top: 20px;
+}
+.topbar{
+        background:#000000;
+        padding:15px;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        color:#fff;
+    }
+
+    .timer{
+        font-size:20px;
+        font-weight:bold;
+    }
+
+    .info{
+        font-size:14px;
+        opacity:0.8;
+    }
+
+
+    h3{
+        font-size:20px;
+        color:rgb(32, 32, 32);
+        margin-bottom:20px;
+    }
+
+    .option{
+        padding:14px;
+       background: var(--bg-soft);
   border: 1px solid var(--border);
   color: var(--text-main);
-}
+        margin:10px 0;
+        border-radius:10px;
+        cursor:pointer;
+        border:2px solid transparent;
+        transition:0.2s;
+        font-size:16px;
+    }
 
-.option:hover {
-  background: rgba(255,255,255,0.06);
-}
+    .option:hover{
+        background:#4755696e;
+    }
 
-.selected {
-  border-color: var(--primary);
+    .selected{
+         border-color: var(--primary);
   background: rgba(34,197,94,0.15);
-}
+    }
+
+    .navigation{
+        display:flex;
+        justify-content:space-between;
+        margin-top:25px;
+    }
+
+    button{
+        padding:12px 20px;
+        border:none;
+        border-radius:10px;
+        cursor:pointer;
+        font-size:16px;
+    }
+
+    .btn1{
+        background:#000000;
+        color:white;
+    }
+    .btn2{
+        background:#4aa5d2;
+        color:white;
+    }
+     .blocked{
+        font-size:20px;
+        color:rgb(32, 32, 32);
+        margin-bottom:20px;
+        text-align: center;
+        margin-top: 350px;
+    }

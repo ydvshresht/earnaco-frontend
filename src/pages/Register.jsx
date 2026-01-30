@@ -87,14 +87,11 @@ function Register() {
   const handleGoogleSignup = async (credentialResponse) => {
     try {
       await API.post("/auth/google-login", {
-        token: credentialResponse.credential
-      });
+  token: credentialResponse.credential,
+  referralCode
+});
 
-      if (referralCode) {
-        try {
-          await API.post("/auth/apply-referral", { code: referralCode });
-        } catch {}
-      }
+
 
       alert("Signup successful 🎉 You received 5 coins");
       navigate("/entry");
