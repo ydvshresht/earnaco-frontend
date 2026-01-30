@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 function ManageContests() {
   const [contests, setContests] = useState([]);
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadContests();
@@ -16,27 +16,27 @@ const navigate = useNavigate();
   };
 
   const deleteContest = async (id) => {
+    if (!window.confirm("Delete contest?")) return;
     await API.delete(`/admin/contest/${id}`);
     loadContests();
   };
 
   return (
     <div className="screen">
-         <div className="back-btn" onClick={() => navigate(-1)}>
-        ← Back
-      </div>
       <h3>Manage Contests</h3>
 
-      {contests.map((c) => (
+      {contests.map(c => (
         <div key={c._id}>
-          <b>{c.test?.testName}</b> | ₹{c.prizePool}
+          <b>{c.test?.testName}</b> | Prize: {c.prizePool}
           <button onClick={() => deleteContest(c._id)}>Delete</button>
         </div>
       ))}
-      <button onClick={() => navigate("/admin/create-contest")}>
-  + Create Contest
-</button>
 
+      <hr />
+
+      <button onClick={() => navigate("/admin/create-test")}>
+        + Create New Test & Contest
+      </button>
     </div>
   );
 }

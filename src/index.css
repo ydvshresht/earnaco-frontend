@@ -4,12 +4,31 @@
   box-sizing: border-box;
 }
 
+/* ===== ROOT THEME VARIABLES ===== */
+:root {
+  --bg-outer: #0f172a;
+  --bg-app: #111827;
+  --bg-card: #1f2933;
+
+  --text-main: #e5e7eb;
+  --text-muted: #9ca3af;
+
+  --primary: #6366f1;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+
+  --border: #374151;
+}
+
+/* ===== GLOBAL ===== */
 body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, sans-serif;
-  background: #121212; /* dark outer bg */
-  color: #111;
+
+  background: var(--bg-outer);
+  color: var(--text-main);
 }
 
 #root {
@@ -18,12 +37,13 @@ body {
   justify-content: center;
 }
 
-/* MOBILE APP SHELL */
+/* ===== MOBILE APP SHELL ===== */
 .app-shell {
   width: 100%;
-  max-width: 420px;   /* PHONE WIDTH */
+  max-width: 420px;
   min-height: 100dvh;
-  background: #ffffff;
+
+  background: var(--bg-app);
   display: flex;
   flex-direction: column;
 }
@@ -33,11 +53,132 @@ body {
   .app-shell {
     margin: 16px 0;
     border-radius: 18px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
     overflow: hidden;
   }
 }
+
+/* ===== SCREEN ===== */
 .screen {
   padding: 16px;
   flex: 1;
+}
+
+/* ===== COMMON ELEMENTS ===== */
+h1, h2, h3, h4 {
+  color: var(--text-main);
+  margin-top: 0;
+}
+
+p {
+  color: var(--text-muted);
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+
+  background: var(--bg-card);
+  color: var(--text-main);
+
+  border: 1px solid var(--border);
+  border-radius: 10px;
+
+  outline: none;
+}
+
+input::placeholder {
+  color: var(--text-muted);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary);
+}
+
+/* ===== BUTTONS ===== */
+button {
+  width: 100%;
+  padding: 12px;
+
+  background: var(--primary);
+  color: white;
+
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: transform 0.1s ease, opacity 0.2s ease;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Success / Danger variants */
+.btn-success {
+  background: var(--success);
+}
+
+.btn-danger {
+  background: var(--danger);
+}
+
+/* ===== CARDS ===== */
+.card {
+  background: var(--bg-card);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 12px;
+  border: 1px solid var(--border);
+}
+
+/* ===== LISTS ===== */
+ul {
+  padding-left: 18px;
+}
+
+li {
+  margin-bottom: 6px;
+  color: var(--text-muted);
+}
+
+/* ===== ICON HEADER ===== */
+.icon-text {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.material-icons {
+  cursor: pointer;
+  color: var(--text-muted);
+}
+
+/* ===== LINKS ===== */
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+/* ===== SCROLLBAR (Mobile polish) ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 6px;
 }

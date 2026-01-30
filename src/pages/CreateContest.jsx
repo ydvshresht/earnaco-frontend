@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import API from "../api/api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 function CreateContest() {
   const [tests, setTests] = useState([]);
@@ -9,38 +9,47 @@ function CreateContest() {
   const [entryFee, setEntryFee] = useState("");
   const [maxSpots, setMaxSpots] = useState("");
 
+  const [searchParams] = useSearchParams();
+  const preselectedTest = searchParams.get("testId");
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    API.get("/tests").then(res => setTests(res.data));
+    API.get("/tests").then(res => {
+      setTests(res.data);
+      if (preselectedTest) setTest(preselectedTest);
+    });
   }, []);
 
   const createContest = async () => {
+    if (!test) return alert("Select test");
+
     await API.post("/contests", {
       test,
       prizePool,
       entryFee,
       maxSpots
     });
+
     navigate("/admin/manage-contests");
   };
 
   return (
     <div className="screen">
-        <div className="back-btn" onClick={() => navigate(-1)}>
-        ← Back
-      </div>
       <h3>Create Contest</h3>
-<div className="selectest">
-     <select value={test} onChange={(e) => setTest(e.target.value)}>
-  <option value="">Select Test</option>
-  {tests.map(t => (
-    <option key={t._id} value={t._id}>
-      {t.testName}
-    </option>
-  ))}
-</select>
-</div>
+
+      <select
+        value={test}
+        disabled={!!preselectedTest}
+        onChange={(e) => setTest(e.target.value)}
+      >
+        <option value="">Select Test</option>
+        {tests.map(t => (
+          <option key={t._id} value={t._id}>
+            {t.testName}
+          </option>
+        ))}
+      </select>
 
       <input
         placeholder="Prize Pool"

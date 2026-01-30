@@ -76,12 +76,10 @@ function AdminDashboard() {
 
       {/* ADMIN ACTIONS */}
       <div className="admin-menu">
-        <button onClick={() => navigate("/admin/questions")}>
-          ➕ Add Question
-        </button>
 
-        <button onClick={() => navigate("/admin/manage-questions")}>
-          📋 Manage Questions
+        {/* PRIMARY FLOW */}
+        <button onClick={() => navigate("/admin/create-test")}>
+          ➕ Create Test
         </button>
 
         <button onClick={() => navigate("/admin/manage-tests")}>
@@ -92,8 +90,9 @@ function AdminDashboard() {
           🏆 Manage Contests
         </button>
 
+        {/* SECONDARY */}
         <button onClick={() => navigate("/admin/analytics")}>
-          📊 Analytics 
+          📊 Analytics
         </button>
 
         <button onClick={() => navigate("/admin/fraud")}>

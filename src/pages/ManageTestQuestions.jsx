@@ -40,10 +40,7 @@ function ManageTestQuestions() {
 
   const deleteQuestion = async (index) => {
     if (!window.confirm("Delete question?")) return;
-
-    await API.delete(
-      `/admin/tests/${testId}/questions/${index}`
-    );
+    await API.delete(`/admin/tests/${testId}/questions/${index}`);
     loadTest();
   };
 
@@ -51,14 +48,8 @@ function ManageTestQuestions() {
 
   return (
     <div className="screen">
-      <div className="back-btn" onClick={() => navigate(-1)}>← Back</div>
-
-      <h2>Manage Questions</h2>
-      <p><b>{test.testName}</b> • {test.duration} mins</p>
-
-      {test.questions.length === 0 && (
-        <p>No questions added yet</p>
-      )}
+      <h3>{test.testName}</h3>
+      <p>Duration: {test.duration} minutes</p>
 
       {test.questions.map((q, i) => (
         <div key={i}>
@@ -76,7 +67,7 @@ function ManageTestQuestions() {
 
       <hr />
 
-      <h3>Add Question</h3>
+      <h4>Add Question</h4>
 
       <input
         placeholder="Question"
@@ -108,6 +99,17 @@ function ManageTestQuestions() {
       </select>
 
       <button onClick={addQuestion}>Add Question</button>
+
+      <hr />
+
+      <button
+        disabled={test.questions.length === 0}
+        onClick={() =>
+          navigate(`/admin/create-contest?testId=${testId}`)
+        }
+      >
+        Next → Create Contest
+      </button>
     </div>
   );
 }

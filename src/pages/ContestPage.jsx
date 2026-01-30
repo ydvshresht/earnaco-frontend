@@ -13,49 +13,44 @@ function ContestPage() {
   const [agree, setAgree] = useState(false);
   const [loading, setLoading] = useState(true);
   const [buying, setBuying] = useState(false);
-  const [coins, setCoins] = useState(0);
 
   /* =====================
-     LOAD USER + CONTEST + WALLET
+     LOAD DATA
   ===================== */
+  const loadData = async () => {
+    try {
+      const userRes = await API.get("/auth/me");
+      setUser(userRes.data);
+
+      const contestRes = await API.get(`/contests/${contestId}`);
+      setContest(contestRes.data);
+
+      const attemptRes = await API.get(
+        `/results/attempted/${contestRes.data.test._id}`
+      );
+      setAttempted(attemptRes.data.attempted);
+
+    } catch (err) {
+      alert("Failed to load contest");
+      navigate("/entry");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const loadData = async () => {
-      try {
-        const userRes = await API.get("/auth/me");
-        setUser(userRes.data);
-
-        const walletRes = await API.get("/wallet");
-        setCoins(walletRes.data.coins);
-
-        const contestRes = await API.get(`/contests/${contestId}`);
-        setContest(contestRes.data);
-
-        const attemptRes = await API.get(
-          `/results/attempted/${contestRes.data.test._id}`
-        );
-        setAttempted(attemptRes.data.attempted);
-      } catch (err) {
-        alert("Failed to load contest");
-        navigate("/entry");
-      } finally {
-        setLoading(false);
-      }
-    };
-
     loadData();
-  }, [contestId, navigate]);
+  }, [contestId]);
 
   if (loading) return <h3>Loading...</h3>;
   if (!contest || !contest.test || !user) return null;
 
-  const alreadyJoined = contest.joinedUsers.some(
-    (u) => u.toString() === user._id
-  );
+  const alreadyJoined = contest.joinedUsers.includes(user._id);
 
   /* =====================
-     BUY CONTEST (COINS)
+     JOIN CONTEST
   ===================== */
-  const buyContest = async () => {
+  const joinContest = async () => {
     if (!agree) {
       alert("Please agree to instructions");
       return;
@@ -64,20 +59,17 @@ function ContestPage() {
     try {
       setBuying(true);
 
-      await API.post(`/contests/buy/${contestId}`);
+      await API.post(`/contests/join/${contestId}`);
 
-      // 🔄 Refresh contest & wallet
-      const updatedContest = await API.get(`/contests/${contestId}`);
-      const updatedWallet = await API.get("/wallet");
+      // 🔄 reload everything from backend (single source of truth)
+      await loadData();
 
-      setContest(updatedContest.data);
-      setCoins(updatedWallet.data.coins);
+      alert(`Contest unlocked 🎉`);
 
-      alert(`Contest unlocked 🎉\n${contest.entryFee} coins deducted`);
     } catch (err) {
       alert(
         err.response?.data?.msg ||
-          "Not enough coins to join contest"
+          "Unable to join contest"
       );
     } finally {
       setBuying(false);
@@ -85,19 +77,20 @@ function ContestPage() {
   };
 
   /* =====================
-     NAVIGATION
+     START TEST (SAFE)
   ===================== */
-  const startTest = () => {
-    console.log("Navigating to test:", contest.test._id, contest._id);
-    navigate(`/test/${contest.test._id}?contest=${contest._id}`);
-  };
+  const startTest = async () => {
+    try {
+      const res = await API.get(`/contests/can-start/${contestId}`);
+      if (!res.data.allowed) {
+        alert("You are not allowed to start this test");
+        return;
+      }
 
-  const goToLeaderboard = () => {
-    navigate(`/leaderboard/${contest.test._id}?contest=${contest._id}`);
-  };
-
-  const goToMyTest = () => {
-    navigate("/my-test");
+      navigate(`/test/${contest.test._id}?contest=${contest._id}`);
+    } catch {
+      alert("Access denied");
+    }
   };
 
   return (
@@ -114,15 +107,23 @@ function ContestPage() {
       {/* HEADER */}
       <div className="coupon-header">
         <div className="header-item">CONTEST</div>
-        <div className="header-item" onClick={goToLeaderboard}>
+        <div
+          className="header-item"
+          onClick={() =>
+            navigate(`/leaderboard/${contest.test._id}?contest=${contest._id}`)
+          }
+        >
           LEADERBOARD
         </div>
-        <div className="header-item" onClick={goToMyTest}>
+        <div
+          className="header-item"
+          onClick={() => navigate("/my-test")}
+        >
           MY TEST
         </div>
       </div>
 
-      {/* TEST DETAILS */}
+      {/* DETAILS */}
       <div className="test-container">
         <div className="test-details">
           <span>Duration: {contest.test.duration} mins</span>
@@ -139,59 +140,43 @@ function ContestPage() {
           <li>Test can be attempted only once</li>
         </ul>
 
+        {/* ACTIONS */}
         <div className="bottom-section">
-          <label>Choose Language:</label>
-          <select>
-            <option>English</option>
-            <option>Hindi</option>
-          </select>
 
-          {/* ❌ NOT JOINED */}
           {!alreadyJoined && (
-            <button
-              className="agree-btn"
-              disabled={!agree || buying}
-              onClick={buyContest}
-            >
-              {buying
-                ? "Unlocking..."
-                : `Unlock Contest 🪙 ${contest.entryFee} Coins`}
-            </button>
+            <>
+              <button
+                className="agree-btn"
+                disabled={!agree || buying}
+                onClick={joinContest}
+              >
+                {buying
+                  ? "Unlocking..."
+                  : `Unlock Contest 🪙 ${contest.entryFee} Coins`}
+              </button>
+
+              <div style={{ marginTop: 10 }}>
+                <input
+                  type="checkbox"
+                  checked={agree}
+                  onChange={() => setAgree(!agree)}
+                />{" "}
+                I agree to instructions
+              </div>
+            </>
           )}
 
-          {/* ✅ JOINED BUT NOT ATTEMPTED */}
           {alreadyJoined && !attempted && (
-            <button
-              className="agree-btn"
-              onClick={startTest}
-            >
+            <button className="agree-btn" onClick={startTest}>
               Start Test 🚀
             </button>
           )}
 
-          {/* 🛑 ALREADY ATTEMPTED */}
           {alreadyJoined && attempted && (
             <p style={{ color: "red", fontWeight: "bold" }}>
               Test already attempted — check leaderboard
             </p>
           )}
-
-          {/* AGREEMENT */}
-          {!alreadyJoined && (
-            <div style={{ marginTop: "10px" }}>
-              <input
-                type="checkbox"
-                checked={agree}
-                onChange={() => setAgree(!agree)}
-              />{" "}
-              I agree to instructions
-            </div>
-          )}
-
-          {/* WALLET INFO */}
-          <p style={{ marginTop: "12px", opacity: 0.7 }}>
-            🪙 Your Coins: <b>{coins}</b>
-          </p>
         </div>
       </div>
     </div>

@@ -19,10 +19,7 @@ function CreateTest() {
         duration
       });
 
-      alert("Test created. Add questions now.");
-
       navigate(`/admin/tests/${res.data.test._id}/questions`);
-
     } catch {
       alert("Failed to create test");
     } finally {
@@ -32,8 +29,6 @@ function CreateTest() {
 
   return (
     <div className="screen">
-      <div className="back-btn" onClick={() => navigate(-1)}>← Back</div>
-
       <h3>Create Test</h3>
 
       <input
@@ -50,12 +45,8 @@ function CreateTest() {
       />
 
       <button onClick={createTest} disabled={loading}>
-        {loading ? "Creating..." : "Create Test"}
+        {loading ? "Creating..." : "Create & Add Questions"}
       </button>
-
-      <p style={{ fontSize: 12, opacity: 0.6 }}>
-        ⚠ Test is NOT playable until questions are added
-      </p>
     </div>
   );
 }
