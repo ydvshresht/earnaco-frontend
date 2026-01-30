@@ -15,10 +15,11 @@ function ManageTestQuestions() {
     loadTest();
   }, []);
 
-  const loadTest = async () => {
-    const res = await API.get(`/tests/${testId}`);
-    setTest(res.data);
-  };
+ const loadTest = async () => {
+  const res = await API.get(`/tests/admin/${testId}`);
+  setTest(res.data);
+};
+
 
   const addQuestion = async () => {
     if (!question || options.some(o => !o)) {
