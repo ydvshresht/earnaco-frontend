@@ -14,23 +14,38 @@ function Login() {
   /* =====================
      EMAIL + PASSWORD LOGIN
   ===================== */
-  const handleLogin = async () => {
-    if (!email || !password) {
-      alert("Email and password are required");
-      return;
+ const handleLogin = async () => {
+  if (!email || !password) {
+    alert("Email and password are required");
+    return;
+  }
+
+  try {
+    setLoading(true);
+
+    const res = await API.post("/auth/login", {
+      email,
+      password
+    });
+
+    console.log("LOGIN SUCCESS", res.data);
+    navigate("/entry");
+
+  } catch (err) {
+    const msg = err.response?.data?.msg;
+
+    if (msg === "Please login using Google") {
+      alert("This account was created using Google. Please use Google Login.");
+    } else if (msg === "Account not verified") {
+      alert("Please verify your account first.");
+    } else {
+      alert(msg || "Invalid email or password");
     }
 
-    try {
-      setLoading(true);
-      const res = await API.post("/auth/login", { email, password });
-      console.log("LOGIN SUCCESS", res.data);
-      navigate("/entry");
-    } catch (err) {
-      alert(err.response?.data?.msg || "Invalid email or password");
-    } finally {
-      setLoading(false);
-    }
-  };
+  } finally {
+    setLoading(false);
+  }
+};
 
   /* =====================
      GOOGLE LOGIN
