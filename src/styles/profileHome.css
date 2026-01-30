@@ -1,11 +1,4 @@
- .back-btn {
-           
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            font-size: 15px;
-            cursor: pointer;
-        }
+ 
         .profile-header {
             text-align: center;
             padding-top: 10px;
@@ -62,7 +55,7 @@
             border: 1px solid #add;
             border-radius: 10px;
             margin: 10px 0;
-            background-color: #fff;
+          
             transition: 00.2s;
             cursor: pointer;
             color: #000;
