@@ -1,24 +1,34 @@
+/* =========================
+   CHATGPT / EDTECH DARK THEME
+========================= */
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-/* ===== ROOT THEME VARIABLES ===== */
+/* ===== COLOR SYSTEM ===== */
 :root {
-  --bg-outer: #0f172a;
-  --bg-app: #111827;
-  --bg-card: #1f2933;
+  /* Backgrounds */
+  --bg-outer: #0b0f19;
+  --bg-app: #0f172a;
+  --bg-card: #111827;
+  --bg-soft: #1f2937;
 
+  /* Text */
   --text-main: #e5e7eb;
   --text-muted: #9ca3af;
+  --text-dim: #6b7280;
 
-  --primary: #6366f1;
-  --success: #22c55e;
-  --warning: #f59e0b;
+  /* Accents */
+  --primary: #22c55e;   /* ChatGPT green */
+  --secondary: #38bdf8; /* Blue accent */
+  --warning: #facc15;
   --danger: #ef4444;
 
-  --border: #374151;
+  /* Borders */
+  --border: #1f2937;
 }
 
 /* ===== GLOBAL ===== */
@@ -26,7 +36,6 @@ body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, sans-serif;
-
   background: var(--bg-outer);
   color: var(--text-main);
 }
@@ -37,12 +46,11 @@ body {
   justify-content: center;
 }
 
-/* ===== MOBILE APP SHELL ===== */
+/* ===== APP SHELL ===== */
 .app-shell {
   width: 100%;
   max-width: 420px;
   min-height: 100dvh;
-
   background: var(--bg-app);
   display: flex;
   flex-direction: column;
@@ -51,9 +59,9 @@ body {
 /* Desktop polish */
 @media (min-width: 768px) {
   .app-shell {
-    margin: 16px 0;
+    margin: 20px 0;
     border-radius: 18px;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.65);
     overflow: hidden;
   }
 }
@@ -64,34 +72,32 @@ body {
   flex: 1;
 }
 
-/* ===== COMMON ELEMENTS ===== */
+/* ===== TEXT ===== */
 h1, h2, h3, h4 {
+  margin: 0 0 10px;
   color: var(--text-main);
-  margin-top: 0;
 }
 
 p {
   color: var(--text-muted);
+  margin: 0 0 10px;
 }
 
+/* ===== INPUTS ===== */
 input,
 select,
 textarea {
   width: 100%;
   padding: 12px;
-  margin-bottom: 12px;
-
   background: var(--bg-card);
   color: var(--text-main);
-
   border: 1px solid var(--border);
   border-radius: 10px;
-
   outline: none;
 }
 
 input::placeholder {
-  color: var(--text-muted);
+  color: var(--text-dim);
 }
 
 input:focus,
@@ -104,20 +110,17 @@ textarea:focus {
 button {
   width: 100%;
   padding: 12px;
-
-  background: var(--primary);
-  color: white;
-
-  border: none;
   border-radius: 12px;
+  border: none;
   font-weight: 600;
-
   cursor: pointer;
-  transition: transform 0.1s ease, opacity 0.2s ease;
+  transition: 0.15s ease;
+  background: var(--bg-soft);
+  color: var(--text-main);
 }
 
-button:active {
-  transform: scale(0.98);
+button:hover {
+  opacity: 0.9;
 }
 
 button:disabled {
@@ -125,13 +128,20 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* Success / Danger variants */
-.btn-success {
-  background: var(--success);
+/* Button variants */
+.btn-primary {
+  background: var(--primary);
+  color: #052e16;
+}
+
+.btn-secondary {
+  background: var(--secondary);
+  color: #020617;
 }
 
 .btn-danger {
   background: var(--danger);
+  color: white;
 }
 
 /* ===== CARDS ===== */
@@ -139,18 +149,18 @@ button:disabled {
   background: var(--bg-card);
   border-radius: 14px;
   padding: 16px;
-  margin-bottom: 12px;
   border: 1px solid var(--border);
+  margin-bottom: 12px;
 }
 
-/* ===== LISTS ===== */
+/* ===== LIST ===== */
 ul {
   padding-left: 18px;
 }
 
 li {
-  margin-bottom: 6px;
   color: var(--text-muted);
+  margin-bottom: 6px;
 }
 
 /* ===== ICON HEADER ===== */
@@ -159,7 +169,6 @@ li {
   align-items: center;
   gap: 10px;
   font-weight: 600;
-  margin-bottom: 16px;
 }
 
 .material-icons {
@@ -167,13 +176,7 @@ li {
   color: var(--text-muted);
 }
 
-/* ===== LINKS ===== */
-a {
-  color: var(--primary);
-  text-decoration: none;
-}
-
-/* ===== SCROLLBAR (Mobile polish) ===== */
+/* ===== SCROLLBAR ===== */
 ::-webkit-scrollbar {
   width: 6px;
 }
