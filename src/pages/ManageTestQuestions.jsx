@@ -25,11 +25,12 @@ function ManageTestQuestions() {
       return alert("Fill all fields");
     }
 
-    await API.post(`/admin/tests/${testId}/questions`, {
-      question,
-      options,
-      correctAnswer
-    });
+   await API.post(`/tests/admin/${testId}/questions`, {
+  question,
+  options,
+  correctAnswer
+});
+
 
     setQuestion("");
     setOptions(["", "", "", ""]);
@@ -40,7 +41,8 @@ function ManageTestQuestions() {
 
   const deleteQuestion = async (index) => {
     if (!window.confirm("Delete question?")) return;
-    await API.delete(`/admin/tests/${testId}/questions/${index}`);
+    await API.delete(`/tests/admin/${testId}/questions/${index}`);
+
     loadTest();
   };
 
