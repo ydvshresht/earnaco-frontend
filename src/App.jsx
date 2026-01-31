@@ -26,13 +26,10 @@ import MyTest from "./pages/MyTest";
 
 /* Admin Pages */
 import AdminDashboard from "./pages/AdminDashboard";
-import CreateTest from "./pages/CreateTest";
-import ManageTestQuestions from "./pages/ManageTestQuestions";
-import CreateContest from "./pages/CreateContest";
 import ManageContests from "./pages/ManageContests";
-import ManageTests from "./pages/ManageTests";
 import AdminAnalytics from "./pages/AdminAnalytics";
 import AdminFraud from "./pages/AdminFraud";
+import CreateContestWizard from "./pages/CreateContestWizard";
 
 /* Static */
 import Terms from "./pages/Terms";
@@ -69,13 +66,12 @@ function App() {
 
         {/* ADMIN PROTECTED */}
         <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
-        <Route path="/admin/create-test" element={<AdminRoute><CreateTest /></AdminRoute>} />
-        <Route path="/admin/tests/:testId/questions" element={<AdminRoute><ManageTestQuestions /></AdminRoute>} />
-        <Route path="/admin/create-contest" element={<AdminRoute><CreateContest /></AdminRoute>} />
-        <Route path="/admin/manage-contests" element={<AdminRoute><ManageContests /></AdminRoute>} />
-        <Route path="/admin/manage-tests" element={<AdminRoute><ManageTests /></AdminRoute>} />
         <Route path="/admin/analytics" element={<AdminRoute><AdminAnalytics /></AdminRoute>} />
         <Route path="/admin/fraud" element={<AdminRoute><AdminFraud /></AdminRoute>} />
+        <Route
+             path="/admin/create-contest-wizard"
+             element={<AdminRoute><CreateContestWizard /></AdminRoute>}
+             />
 
         {/* PUBLIC */}
         <Route path="/support" element={<CustomerSupport />} />

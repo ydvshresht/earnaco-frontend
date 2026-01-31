@@ -78,15 +78,15 @@ function AdminDashboard() {
       <div className="admin-menu">
 
         {/* PRIMARY FLOW */}
-        <button onClick={() => navigate("/admin/create-test")}>
+        {/* <button onClick={() => navigate("/admin/create-test")}>
           ➕ Create Test
-        </button>
+        </button> */}
 
-        <button onClick={() => navigate("/admin/manage-tests")}>
+        {/* <button onClick={() => navigate("/admin/manage-tests")}>
           🧪 Manage Tests
-        </button>
+        </button> */}
 
-        <button onClick={() => navigate("/admin/manage-contests")}>
+        <button onClick={() => navigate("/admin/create-contest-wizard")}>
           🏆 Manage Contests
         </button>
 
