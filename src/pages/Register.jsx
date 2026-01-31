@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import API from "../api/api";
-import "../styles/login.css"; // reuse auth styles
+import "../styles/login.css";
 
 function Register() {
   const [fullName, setFullName] = useState("");
@@ -65,7 +65,6 @@ function Register() {
         otp
       });
 
-      // 🎁 APPLY REFERRAL (OPTIONAL)
       if (referralCode) {
         try {
           await API.post("/auth/apply-referral", { code: referralCode });
@@ -82,20 +81,18 @@ function Register() {
   };
 
   /* =====================
-     GOOGLE SIGNUP
+     GOOGLE SIGNUP / LOGIN
   ===================== */
-  const handleGoogleSignup = async (credentialResponse) => {
+  const handleGoogleSignup = async (response) => {
     try {
       await API.post("/auth/google-login", {
-  token: credentialResponse.credential,
-  referralCode
-});
+        token: response.credential,
+        referralCode
+      });
 
-
-
-      alert("Signup successful 🎉 You received 5 coins");
-      navigate("/entry");
-    } catch {
+      alert("Google signup successful 🎉");
+      navigate("/");
+    } catch (err) {
       alert("Google signup failed");
     }
   };
@@ -129,14 +126,12 @@ function Register() {
       />
       <br /><br />
 
-      {/* OTP BUTTON */}
       {!otpSent && (
         <button onClick={sendOtp} disabled={loading}>
           {loading ? "Sending OTP..." : "Send OTP"}
         </button>
       )}
 
-      {/* OTP + PASSWORD */}
       {otpSent && (
         <>
           <input
@@ -157,50 +152,8 @@ function Register() {
           <button onClick={verifyAndRegister} disabled={loading}>
             {loading ? "Registering..." : "Verify & Register"}
           </button>
-
-          <br /><br />
-
-          <button
-            onClick={sendOtp}
-            disabled={timer > 0 || loading}
-            style={{ background: "transparent", color: "#646cff" }}
-          >
-            {timer > 0 ? `Resend OTP in ${timer}s` : "Resend OTP"}
-          </button>
         </>
       )}
-
-      {/* REFERRAL MESSAGE */}
-      {referralCode && (
-        <p style={{ marginTop: "10px", color: "green" }}>
-          🎁 Referral applied — you’ll get +1 bonus coin
-        </p>
-      )}
-
-      {/* LOGIN LINK */}
-      <p className="auth-links">
-        Already have an account?{" "}
-        <span className="link" onClick={() => navigate("/")}>
-          Login
-        </span>
-      </p>
-
-      {/* 🔐 LEGAL CONSENT */}
-      <div className="legal-box">
-        <p className="footer-links">
-          By signing up, you agree to Earnaco’s{" "}
-          <a href="/terms" target="_blank">Terms</a>,{" "}
-          <a href="/privacy" target="_blank">Privacy Policy</a>,{" "}
-          <a href="/refund" target="_blank">Refund Policy</a> and{" "}
-          <a href="/disclaimer" target="_blank">Disclaimer</a>.
-        </p>
-
-        <p className="legal-note">
-          🎯 New users receive 5 promotional coins.  
-          Coins are virtual, non-withdrawable and usable only for contests.  
-          Referral & ad rewards are promotional in nature.
-        </p>
-      </div>
     </div>
   );
 }
