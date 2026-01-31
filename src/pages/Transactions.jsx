@@ -43,7 +43,13 @@ function Transactions() {
           const isCredit =
             item.type === "credit" ||
             item.type === "prize" ||
-            item.type === "signup";
+            item.reason === "Watched ad" ||
+            item.reason === "Signup bonus" ||
+            item.reason === "Referral bonus";
+
+          const isDebit =
+            item.type === "debit" ||
+            item.reason === "Contest entry";
 
           return (
             <div className="balance" key={item._id}>
@@ -53,7 +59,7 @@ function Transactions() {
                   isCredit ? "added" : "withdraw"
                 }`}
               >
-                {isCredit ? "Credit" : "Debit"}
+                {isCredit ? "Added" : "Deducted"}
               </div>
 
               {/* DATE */}
@@ -81,10 +87,10 @@ function Transactions() {
                 }`}
               >
                 {isCredit ? "+" : "-"}🪙
-                {item.coins ?? item.amount ?? 0}
+                {item.coins ?? 0}
               </div>
 
-              {/* REASON (OPTIONAL) */}
+              {/* REASON */}
               {item.reason && (
                 <div className="txn-reason">
                   {item.reason}
