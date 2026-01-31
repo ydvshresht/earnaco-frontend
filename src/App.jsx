@@ -26,7 +26,6 @@ import MyTest from "./pages/MyTest";
 
 /* Admin Pages */
 import AdminDashboard from "./pages/AdminDashboard";
-import ManageContests from "./pages/ManageContests";
 import AdminAnalytics from "./pages/AdminAnalytics";
 import AdminFraud from "./pages/AdminFraud";
 import CreateContestWizard from "./pages/CreateContestWizard";
