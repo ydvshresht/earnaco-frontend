@@ -25,44 +25,48 @@ function Test() {
      INIT TEST
   ===================== */
   useEffect(() => {
-    const initTest = async () => {
-      try {
-        // Re-attempt check
-        const attemptRes = await API.get(`/results/attempted/${testId}`);
-        if (attemptRes.data.attempted) {
-          alert("You have already attempted this test");
-          navigate("/entry");
-          return;
-        }
+  const initTest = async () => {
+    try {
+      // ✅ Attempt check (contest-based)
+      const attemptRes = await API.get(
+        `/results/attempted/${contestId}`
+      );
 
-        // Contest permission
-        await API.get(`/contests/can-start/${contestId}`);
-
-        // Load test
-        const res = await API.get(`/tests/${testId}`);
-
-        if (!res.data?.questions || res.data.questions.length === 0) {
-          alert("No questions found");
-          navigate("/entry");
-          return;
-        }
-
-        setQuestions(res.data.questions);
-
-        const duration = res.data.duration * 60;
-        setTotalDuration(duration);
-        setTimeLeft(duration);
-
-        setStarted(true);
-        setLoading(false);
-      } catch (err) {
-        alert(err.response?.data?.msg || "Not allowed to start test");
+      if (attemptRes.data.attempted) {
+        alert("You have already attempted this test");
         navigate("/entry");
+        return;
       }
-    };
 
-    initTest();
-  }, [testId, contestId, navigate]);
+      // ✅ Contest permission
+      await API.get(`/contests/can-start/${contestId}`);
+
+      // ✅ Load test
+      const res = await API.get(`/tests/${testId}`);
+
+      if (!res.data?.questions || res.data.questions.length === 0) {
+        alert("No questions found");
+        navigate("/entry");
+        return;
+      }
+
+      setQuestions(res.data.questions);
+
+      const duration = res.data.duration * 60;
+      setTotalDuration(duration);
+      setTimeLeft(duration);
+
+      setStarted(true);
+      setLoading(false);
+    } catch (err) {
+      alert(err.response?.data?.msg || "Not allowed to start test");
+      navigate("/entry");
+    }
+  };
+
+  initTest();
+}, [testId, contestId, navigate]);
+
 
   /* =====================
      TIMER
