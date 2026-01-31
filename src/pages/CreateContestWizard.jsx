@@ -45,25 +45,35 @@ function CreateContestWizard() {
   const [prizePool, setPrizePool] = useState("");
   const [entryFee, setEntryFee] = useState("");
   const [maxSpots, setMaxSpots] = useState("");
+const createContest = async () => {
+  if (questions.length === 0) {
+    return alert("Add at least one question");
+  }
 
-  const createContest = async () => {
-    if (questions.length === 0) {
-      return alert("Add at least one question");
-    }
-
-    await API.post("/contests", {
+  try {
+    // 1️⃣ CREATE CONTEST
+    const res = await API.post("/contests", {
       test: testId,
       prizePool,
       entryFee,
       maxSpots
     });
 
-   await API.patch(`/tests/admin/${testId}/finalize`);
-await API.patch(`/admin/contests/${contestId}/live`);
+    const contestId = res.data.contest._id; // ✅ DEFINE HERE
 
+    // 2️⃣ FINALIZE TEST
+    await API.patch(`/tests/admin/${testId}/finalize`);
+
+    // 3️⃣ PUBLISH CONTEST
+    await API.patch(`/admin/contests/${contestId}/live`);
 
     setStep(4);
-  };
+  } catch (err) {
+    console.error(err);
+    alert("Failed to create contest");
+  }
+};
+
   return (
     <div className="screen">
       <h3>Create Contest Wizard</h3>

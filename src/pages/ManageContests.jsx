@@ -13,7 +13,8 @@ function ManageContests() {
 
   const loadContests = async () => {
     try {
-      const res = await API.get("/admin/contests");
+    const res = await API.get("/contests/admin");
+
       setContests(res.data);
     } catch {
       alert("Failed to load contests");
@@ -22,26 +23,21 @@ function ManageContests() {
     }
   };
 
-  const deleteContest = async (contest) => {
-    if (contest.entriesCount > 0) {
-      return alert("Cannot delete contest with entries");
-    }
+ const deleteContest = async (contest) => {
+  if (contest.joinedUsers?.length > 0) {
+    return alert("Cannot delete contest with entries");
+  }
 
-    if (!window.confirm("Delete this contest?")) return;
+  await API.delete(`/admin/${contest._id}`);
+  loadContests();
+};
 
-    try {
-      await API.delete(`/admin/contest/${contest._id}`);
-      loadContests();
-    } catch {
-      alert("Failed to delete contest");
-    }
-  };
+const getStatusBadge = (contest) => {
+  if (contest.status === "completed") return "✅ Completed";
+  if (contest.status === "live") return "🟢 Live";
+  return "🟡 Draft";
+};
 
-  const getStatusBadge = (contest) => {
-    if (contest.status === "completed") return "✅ Completed";
-    if (contest.entriesCount > 0) return "🟢 Live";
-    return "🟡 Draft";
-  };
 
   if (loading) return <h3>Loading contests...</h3>;
 
