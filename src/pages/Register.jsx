@@ -101,14 +101,6 @@ function Register() {
     <div className="screen auth-screen">
       <h2>Create your Earnaco account</h2>
 
-      {/* 🔵 GOOGLE SIGNUP */}
-      <div style={{ textAlign: "center", marginBottom: "15px" }}>
-        <GoogleLogin
-          onSuccess={handleGoogleSignup}
-          onError={() => alert("Google signup failed")}
-        />
-        <p className="divider">OR</p>
-      </div>
 
       {/* NAME */}
       <input
@@ -154,6 +146,16 @@ function Register() {
           </button>
         </>
       )}
+       <p className="divider">OR</p>
+      {/* 🔵 GOOGLE SIGNUP */}
+      <div style={{ textAlign: "center", marginBottom: "15px" }}>
+        <GoogleLogin
+          onSuccess={handleGoogleSignup}
+          onError={() => alert("Google signup failed")}
+        />
+       
+      </div>
+      {/* REFERRAL MESSAGE */} {referralCode && ( <p style={{ marginTop: "10px", color: "green" }}> 🎁 Referral applied — you’ll get +1 bonus coin </p> )} {/* LOGIN LINK */} <p className="auth-links"> Already have an account?{" "} <span className="link" onClick={() => navigate("/")}> Login </span> </p> {/* 🔐 LEGAL CONSENT */} <div className="legal-box"> <p className="footer-links"> By signing up, you agree to Earnaco’s{" "} <a href="/terms" target="_blank">Terms</a>,{" "} <a href="/privacy" target="_blank">Privacy Policy</a>,{" "} <a href="/refund" target="_blank">Refund Policy</a> and{" "} <a href="/disclaimer" target="_blank">Disclaimer</a>. </p> <p className="legal-note"> 🎯 New users receive 5 promotional coins. Coins are virtual, non-withdrawable and usable only for contests. Referral & ad rewards are promotional in nature. </p> </div>
     </div>
   );
 }
