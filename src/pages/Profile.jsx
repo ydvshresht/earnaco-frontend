@@ -58,7 +58,7 @@ useEffect(() => {
   e.preventDefault();
 
   try {
-    // 1️⃣ Update text fields
+    // 1️⃣ Update profile text data
     await API.put("/profile/me", {
       fullName: form.fullName,
       dob: form.dob,
@@ -66,14 +66,18 @@ useEffect(() => {
       gender: form.gender
     });
 
-    // 2️⃣ Upload photo (only if selected)
+    // 2️⃣ Upload photo if selected
     if (imageFile) {
       const photoData = new FormData();
-      photoData.append("photo", imageFile); // ✅ MUST be "photo"
+      photoData.append("photo", imageFile);
 
       const res = await API.put("/profile/photo", photoData);
 
-      setPhoto(res.data.photo);
+      const photoUrl = res.data.photo.startsWith("http")
+        ? res.data.photo
+        : `${import.meta.env.VITE_API_BASE_URL}/${res.data.photo}`;
+
+      setPhoto(photoUrl);
     }
 
     alert("Profile updated successfully");
@@ -101,12 +105,11 @@ useEffect(() => {
               document.getElementById("imageUpload").click()
             }
           />
-          <input
+         <input
   type="file"
-  id="imageUpload"
-  hidden
   accept="image/*"
- 
+  hidden
+  id="imageUpload"
   onChange={(e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -118,6 +121,7 @@ useEffect(() => {
     reader.readAsDataURL(file);
   }}
 />
+
 
         </div>
         <div className="edit-btn">📷</div>
