@@ -108,18 +108,41 @@ function ContestPage() {
         arrow_back
       </i>
 
+     {/* HEADER */}
+      <div className="coupon-header">
+        <div className="header-item">CONTEST</div>
+        <div
+          className="header-item"
+          onClick={() =>
+            navigate(`/leaderboard/${contest.test._id}?contest=${contest._id}`)
+          }
+        >
+          LEADERBOARD
+        </div>
+        <div
+          className="header-item"
+          onClick={() => navigate("/my-test")}
+        >
+          MY TEST
+        </div>
+      </div>
+
+      {/* DETAILS */}
       <div className="test-container">
         <div className="test-details">
           <span>Duration: {contest.test.duration} mins</span>
-          <span>Questions: {contest.test.questions.length}</span>
+          <span>
+            Maximum Marks: {contest.test.questions.length}
+          </span>
         </div>
 
         <ul className="instructions">
-          <li>+1 for correct</li>
+          <li>Total questions: {contest.test.questions.length}</li>
+          <li>Each question has 4 options</li>
+          <li>+1 for correct answer</li>
           <li>No negative marking</li>
-          <li>Only one attempt</li>
+          <li>Test can be attempted only once</li>
         </ul>
-
         <div className="bottom-section">
 
           {/* NOT JOINED */}
