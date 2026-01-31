@@ -34,7 +34,7 @@ function EditContestWizard() {
 
   const loadContest = async () => {
     try {
-      const res = await API.get(`/admin/contests/${contestId}/edit`);
+      const res = await API.get(`/contests/admin/${contestId}/edit`);
       const c = res.data.contest;
 
       setContest(c);

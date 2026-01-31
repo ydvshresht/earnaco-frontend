@@ -28,9 +28,15 @@ function ManageContests() {
     return alert("Cannot delete contest with entries");
   }
 
-  await API.delete(`/admin/${contest._id}`);
-  loadContests();
+  try {
+    await API.delete(`/contests/admin/${contest._id}`);
+    loadContests();
+  } catch (err) {
+    console.error(err);
+    alert("Failed to delete contest");
+  }
 };
+
 
 const getStatusBadge = (contest) => {
   if (contest.status === "completed") return "✅ Completed";
