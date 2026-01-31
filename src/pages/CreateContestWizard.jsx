@@ -51,7 +51,10 @@ const createContest = async () => {
   }
 
   try {
-    // 1️⃣ CREATE CONTEST
+    // 1️⃣ FINALIZE TEST FIRST
+    await API.patch(`/tests/admin/${testId}/finalize`);
+
+    // 2️⃣ CREATE CONTEST (draft)
     const res = await API.post("/contests", {
       test: testId,
       prizePool,
@@ -59,10 +62,7 @@ const createContest = async () => {
       maxSpots
     });
 
-    const contestId = res.data.contest._id; // ✅ DEFINE HERE
-
-    // 2️⃣ FINALIZE TEST
-    await API.patch(`/tests/admin/${testId}/finalize`);
+    const contestId = res.data.contest._id;
 
     // 3️⃣ PUBLISH CONTEST
     await API.patch(`/admin/contests/${contestId}/live`);
@@ -73,6 +73,7 @@ const createContest = async () => {
     alert("Failed to create contest");
   }
 };
+
 
   return (
     <div className="screen">
