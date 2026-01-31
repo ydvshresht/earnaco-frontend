@@ -10,7 +10,7 @@ function Transactions() {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const res = await API.get("/wallet/transactions");
+        const res = await API.get("/transactions");
         setHistory(res.data);
       } catch {
         alert("Failed to load transactions");
