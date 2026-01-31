@@ -65,7 +65,8 @@ const createContest = async () => {
     const contestId = res.data.contest._id;
 
     // 3️⃣ PUBLISH CONTEST
-    await API.patch(`/admin/contests/${contestId}/live`);
+    await API.patch(`/contests/admin/${contestId}/live`);
+
 
     setStep(4);
   } catch (err) {
