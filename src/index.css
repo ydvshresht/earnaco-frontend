@@ -166,10 +166,18 @@ button:disabled {
 
 /* ===== CARDS ===== */
 .card {
+  padding: 15px;
+       
+        border-radius: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+       
   background: var(--bg-card);
-  border-radius: 18px;
-  padding: 16px;
-  margin-bottom: 14px;
+ 
+ 
+ 
   border: 1px solid var(--border-soft);
 }
 
