@@ -29,6 +29,8 @@ import AdminDashboard from "./pages/AdminDashboard";
 import AdminAnalytics from "./pages/AdminAnalytics";
 import AdminFraud from "./pages/AdminFraud";
 import CreateContestWizard from "./pages/CreateContestWizard";
+import EditContestWizard from "./pages/EditContestWizard";
+import ManageContests from "./pages/ManageContests";
 
 /* Static */
 import Terms from "./pages/Terms";
@@ -67,10 +69,9 @@ function App() {
         <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
         <Route path="/admin/analytics" element={<AdminRoute><AdminAnalytics /></AdminRoute>} />
         <Route path="/admin/fraud" element={<AdminRoute><AdminFraud /></AdminRoute>} />
-        <Route
-             path="/admin/create-contest-wizard"
-             element={<AdminRoute><CreateContestWizard /></AdminRoute>}
-             />
+        <Route path="/admin/create-contest-wizard" element={<AdminRoute><CreateContestWizard /></AdminRoute>} />
+        <Route path="/admin/contests/:contestId/edit" element={<AdminRoute><EditContestWizard /></AdminRoute>} />
+        <Route path="/admin/manage-contests" element={<AdminRoute><ManageContests /></AdminRoute>} />
 
         {/* PUBLIC */}
         <Route path="/support" element={<CustomerSupport />} />

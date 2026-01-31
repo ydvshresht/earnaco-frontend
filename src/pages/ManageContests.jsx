@@ -1,0 +1,104 @@
+import { useEffect, useState } from "react";
+import API from "../api/api";
+import { useNavigate } from "react-router-dom";
+
+function ManageContests() {
+  const [contests, setContests] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    loadContests();
+  }, []);
+
+  const loadContests = async () => {
+    try {
+      const res = await API.get("/admin/contests");
+      setContests(res.data);
+    } catch {
+      alert("Failed to load contests");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const deleteContest = async (contest) => {
+    if (contest.entriesCount > 0) {
+      return alert("Cannot delete contest with entries");
+    }
+
+    if (!window.confirm("Delete this contest?")) return;
+
+    try {
+      await API.delete(`/admin/contest/${contest._id}`);
+      loadContests();
+    } catch {
+      alert("Failed to delete contest");
+    }
+  };
+
+  const getStatusBadge = (contest) => {
+    if (contest.status === "completed") return "✅ Completed";
+    if (contest.entriesCount > 0) return "🟢 Live";
+    return "🟡 Draft";
+  };
+
+  if (loading) return <h3>Loading contests...</h3>;
+
+  return (
+    <div className="screen">
+      <h3>Manage Contests</h3>
+
+      <button
+        style={{ marginBottom: 20 }}
+        onClick={() => navigate("/admin/create-contest-wizard")}
+      >
+        + Create New Contest
+      </button>
+
+      {contests.length === 0 && (
+        <p>No contests created yet.</p>
+      )}
+
+      {contests.map((c) => (
+        <div
+          key={c._id}
+          style={{
+            border: "1px solid #ddd",
+            padding: 12,
+            marginBottom: 12,
+            borderRadius: 6
+          }}
+        >
+          <b>{c.test?.testName || "Untitled Test"}</b>
+          <div style={{ fontSize: 14, marginTop: 4 }}>
+            Prize: ₹{c.prizePool} | Entry: ₹{c.entryFee} | Spots: {c.maxSpots}
+          </div>
+
+          <div style={{ marginTop: 6 }}>
+            Status: <b>{getStatusBadge(c)}</b>
+          </div>
+
+          <div style={{ marginTop: 10 }}>
+            <button
+              onClick={() =>
+                navigate(`/admin/contests/${c._id}/edit`)
+              }
+            >
+              Edit
+            </button>
+
+            <button
+              style={{ marginLeft: 10, color: "red" }}
+              onClick={() => deleteContest(c)}
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default ManageContests;
