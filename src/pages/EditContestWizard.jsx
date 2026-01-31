@@ -114,32 +114,34 @@ function EditContestWizard() {
   /* ===============================
      SAVE CONTEST (FINAL STEP)
   ================================ */
-  const saveChanges = async () => {
-    if (questions.length === 0) {
-      return alert("Test must have at least one question");
-    }
+ const saveChanges = async () => {
+  if (questions.length === 0) {
+    return alert("Test must have at least one question");
+  }
 
-    try {
-      /* update contest settings */
-      await API.patch(`/admin/contests/${contestId}`, {
-        prizePool,
-        entryFee,
-        maxSpots
-      });
+  try {
+    /* 1️⃣ update contest settings */
+    await API.patch(`/contests/admin/${contestId}`, {
+      prizePool,
+      entryFee,
+      maxSpots
+    });
 
-      /* switch contest test if cloned */
-      await API.patch(`/admin/contests/${contestId}/switch-test`, {
-        testId
-      });
+    /* 2️⃣ switch contest test if cloned */
+    await API.patch(`/contests/admin/${contestId}/switch-test`, {
+      testId
+    });
 
-      /* finalize test */
-      await API.patch(`/tests/admin/${testId}/finalize`);
+    /* 3️⃣ finalize test */
+    await API.patch(`/tests/admin/${testId}/finalize`);
 
-      navigate("/admin/manage-contests");
-    } catch {
-      alert("Failed to save changes");
-    }
-  };
+    navigate("/admin/manage-contests");
+  } catch (err) {
+    console.error(err);
+    alert("Failed to save changes");
+  }
+};
+
 
   if (loading) return <h3>Loading...</h3>;
 

@@ -18,25 +18,27 @@ function ContestPage() {
      LOAD DATA
   ===================== */
   const loadData = async () => {
-    try {
-      const userRes = await API.get("/auth/me");
-      setUser(userRes.data);
+  try {
+    const userRes = await API.get("/auth/me");
+    setUser(userRes.data);
 
-      const contestRes = await API.get(`/contests/${contestId}`);
-      setContest(contestRes.data);
+    const contestRes = await API.get(`/contests/${contestId}`);
+    setContest(contestRes.data);
 
-      const attemptRes = await API.get(
-        `/results/attempted/${contestRes.data.test._id}`
-      );
-      setAttempted(attemptRes.data.attempted);
+    const attemptRes = await API.get(
+      `/results/attempted/${contestId}`
+    );
+    setAttempted(attemptRes.data.attempted);
 
-    } catch (err) {
-      alert("Failed to load contest");
-      navigate("/entry");
-    } finally {
-      setLoading(false);
-    }
-  };
+  } catch (err) {
+    console.error("ContestPage error:", err.response?.data || err);
+    alert("Failed to load contest");
+    navigate("/entry");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   useEffect(() => {
     loadData();
