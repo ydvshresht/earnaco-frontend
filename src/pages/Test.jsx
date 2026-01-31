@@ -10,146 +10,100 @@ function Test() {
 
   const [loading, setLoading] = useState(true);
   const [started, setStarted] = useState(false);
-
   const [questions, setQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState([]); // ✅ ARRAY
-
+  const [answers, setAnswers] = useState([]);
   const [timeLeft, setTimeLeft] = useState(0);
   const [totalDuration, setTotalDuration] = useState(0);
-
   const [result, setResult] = useState(null);
-  const submittedRef = useRef(false); // 🔒 prevent double submit
+
+  const submittedRef = useRef(false);
 
   /* =====================
      INIT TEST
   ===================== */
   useEffect(() => {
-  const initTest = async () => {
-    try {
-      // ✅ Attempt check (contest-based)
-      const attemptRes = await API.get(
-        `/results/attempted/${contestId}`
-      );
+    const initTest = async () => {
+      try {
+        const attemptRes = await API.get(
+          `/results/attempted/${contestId}`
+        );
+        if (attemptRes.data.attempted) {
+          alert("Already attempted");
+          navigate("/entry");
+          return;
+        }
 
-      if (attemptRes.data.attempted) {
-        alert("You have already attempted this test");
+        await API.get(`/contests/can-start/${contestId}`);
+
+        const res = await API.get(`/tests/${testId}`);
+        setQuestions(res.data.questions);
+
+        const duration = res.data.duration * 60;
+        setTotalDuration(duration);
+        setTimeLeft(duration);
+
+        setStarted(true);
+        setLoading(false);
+      } catch {
+        alert("Not allowed");
         navigate("/entry");
-        return;
       }
+    };
 
-      // ✅ Contest permission
-      await API.get(`/contests/can-start/${contestId}`);
+    initTest();
+  }, [testId, contestId, navigate]);
 
-      // ✅ Load test
-      const res = await API.get(`/tests/${testId}`);
-
-      if (!res.data?.questions || res.data.questions.length === 0) {
-        alert("No questions found");
-        navigate("/entry");
-        return;
-      }
-
-      setQuestions(res.data.questions);
-
-      const duration = res.data.duration * 60;
-      setTotalDuration(duration);
-      setTimeLeft(duration);
-
-      setStarted(true);
-      setLoading(false);
-    } catch (err) {
-      alert(err.response?.data?.msg || "Not allowed to start test");
-      navigate("/entry");
-    }
-  };
-
-  initTest();
-}, [testId, contestId, navigate]);
-
-
-  /* =====================
-     TIMER
-  ===================== */
+  /* TIMER */
   useEffect(() => {
     if (!started || timeLeft <= 0) return;
-
-    const timer = setInterval(() => {
-      setTimeLeft((t) => t - 1);
-    }, 1000);
-
+    const timer = setInterval(
+      () => setTimeLeft(t => t - 1),
+      1000
+    );
     return () => clearInterval(timer);
   }, [started, timeLeft]);
 
-  /* =====================
-     AUTO SUBMIT
-  ===================== */
+  /* AUTO SUBMIT */
   useEffect(() => {
     if (started && timeLeft === 0 && !submittedRef.current) {
       submitTest();
     }
-    // eslint-disable-next-line
   }, [timeLeft]);
 
-  /* =====================
-     SUBMIT
-  ===================== */
+  /* SUBMIT */
   const submitTest = async () => {
     if (submittedRef.current) return;
     submittedRef.current = true;
-
-    const timeTaken = totalDuration - timeLeft;
 
     try {
       const res = await API.post("/results/submit", {
         testId,
         contestId,
         answers,
-        timeTaken
+        timeTaken: totalDuration - timeLeft
       });
+
+      sessionStorage.removeItem(`started-${contestId}`);
 
       setResult({
         total: res.data.totalQuestions,
         correct: res.data.score,
         wrong: res.data.totalQuestions - res.data.score
       });
-
       setStarted(false);
-    } catch (err) {
-      alert(err.response?.data?.msg || "Submit failed");
+    } catch {
+      alert("Submit failed");
     }
   };
 
-  /* =====================
-     SAFETY GUARDS
-  ===================== */
   if (loading) return <h3>Loading test...</h3>;
-  if (!questions.length) return <h3>No questions available</h3>;
-
-  const currentQuestion = questions[currentIndex];
-  if (!currentQuestion) return <h3>Invalid question</h3>;
-
-  /* =====================
-     RESULT SCREEN
-  ===================== */
   if (result) {
     return (
-      <div className="screen" style={{ padding: "40px" }}>
-        <h2>📊 Test Result</h2>
-        <p>Total Questions: {result.total}</p>
+      <div className="screen">
+        <h2>Result</h2>
         <p>Correct: {result.correct}</p>
         <p>Wrong: {result.wrong}</p>
-
-        <button
-          onClick={() =>
-            navigate(`/leaderboard/${testId}?contest=${contestId}`)
-          }
-        >
-          View Leaderboard 🏆
-        </button>
-
-        <br /><br />
-
         <button onClick={() => navigate("/entry")}>
           Back to Entry
         </button>
@@ -157,24 +111,23 @@ function Test() {
     );
   }
 
-  /* =====================
-     TEST UI
-  ===================== */
+  const q = questions[currentIndex];
+
   return (
-    <div className="screen" style={{ padding: "40px" }}>
+    <div className="screen">
       <h3>
-        ⏱️ {Math.floor(timeLeft / 60)}:
+        ⏱ {Math.floor(timeLeft / 60)}:
         {String(timeLeft % 60).padStart(2, "0")}
       </h3>
 
       <h4>
-        Question {currentIndex + 1} / {questions.length}
+        Question {currentIndex + 1}/{questions.length}
       </h4>
 
-      <h2>{currentQuestion.question}</h2>
+      <h2>{q.question}</h2>
 
-      {currentQuestion.options.map((opt, i) => (
-        <label key={i} style={{ display: "block" }}>
+      {q.options.map((opt, i) => (
+        <label key={i}>
           <input
             type="radio"
             checked={answers[currentIndex] === i}
@@ -192,27 +145,17 @@ function Test() {
 
       <button
         disabled={currentIndex === 0}
-        onClick={() => setCurrentIndex((i) => i - 1)}
+        onClick={() => setCurrentIndex(i => i - 1)}
       >
         Previous
       </button>
 
       {currentIndex === questions.length - 1 ? (
-        <button
-          onClick={submitTest}
-          style={{
-            marginLeft: "10px",
-            background: "red",
-            color: "white"
-          }}
-        >
-          Submit Test
+        <button onClick={submitTest} style={{ color: "red" }}>
+          Submit
         </button>
       ) : (
-        <button
-          onClick={() => setCurrentIndex((i) => i + 1)}
-          style={{ marginLeft: "10px" }}
-        >
+        <button onClick={() => setCurrentIndex(i => i + 1)}>
           Next
         </button>
       )}

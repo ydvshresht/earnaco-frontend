@@ -13,33 +13,41 @@ function ContestPage() {
   const [agree, setAgree] = useState(false);
   const [loading, setLoading] = useState(true);
   const [buying, setBuying] = useState(false);
-const [startedOnce, setStartedOnce] = useState(false);
+  const [startedOnce, setStartedOnce] = useState(false);
 
   /* =====================
      LOAD DATA
   ===================== */
   const loadData = async () => {
-  try {
-    const userRes = await API.get("/auth/me");
-    setUser(userRes.data);
+    try {
+      const userRes = await API.get("/auth/me");
+      setUser(userRes.data);
 
-    const contestRes = await API.get(`/contests/${contestId}`);
-    setContest(contestRes.data);
+      const contestRes = await API.get(`/contests/${contestId}`);
+      setContest(contestRes.data);
 
-    const attemptRes = await API.get(
-      `/results/attempted/${contestId}`
+      const attemptRes = await API.get(
+        `/results/attempted/${contestId}`
+      );
+      setAttempted(attemptRes.data.attempted);
+
+    } catch (err) {
+      alert("Failed to load contest");
+      navigate("/entry");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  /* restore started state */
+  useEffect(() => {
+    const started = sessionStorage.getItem(
+      `started-${contestId}`
     );
-    setAttempted(attemptRes.data.attempted);
-
-  } catch (err) {
-    console.error("ContestPage error:", err.response?.data || err);
-    alert("Failed to load contest");
-    navigate("/entry");
-  } finally {
-    setLoading(false);
-  }
-};
-
+    if (started === "true") {
+      setStartedOnce(true);
+    }
+  }, [contestId]);
 
   useEffect(() => {
     loadData();
@@ -48,62 +56,50 @@ const [startedOnce, setStartedOnce] = useState(false);
   if (loading) return <h3>Loading...</h3>;
   if (!contest || !contest.test || !user) return null;
 
- const alreadyJoined = contest.joinedUsers.some(
-  (id) => id === user._id || id?.toString() === user._id
-);
-
+  const alreadyJoined = contest.joinedUsers.some(
+    (id) => id.toString() === user._id
+  );
 
   /* =====================
      JOIN CONTEST
   ===================== */
   const joinContest = async () => {
-    if (!agree) {
-      alert("Please agree to instructions");
-      return;
-    }
+    if (!agree) return alert("Please agree to instructions");
 
     try {
       setBuying(true);
-
       await API.post(`/contests/join/${contestId}`);
-
-      // 🔄 reload everything from backend (single source of truth)
       await loadData();
-
-      alert(`Contest unlocked 🎉`);
-
+      alert("Contest unlocked 🎉");
     } catch (err) {
-      alert(
-        err.response?.data?.msg ||
-          "Unable to join contest"
-      );
+      alert(err.response?.data?.msg || "Unable to join contest");
     } finally {
       setBuying(false);
     }
   };
 
   /* =====================
-     START TEST (SAFE)
+     START TEST
   ===================== */
- const startTest = async () => {
-  try {
-    const res = await API.get(`/contests/can-start/${contestId}`);
-    if (!res.data.allowed) {
-      alert("You are not allowed to start this test");
-      return;
+  const startTest = async () => {
+    try {
+      const res = await API.get(`/contests/can-start/${contestId}`);
+      if (!res.data.allowed) return alert("Not allowed");
+
+      sessionStorage.setItem(
+        `started-${contestId}`,
+        "true"
+      );
+
+      setStartedOnce(true);
+      navigate(`/test/${contest.test._id}?contest=${contest._id}`);
+    } catch {
+      alert("Access denied");
     }
-
-    setStartedOnce(true); // 🔒 lock button immediately
-    navigate(`/test/${contest.test._id}?contest=${contest._id}`);
-  } catch {
-    alert("Access denied");
-  }
-};
-
+  };
 
   return (
     <div className="screen">
-      {/* BACK */}
       <i
         className="material-icons"
         onClick={() => navigate("/entry")}
@@ -112,45 +108,21 @@ const [startedOnce, setStartedOnce] = useState(false);
         arrow_back
       </i>
 
-      {/* HEADER */}
-      <div className="coupon-header">
-        <div className="header-item">CONTEST</div>
-        <div
-          className="header-item"
-          onClick={() =>
-            navigate(`/leaderboard/${contest.test._id}?contest=${contest._id}`)
-          }
-        >
-          LEADERBOARD
-        </div>
-        <div
-          className="header-item"
-          onClick={() => navigate("/my-test")}
-        >
-          MY TEST
-        </div>
-      </div>
-
-      {/* DETAILS */}
       <div className="test-container">
         <div className="test-details">
           <span>Duration: {contest.test.duration} mins</span>
-          <span>
-            Maximum Marks: {contest.test.questions.length}
-          </span>
+          <span>Questions: {contest.test.questions.length}</span>
         </div>
 
         <ul className="instructions">
-          <li>Total questions: {contest.test.questions.length}</li>
-          <li>Each question has 4 options</li>
-          <li>+1 for correct answer</li>
+          <li>+1 for correct</li>
           <li>No negative marking</li>
-          <li>Test can be attempted only once</li>
+          <li>Only one attempt</li>
         </ul>
 
-        {/* ACTIONS */}
         <div className="bottom-section">
 
+          {/* NOT JOINED */}
           {!alreadyJoined && (
             <>
               <button
@@ -160,40 +132,39 @@ const [startedOnce, setStartedOnce] = useState(false);
               >
                 {buying
                   ? "Unlocking..."
-                  : `Unlock Contest 🪙 ${contest.entryFee} Coins`}
+                  : `Unlock 🪙 ${contest.entryFee}`}
               </button>
 
-              <div style={{ marginTop: 10 }}>
+              <label>
                 <input
                   type="checkbox"
                   checked={agree}
                   onChange={() => setAgree(!agree)}
-                />{" "}
-                I agree to instructions
-              </div>
+                /> I agree to instructions
+              </label>
             </>
           )}
 
-         {/* START TEST */}
-{alreadyJoined && !attempted && !startedOnce && (
-  <button className="agree-btn" onClick={startTest}>
-    Start Test 🚀
-  </button>
-)}
+          {/* START */}
+          {alreadyJoined && !attempted && !startedOnce && (
+            <button className="agree-btn" onClick={startTest}>
+              Start Test 🚀
+            </button>
+          )}
 
-{/* IN PROGRESS (optional but recommended) */}
-{alreadyJoined && !attempted && startedOnce && (
-  <p style={{ color: "#ff9800", fontWeight: "bold" }}>
-    ⏳ Test in progress — do not refresh
-  </p>
-)}
+          {/* IN PROGRESS */}
+          {alreadyJoined && !attempted && startedOnce && (
+            <p style={{ color: "#ff9800", fontWeight: "bold" }}>
+              ⏳ Test in progress — do not refresh
+            </p>
+          )}
 
-{/* ATTEMPTED */}
-{alreadyJoined && attempted && (
-  <p style={{ color: "red", fontWeight: "bold" }}>
-    ❌ Test already attempted — check leaderboard
-  </p>
-)}
+          {/* ATTEMPTED */}
+          {alreadyJoined && attempted && (
+            <p style={{ color: "red", fontWeight: "bold" }}>
+              ❌ Test already attempted — check leaderboard
+            </p>
+          )}
 
         </div>
       </div>
