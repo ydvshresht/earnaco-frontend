@@ -47,7 +47,7 @@ const getStatusBadge = (contest) => {
       <div className="icon-text">
         <i
           className="material-icons"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate("/admin")}
           style={{ cursor: "pointer" }}
         >
           arrow_back
