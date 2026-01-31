@@ -15,7 +15,7 @@ function Profile() {
     dob: "",
     mobile: "",
     email: "",
-    pan: "",
+   
     gender: ""
   });
 
@@ -54,30 +54,35 @@ useEffect(() => {
     setForm({ ...form, [e.target.id]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const formData = new FormData();
-    Object.keys(form).forEach((key) => {
-      if (form[key]) formData.append(key, form[key]);
+  try {
+    // 1️⃣ Update text fields
+    await API.put("/profile/me", {
+      fullName: form.fullName,
+      dob: form.dob,
+      mobile: form.mobile,
+      gender: form.gender
     });
 
+    // 2️⃣ Upload photo (only if selected)
     if (imageFile) {
-      formData.append("profilePic", imageFile);
+      const photoData = new FormData();
+      photoData.append("photo", imageFile); // ✅ MUST be "photo"
+
+      const res = await API.put("/profile/photo", photoData);
+
+      setPhoto(res.data.photo);
     }
 
-    try {
-    const res = await API.put("/auth/update-profile", formData);
+    alert("Profile updated successfully");
+  } catch (err) {
+    console.error(err);
+    alert("Failed to update profile");
+  }
+};
 
-if (res.data.profilePhoto?.startsWith("http")) {
-  setPhoto(res.data.profilePhoto);
-}
-
-      alert("Profile saved successfully");
-    } catch {
-      alert("Failed to save profile");
-    }
-  };
 
   if (loading) return <h3>Loading profile...</h3>;
 
@@ -97,24 +102,23 @@ if (res.data.profilePhoto?.startsWith("http")) {
             }
           />
           <input
-            type="file"
-            id="imageUpload"
-            hidden
-            accept="image/*"
-           onChange={(e) => {
-  const file = e.target.files[0];
-  if (!file) return;
+  type="file"
+  id="imageUpload"
+  hidden
+  accept="image/*"
+  capture="environment"
+  onChange={(e) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-  setImageFile(file);
+    setImageFile(file);
 
-  const reader = new FileReader();
-  reader.onloadend = () => {
-    setPhoto(reader.result); // ✅ mobile-safe preview
-  };
-  reader.readAsDataURL(file);
-}}
+    const reader = new FileReader();
+    reader.onloadend = () => setPhoto(reader.result);
+    reader.readAsDataURL(file);
+  }}
+/>
 
-          />
         </div>
         <div className="edit-btn">📷</div>
       </div>
