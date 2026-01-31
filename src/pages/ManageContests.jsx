@@ -17,7 +17,7 @@ function ManageContests() {
 
       setContests(res.data);
     } catch {
-       console.error("Load contests error:", err.response?.data || err);
+      
       alert("Failed to load contests");
     } finally {
       setLoading(false);
