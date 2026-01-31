@@ -13,6 +13,7 @@ function ContestPage() {
   const [agree, setAgree] = useState(false);
   const [loading, setLoading] = useState(true);
   const [buying, setBuying] = useState(false);
+const [startedOnce, setStartedOnce] = useState(false);
 
   /* =====================
      LOAD DATA
@@ -84,20 +85,21 @@ function ContestPage() {
   /* =====================
      START TEST (SAFE)
   ===================== */
-  const startTest = async () => {
-    try {
-      const res = await API.get(`/contests/can-start/${contestId}`);
-      if (!res.data.allowed) {
-        alert("You are not allowed to start this test");
-        return;
-      }
-
-      navigate(`/test/${contest.test._id}?contest=${contest._id}`);
-    } catch {
-      
-      alert("Access denied");
+ const startTest = async () => {
+  try {
+    const res = await API.get(`/contests/can-start/${contestId}`);
+    if (!res.data.allowed) {
+      alert("You are not allowed to start this test");
+      return;
     }
-  };
+
+    setStartedOnce(true); // 🔒 lock button immediately
+    navigate(`/test/${contest.test._id}?contest=${contest._id}`);
+  } catch {
+    alert("Access denied");
+  }
+};
+
 
   return (
     <div className="screen">
@@ -172,17 +174,27 @@ function ContestPage() {
             </>
           )}
 
-          {alreadyJoined && !attempted && (
-            <button className="agree-btn" onClick={startTest}>
-              Start Test 🚀
-            </button>
-          )}
+         {/* START TEST */}
+{alreadyJoined && !attempted && !startedOnce && (
+  <button className="agree-btn" onClick={startTest}>
+    Start Test 🚀
+  </button>
+)}
 
-          {alreadyJoined && attempted && (
-            <p style={{ color: "red", fontWeight: "bold" }}>
-              Test already attempted — check leaderboard
-            </p>
-          )}
+{/* IN PROGRESS (optional but recommended) */}
+{alreadyJoined && !attempted && startedOnce && (
+  <p style={{ color: "#ff9800", fontWeight: "bold" }}>
+    ⏳ Test in progress — do not refresh
+  </p>
+)}
+
+{/* ATTEMPTED */}
+{alreadyJoined && attempted && (
+  <p style={{ color: "red", fontWeight: "bold" }}>
+    ❌ Test already attempted — check leaderboard
+  </p>
+)}
+
         </div>
       </div>
     </div>
