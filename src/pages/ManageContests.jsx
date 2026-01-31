@@ -43,6 +43,15 @@ const getStatusBadge = (contest) => {
 
   return (
     <div className="screen">
+       {/* BACK */}
+      <div className="icon-text">
+        <i
+          className="material-icons"
+          onClick={() => navigate(-1)}
+          style={{ cursor: "pointer" }}
+        >
+          arrow_back
+        </i></div>
       <h3>Manage Contests</h3>
 
       <button
