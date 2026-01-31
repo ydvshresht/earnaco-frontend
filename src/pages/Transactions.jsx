@@ -11,7 +11,7 @@ function Transactions() {
     const fetchHistory = async () => {
       try {
         const res = await API.get("/transactions");
-        setHistory(res.data);
+        setHistory(res.data || []);
       } catch {
         alert("Failed to load transactions");
       }
@@ -22,6 +22,7 @@ function Transactions() {
 
   return (
     <div className="screen">
+      {/* HEADER */}
       <div className="icon-text">
         <i
           className="material-icons"
@@ -29,27 +30,30 @@ function Transactions() {
         >
           arrow_back
         </i>
-        Transaction
+        Transactions
       </div>
 
+      {/* EMPTY STATE */}
       {history.length === 0 ? (
-        <p>No transactions yet</p>
+        <p style={{ textAlign: "center", marginTop: "20px" }}>
+          No transactions yet
+        </p>
       ) : (
         history.map((item) => {
-          const isDeposit =
-            item.type === "deposit" ||
-            item.type === "prize";
+          const isCredit =
+            item.type === "credit" ||
+            item.type === "prize" ||
+            item.type === "signup";
 
           return (
             <div className="balance" key={item._id}>
-              
               {/* TYPE */}
               <div
                 className={`left-type ${
-                  isDeposit ? "added" : "withdraw"
+                  isCredit ? "added" : "withdraw"
                 }`}
               >
-                {isDeposit ? "Deposited" : "Withdraw"}
+                {isCredit ? "Credit" : "Debit"}
               </div>
 
               {/* DATE */}
@@ -62,22 +66,30 @@ function Transactions() {
                 className={`status ${
                   item.status === "pending"
                     ? "pending"
-                    : item.status === "success"
-                    ? "success"
-                    : "failed"
+                    : item.status === "failed"
+                    ? "failed"
+                    : "success"
                 }`}
               >
-                {item.status.toUpperCase()}
+                {(item.status || "success").toUpperCase()}
               </div>
 
-              {/* AMOUNT */}
+              {/* AMOUNT (COINS) */}
               <div
                 className={`amount ${
-                  isDeposit ? "added" : "withdraw"
+                  isCredit ? "added" : "withdraw"
                 }`}
               >
-                {isDeposit ? "+" : "-"}₹{item.amount}
+                {isCredit ? "+" : "-"}🪙
+                {item.coins ?? item.amount ?? 0}
               </div>
+
+              {/* REASON (OPTIONAL) */}
+              {item.reason && (
+                <div className="txn-reason">
+                  {item.reason}
+                </div>
+              )}
             </div>
           );
         })
