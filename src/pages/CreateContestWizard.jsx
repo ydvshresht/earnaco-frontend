@@ -59,6 +59,7 @@ function CreateContestWizard() {
     });
 
    await API.patch(`/tests/admin/${testId}/finalize`);
+await API.patch(`/admin/contests/${contestId}/live`);
 
 
     setStep(4);
