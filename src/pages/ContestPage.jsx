@@ -94,6 +94,9 @@ function ContestPage() {
 
       navigate(`/test/${contest.test._id}?contest=${contest._id}`);
     } catch {
+       console.log("🔍 contest.status =", contest?.status);
+  console.log("🔍 joinedUsers =", contest?.joinedUsers);
+  console.log("🔍 user =", req.user.id);
       alert("Access denied");
     }
   };
