@@ -47,7 +47,10 @@ function ContestPage() {
   if (loading) return <h3>Loading...</h3>;
   if (!contest || !contest.test || !user) return null;
 
-  const alreadyJoined = contest.joinedUsers.includes(user._id);
+ const alreadyJoined = contest.joinedUsers.some(
+  (id) => id === user._id || id?.toString() === user._id
+);
+
 
   /* =====================
      JOIN CONTEST
