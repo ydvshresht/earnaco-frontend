@@ -10,30 +10,43 @@ function Wallet() {
   /* =====================
      LOAD COIN BALANCE
   ===================== */
-  useEffect(() => {
-    const fetchWallet = async () => {
-      try {
-        const res = await API.get("/wallet");
-        setCoins(res.data.coins);
-      } catch {
-        alert("Failed to load wallet");
-      }
-    };
-    fetchWallet();
-  }, []);
+ useEffect(() => {
+  const fetchCoins = async () => {
+    try {
+      const res = await API.get("/auth/me");
+      setCoins(res.data.coins);
+    } catch (err) {
+      console.error(err);
+      alert("Failed to load wallet");
+    }
+  };
+
+  fetchCoins();
+}, []);
+
+    
 
   /* =====================
      WATCH AD → +1 COIN
   ===================== */
   const watchAd = async () => {
-    try {
-      await API.post("/wallet/watch-ad");
-      alert("+1 coin added 🪙");
-      setCoins((prev) => prev + 1);
-    } catch {
+  try {
+    const res = await API.post("/wallet/watch-ad");
+
+    alert(res.data.msg);
+
+    // ✅ set coins from backend response
+    if (typeof res.data.coins === "number") {
+      setCoins(res.data.coins);
+    }
+  } catch (err) {
+    if (err.response?.status === 429) {
+      alert(err.response.data.msg); // "You can watch only 1 ad per day"
+    } else {
       alert("Ad reward failed");
     }
-  };
+  }
+};
 
   return (
     <div className="screen">

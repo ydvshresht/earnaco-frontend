@@ -99,6 +99,7 @@ function Profile() {
       </div>
 
       <div className="profile-header">
+        <div className="photo-section">
         <img
           src={photo}
           alt="Profile"
@@ -121,7 +122,7 @@ function Profile() {
 
             e.target.value = null; // ✅ mobile fix
           }}
-        />
+        /></div>
       </div>
 
       <form onSubmit={handleSubmit}>
