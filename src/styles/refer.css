@@ -1,127 +1,209 @@
+/* =========================
+   PAGE WRAPPER
+========================= */
 .refer-screen {
   min-height: 100vh;
-  background: linear-gradient(180deg, #0f172a, #020617);
-  color: #fff;
-  padding: 16px;
+  padding: 18px;
+  background: radial-gradient(circle at top, #0f172a, #020617);
+  color: #f8fafc;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
 }
 
+/* =========================
+   HEADER
+========================= */
 .refer-header {
   display: flex;
   align-items: center;
   gap: 10px;
   font-size: 18px;
-  margin-bottom: 20px;
+  font-weight: 600;
+  margin-bottom: 18px;
 }
 
-.refer-header i {
+.refer-header .material-icons {
+  font-size: 26px;
   cursor: pointer;
+  color: #cbd5f5;
 }
 
+.refer-header .material-icons:hover {
+  color: #ffffff;
+}
+
+/* =========================
+   MAIN CARD
+========================= */
 .refer-card {
-  background: #020617;
-  border-radius: 16px;
-  padding: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-  text-align: center;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.02)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
 }
 
+/* =========================
+   BANNER
+========================= */
 .refer-banner {
   width: 100%;
-  border-radius: 12px;
-  margin-bottom: 12px;
+  border-radius: 14px;
+  margin-bottom: 18px;
+}
+
+/* =========================
+   TITLE & SUBTITLE
+========================= */
+.refer-card h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
 }
 
 .subtitle {
-  opacity: 0.8;
   font-size: 14px;
-  margin-bottom: 16px;
+  color: #cbd5f5;
+  margin-bottom: 18px;
 }
 
+/* =========================
+   REWARD BOX
+========================= */
 .reward-box {
   display: flex;
-  justify-content: space-around;
-  background: #020617;
-  border: 1px solid #1e293b;
-  border-radius: 12px;
-  padding: 12px;
-  margin-bottom: 16px;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 18px;
 }
 
-.reward-box div span {
-  font-size: 24px;
+.reward-box div {
+  flex: 1;
+  text-align: center;
+}
+
+.reward-box span {
+  font-size: 22px;
 }
 
 .reward-box p {
-  font-size: 12px;
-  opacity: 0.7;
+  font-size: 13px;
+  opacity: 0.75;
+  margin: 6px 0 2px;
 }
 
 .reward-box strong {
   font-size: 16px;
-  color: #facc15;
+  color: #fde68a;
 }
 
+/* =========================
+   REFERRAL CODE
+========================= */
 .ref-code {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #020617;
+  padding: 14px;
+  border-radius: 14px;
   border: 1px dashed #38bdf8;
-  padding: 10px 14px;
-  border-radius: 10px;
+  background: rgba(56, 189, 248, 0.08);
   margin-bottom: 16px;
-  font-weight: bold;
+}
+
+.ref-code span {
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 .ref-code button {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: none;
   background: #38bdf8;
   color: #020617;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
+  font-weight: 600;
   cursor: pointer;
-  font-weight: bold;
+  transition: all 0.2s ease;
 }
 
+.ref-code button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(56, 189, 248, 0.5);
+}
+
+/* =========================
+   SHARE BUTTONS
+========================= */
 .whatsapp-btn,
 .insta-btn {
   width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  font-size: 14px;
+  padding: 14px;
+  border-radius: 14px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  transition: all 0.2s ease;
 }
 
 .whatsapp-btn {
-  background: #25d366;
-  color: #fff;
+  background: linear-gradient(135deg, #25d366, #1ebe5d);
+  color: #ffffff;
+}
+
+.whatsapp-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px rgba(37, 211, 102, 0.5);
 }
 
 .insta-btn {
   background: linear-gradient(
-    45deg,
+    135deg,
     #f58529,
     #dd2a7b,
-    #8134af,
-    #515bd4
+    #8134af
   );
-  color: #fff;
+  color: #ffffff;
+}
+
+.insta-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px rgba(221, 42, 123, 0.45);
 }
 
 .whatsapp-btn img,
 .insta-btn img {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
 }
 
+/* =========================
+   FOOT NOTE
+========================= */
 .note {
-  margin-top: 12px;
   font-size: 12px;
-  opacity: 0.6;
+  opacity: 0.7;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* =========================
+   FONT SMOOTHING
+========================= */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
