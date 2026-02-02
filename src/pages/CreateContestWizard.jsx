@@ -78,6 +78,15 @@ const createContest = async () => {
 
   return (
     <div className="screen">
+       {/* BACK */}
+      <div className="icon-text">
+        <i
+          className="material-icons"
+          onClick={() => navigate("/admin")}
+          style={{ cursor: "pointer" }}
+        >
+          arrow_back
+        </i></div>
       <h3>Create Contest Wizard</h3>
 
       {/* STEP 1 */}
