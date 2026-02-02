@@ -126,12 +126,13 @@ function ContestPage() {
         >
           LEADERBOARD
         </div>
-        <div
-          className="header-item"
-          onClick={() => navigate("/my-test/:contestId")}
-        >
-          MY TEST
-        </div>
+       <div
+  className="header-item"
+  onClick={() => navigate(`/my-test/${contestId}`)}
+>
+  MY TEST
+</div>
+
       </div>
 
       {/* DETAILS */}
