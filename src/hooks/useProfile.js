@@ -8,22 +8,27 @@ export default function useProfile() {
   const [photo, setPhoto] = useState(DEFAULT_PHOTO);
 
   useEffect(() => {
+    let mounted = true;
+
     const loadProfile = async () => {
       try {
-        const res = await API.get("/auth/me");
+        const res = await API.get("/profile/me");
 
-        if (res.data.profilePhoto?.startsWith("http")) {
+        if (mounted && res.data.profilePhoto) {
           setPhoto(res.data.profilePhoto);
-        } else {
+        }
+      } catch {
+        if (mounted) {
           setPhoto(DEFAULT_PHOTO);
         }
-
-      } catch {
-        setPhoto(DEFAULT_PHOTO);
       }
     };
 
     loadProfile();
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   return { photo };
