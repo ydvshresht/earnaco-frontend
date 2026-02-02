@@ -20,6 +20,9 @@ function Profile() {
     "https://cdn-icons-png.flaticon.com/512/149/149071.png"
   );
 
+  /* =====================
+     LOAD PROFILE
+  ===================== */
   useEffect(() => {
     const loadProfile = async () => {
       try {
@@ -50,27 +53,30 @@ function Profile() {
     loadProfile();
   }, []);
 
+  /* =====================
+     FORM HANDLERS
+  ===================== */
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.id]: e.target.value });
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
-const handleImageChange = (e) => {
-  const file = e.target.files?.[0];
-  if (!file) return;
 
-  setImageFile(file);
+  const handleImageChange = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
 
-  const reader = new FileReader();
-  reader.onloadend = () => setPhoto(reader.result);
-  reader.readAsDataURL(file);
+    setImageFile(file);
 
-  e.target.value = null; // important for mobile
-};
+    const reader = new FileReader();
+    reader.onloadend = () => setPhoto(reader.result);
+    reader.readAsDataURL(file);
+
+    e.target.value = null; // mobile re-select fix
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // Update profile text
       await API.put("/profile/me", {
         fullName: form.fullName,
         dob: form.dob,
@@ -78,7 +84,6 @@ const handleImageChange = (e) => {
         gender: form.gender
       });
 
-      // Upload photo
       if (imageFile) {
         const data = new FormData();
         data.append("photo", imageFile);
@@ -103,63 +108,98 @@ const handleImageChange = (e) => {
 
   return (
     <div className="screen">
+      {/* HEADER */}
       <div className="icon-text">
-        <i className="material-icons" onClick={() => navigate(-1)}>
+        <i
+          className="material-icons"
+          onClick={() => navigate(-1)}
+          style={{ cursor: "pointer" }}
+        >
           arrow_back
         </i>
         Personal Details
       </div>
 
+      {/* PROFILE PHOTO */}
       <div className="profile-header">
-       <div className="photo-section">
-  <label htmlFor="imageUpload">
-    <img src={photo} alt="Profile" />
-  </label>
+        <div className="photo-section">
+          <label htmlFor="imageUpload">
+            <img src={photo} alt="Profile" />
+          </label>
 
-  <input
-    type="file"
-    id="imageUpload"
-    name="photo"
-    accept="image/*"
-    capture="environment"
-    style={{ display: "none" }}
-    onChange={handleImageChange}
-  />
-</div>
-
+          <input
+            type="file"
+            id="imageUpload"
+            name="photo"
+            accept="image/*"
+            style={{ display: "none" }}
+            onChange={handleImageChange}
+          />
+        </div>
       </div>
 
+      {/* FORM */}
       <form onSubmit={handleSubmit}>
-        <label>Full Name</label>
-        <input id="fullName" value={form.fullName} onChange={handleChange} />
+        <label htmlFor="fullName">Full Name</label>
+        <input
+          id="fullName"
+          name="fullName"
+          autoComplete="name"
+          value={form.fullName}
+          onChange={handleChange}
+        />
 
-        <label>DOB</label>
-        <input id="dob" type="date" value={form.dob} onChange={handleChange} />
+        <label htmlFor="dob">DOB</label>
+        <input
+          id="dob"
+          name="dob"
+          type="date"
+          autoComplete="bday"
+          value={form.dob}
+          onChange={handleChange}
+        />
 
-        <label>Mobile</label>
-        <input id="mobile" value={form.mobile} onChange={handleChange} />
+        <label htmlFor="mobile">Mobile</label>
+        <input
+          id="mobile"
+          name="mobile"
+          autoComplete="tel"
+          value={form.mobile}
+          onChange={handleChange}
+        />
 
-        <label>Email</label>
-        <input value={form.email} disabled />
+        <label htmlFor="email">Email</label>
+        <input
+          id="email"
+          name="email"
+          value={form.email}
+          disabled
+        />
 
-        <label>Gender</label>
-        <div className="gender">
+        <fieldset className="gender">
+          <legend>Gender</legend>
+
           {["male", "female", "other"].map((g) => (
-  <label key={g} htmlFor={`gender-${g}`}>
-    <input
-      id={`gender-${g}`}
-      name="gender"
-      type="radio"
-      checked={form.gender === g}
-      onChange={() => setForm({ ...form, gender: g })}
-    />
-    {g.toUpperCase()}
-  </label>
-))}
+            <div key={g}>
+              <input
+                type="radio"
+                id={`gender-${g}`}
+                name="gender"
+                checked={form.gender === g}
+                onChange={() =>
+                  setForm({ ...form, gender: g })
+                }
+              />
+              <label htmlFor={`gender-${g}`}>
+                {g.toUpperCase()}
+              </label>
+            </div>
+          ))}
+        </fieldset>
 
-        </div>
-
-        <button className="save-btn">Save</button>
+        <button type="submit" className="save-btn">
+          Save
+        </button>
       </form>
     </div>
   );
