@@ -72,30 +72,40 @@ function Test() {
   }, [timeLeft]);
 
   /* SUBMIT */
-  const submitTest = async () => {
-    if (submittedRef.current) return;
+  /* SUBMIT */
+const submitTest = async () => {
+  if (submittedRef.current) return;
+
+  try {
     submittedRef.current = true;
 
-    try {
-      const res = await API.post("/results/submit", {
-        testId,
-        contestId,
-        answers,
-        timeTaken: totalDuration - timeLeft
-      });
+    const res = await API.post("/results/submit", {
+      testId,
+      contestId,
+      answers,
+      timeTaken: totalDuration - timeLeft
+    });
 
-      sessionStorage.removeItem(`started-${contestId}`);
+    // ✅ clear started flag
+    sessionStorage.removeItem(`started-${contestId}`);
 
-      setResult({
-        total: res.data.totalQuestions,
-        correct: res.data.score,
-        wrong: res.data.totalQuestions - res.data.score
-      });
-      setStarted(false);
-    } catch {
-      alert("Submit failed");
-    }
-  };
+    setResult({
+      total: res.data.totalQuestions,
+      correct: res.data.score,
+      wrong: res.data.totalQuestions - res.data.score
+    });
+
+    setStarted(false);
+  } catch (err) {
+    // 🔓 allow retry if failed
+    submittedRef.current = false;
+
+    alert(
+      err.response?.data?.msg || "Submit failed, please try again"
+    );
+  }
+};
+
 
   if (loading) return <h3>Loading test...</h3>;
   if (result) {

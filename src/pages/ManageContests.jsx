@@ -106,6 +106,15 @@ const getStatusBadge = (contest) => {
             >
               Delete
             </button>
+            <button
+  style={{ marginLeft: 10 }}
+  onClick={() =>
+    API.post(`/contests/admin/${c._id}/reset`).then(loadContests)
+  }
+>
+  Reset
+</button>
+
           </div>
         </div>
       ))}
