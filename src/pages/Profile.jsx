@@ -144,7 +144,7 @@ function Profile() {
         <input
           id="fullName"
           name="fullName"
-          autoComplete="name"
+         
           value={form.fullName}
           onChange={handleChange}
         />
@@ -154,7 +154,7 @@ function Profile() {
           id="dob"
           name="dob"
           type="date"
-          autoComplete="bday"
+         
           value={form.dob}
           onChange={handleChange}
         />
@@ -163,7 +163,7 @@ function Profile() {
         <input
           id="mobile"
           name="mobile"
-          autoComplete="tel"
+         
           value={form.mobile}
           onChange={handleChange}
         />
