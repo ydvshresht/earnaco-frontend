@@ -9,21 +9,23 @@ function MyTest() {
 
   const [tests, setTests] = useState([]);
   const [openIndex, setOpenIndex] = useState(null);
+useEffect(() => {
+  if (!contestId) return; // 🛑 prevent invalid call
 
-  useEffect(() => {
-    const loadTests = async () => {
-      try {
-        const res = await API.get(
-          `/results/my-tests/${contestId}`
-        );
-        setTests(res.data);
-      } catch {
-        alert("Failed to load test results");
-      }
-    };
+  const loadTests = async () => {
+    try {
+      const res = await API.get(
+        `/results/my-tests/${contestId}`
+      );
+      setTests(res.data);
+    } catch (err) {
+      console.error(err);
+      alert("Failed to load test results");
+    }
+  };
 
-    loadTests();
-  }, [contestId]);
+  loadTests();
+}, [contestId]);
 
   const toggleResult = (index) => {
     setOpenIndex(openIndex === index ? null : index);
