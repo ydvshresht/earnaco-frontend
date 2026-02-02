@@ -70,7 +70,7 @@ function Profile() {
     reader.onloadend = () => setPhoto(reader.result);
     reader.readAsDataURL(file);
 
-    e.target.value = null; // mobile re-select fix
+    e.target.value = null;
   };
 
   const handleSubmit = async (e) => {
@@ -144,7 +144,7 @@ function Profile() {
         <input
           id="fullName"
           name="fullName"
-         
+          autoComplete="name"
           value={form.fullName}
           onChange={handleChange}
         />
@@ -154,7 +154,7 @@ function Profile() {
           id="dob"
           name="dob"
           type="date"
-         
+          autoComplete="bday"
           value={form.dob}
           onChange={handleChange}
         />
@@ -163,7 +163,8 @@ function Profile() {
         <input
           id="mobile"
           name="mobile"
-         
+          autoComplete="tel"
+          inputMode="numeric"
           value={form.mobile}
           onChange={handleChange}
         />
@@ -172,6 +173,7 @@ function Profile() {
         <input
           id="email"
           name="email"
+          autoComplete="email"
           value={form.email}
           disabled
         />
@@ -185,6 +187,7 @@ function Profile() {
                 type="radio"
                 id={`gender-${g}`}
                 name="gender"
+                autoComplete="sex"
                 checked={form.gender === g}
                 onChange={() =>
                   setForm({ ...form, gender: g })
