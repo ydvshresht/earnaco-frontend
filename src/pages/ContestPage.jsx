@@ -19,25 +19,32 @@ function ContestPage() {
      LOAD DATA
   ===================== */
   const loadData = async () => {
-    try {
-      const userRes = await API.get("/auth/me");
-      setUser(userRes.data);
+  try {
+    const userRes = await API.get("/auth/me");
+    setUser(userRes.data);
 
-      const contestRes = await API.get(`/contests/${contestId}`);
-      setContest(contestRes.data);
+    const contestRes = await API.get(`/contests/${contestId}`);
+    setContest(contestRes.data);
 
-      const attemptRes = await API.get(
-        `/results/attempted/${contestId}`
-      );
-      setAttempted(attemptRes.data.attempted);
+    const attemptRes = await API.get(
+      `/results/attempted/${contestId}`
+    );
+    setAttempted(attemptRes.data.attempted);
 
-    } catch (err) {
-      alert("Failed to load contest");
-      navigate("/entry");
-    } finally {
-      setLoading(false);
+    // 🔥 if attempted, clear started flag
+    if (attemptRes.data.attempted) {
+      sessionStorage.removeItem(`started-${contestId}`);
+      setStartedOnce(false);
     }
-  };
+
+  } catch {
+    alert("Failed to load contest");
+    navigate("/entry");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   /* restore started state */
   useEffect(() => {
