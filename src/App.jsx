@@ -63,7 +63,7 @@ function App() {
         <Route path="/buy-coins" element={<ProtectedRoute><BuyCoins /></ProtectedRoute>} />
         <Route path="/transactions" element={<ProtectedRoute><Transactions /></ProtectedRoute>} />
         <Route path="/refer" element={<ProtectedRoute><Refer /></ProtectedRoute>} />
-        <Route path="/my-test" element={<ProtectedRoute><MyTest /></ProtectedRoute>} />
+        <Route path="/my-test/:contestId" element={<ProtectedRoute><MyTest /></ProtectedRoute>} />
 
         {/* ADMIN PROTECTED */}
         <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
