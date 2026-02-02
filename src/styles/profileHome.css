@@ -55,10 +55,10 @@
             border: 1px solid #add;
             border-radius: 10px;
             margin: 10px 0;
-          
+          background-color: #0f0f0fa4;
             transition: 00.2s;
             cursor: pointer;
-            color: #000;
+           color:#ffff ;
 
         }
 
