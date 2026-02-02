@@ -1,4 +1,4 @@
-/* .admin-menu button {
+ .admin-menu button {
   background: var(--bg-soft);
   border: 1px solid var(--border);
   margin-top: 10px;
@@ -14,13 +14,3 @@
   gap: 14px;
 }
 
-.card h3 {
-  font-size: 14px;
-  color: var(--text-muted);
-}
-
-.card p {
-  font-size: 22px;
-  font-weight: bold;
-  color: var(--primary);
-} */

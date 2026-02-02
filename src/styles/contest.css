@@ -1,4 +1,4 @@
-/*  
+ 
         main {
             padding: 20px;
         }
@@ -152,7 +152,7 @@ select {
 
 .agree-btn {
     padding: 12px;
-    background: #4aa5d2; 
+ /* blue button color */
     color: white;
     border: none;
     border-radius: 8px;
@@ -168,12 +168,11 @@ select {
     cursor: not-allowed;
 }
 #agreeBtn:enabled{
-    background: #4aa5d2;
+   
     color:white;
 }
 
-
-/* .agree-btn:hover {
+ 
+ .agree-btn:hover {
     background: #4aa5d2;
-} */
-           
+} 

@@ -1,11 +1,5 @@
-/* 
-.refer-screen {
-  min-height: 100vh;
-  padding: 18px;
-  background: radial-gradient(circle at top, #0f172a, #020617);
-  color: #f8fafc;
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
-}
+
+
 
 .refer-header {
   display: flex;
@@ -184,4 +178,4 @@
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-} */
+}
