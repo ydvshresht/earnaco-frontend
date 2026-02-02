@@ -128,7 +128,7 @@ function ContestPage() {
         </div>
         <div
           className="header-item"
-          onClick={() => navigate("/my-test")}
+          onClick={() => navigate("/my-test/:contestId")}
         >
           MY TEST
         </div>
