@@ -1,194 +1,63 @@
-/* =========================
-   PAGE BASE
-========================= */
-.screen {
-  min-height: 100vh;
-  padding: 18px;
-  background: radial-gradient(circle at top, #0f172a, #020617);
-  color: #f8fafc;
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
-}
 
-/* =========================
-   HEADER
-========================= */
-.icon-text {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 20px;
-}
+    h2 {
+      margin: 0;
+      font-size: 26px;
+      font-weight: bold;
+    }
 
-.icon-text i {
-  font-size: 26px;
-  cursor: pointer;
-  color: #cbd5f5;
-}
-
-.icon-text i:hover {
-  color: #ffffff;
-}
-
-/* =========================
-   NEW TICKET CARD
-========================= */
-.card {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 18px;
-  padding: 16px;
-  margin-bottom: 26px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-/* =========================
-   INPUTS
-========================= */
-.card input,
-.card textarea {
+    p.subtitle {
+      color: #777;
+      font-size: 14px;
+      margin-top: 5px;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+    .support-box button {
   width: 100%;
-  padding: 14px 16px;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.06);
-  color: #ffffff;
-  font-size: 14px;
-  outline: none;
-  margin-bottom: 14px;
-  transition: all 0.2s ease;
-}
-
-.card textarea {
-  min-height: 100px;
-  resize: none;
-}
-
-.card input::placeholder,
-.card textarea::placeholder {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.card input:focus,
-.card textarea:focus {
-  border-color: #38bdf8;
-  background: rgba(255, 255, 255, 0.08);
-}
-
-/* =========================
-   SUBMIT BUTTON
-========================= */
-.card button {
-  width: 100%;
-  padding: 14px;
-  border-radius: 14px;
+  padding: 15px;
+  background: #f7f7f7;
   border: none;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  color: #020617;
-  background: #ffffff;
-  transition: all 0.2s ease;
-}
-
-.card button:hover {
-  transform: translateY(-1px);
-  opacity: 0.95;
-}
-
-.card button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* =========================
-   SECTION TITLE
-========================= */
-h3 {
+  border-radius: 10px;
   font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 14px;
-}
-
-/* =========================
-   EMPTY STATE
-========================= */
-.screen p {
-  font-size: 14px;
-  opacity: 0.7;
-}
-
-/* =========================
-   TICKET CARD
-========================= */
-.ticket {
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 16px;
-  padding: 14px;
-  margin-bottom: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.ticket h4 {
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-
-.ticket p {
-  font-size: 13px;
-  opacity: 0.85;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   margin-bottom: 10px;
 }
 
-/* =========================
-   STATUS BADGE
-========================= */
-.status {
-  display: inline-block;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 600;
-  margin-bottom: 10px;
+.support-box button:hover {
+  background: #eeeeee;
+}
+.support-box small {
+  font-size: 12px;  color:gray;
 }
 
-.status.open {
-  background: rgba(56, 189, 248, 0.15);
-  color: #38bdf8;
-}
 
-.status.closed {
-  background: rgba(34, 197, 94, 0.15);
-  color: #22c55e;
-}
+    h3 {
+      margin-top: 30px;
+      font-size: 20px;
+      border-bottom: 2px solid #007bff;
+      display: inline-block;
+      padding-bottom: 4px;
+    }
 
-.status.pending {
-  background: rgba(234, 179, 8, 0.15);
-  color: #eab308;
-}
-
-/* =========================
-   SUPPORT REPLY
-========================= */
-.reply {
-  margin-top: 10px;
+    .faq-item {
   padding: 10px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.06);
-  font-size: 13px;
+  background: #f7f7f7;
+  border-radius: 8px;
+  margin: 5px 0;
+  cursor: pointer;
+  font-weight: 500;
 }
 
-.reply strong {
-  display: block;
-  margin-bottom: 4px;
-  font-weight: 600;
+.faq-item:hover {
+  background: #ececec;
 }
 
-/* =========================
-   FONT SMOOTHING
-========================= */
-* {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.faq-answer {
+  display: none;
+  font-size: 14px;
+  color: gray;
+  margin-top:5px;
 }

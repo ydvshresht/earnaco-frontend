@@ -1,180 +1,85 @@
-/* =========================
-   PAGE BASE
-========================= */
-.screen {
-  min-height: 100vh;
-  padding: 18px;
-  background: radial-gradient(circle at top, #0f172a, #020617);
-  color: #f8fafc;
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
-}
 
-/* =========================
-   HEADER
-========================= */
-.icon-text {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 22px;
-}
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-top: -35px;
+    }
 
-.icon-text .material-icons {
-  font-size: 26px;
-  cursor: pointer;
-  color: #cbd5f5;
-}
+    .photo-section {
+      text-align: center;
+      margin-bottom: 20px;
+       position: relative;
+            display: center;
+            
+    }
 
-.icon-text .material-icons:hover {
-  color: #ffffff;
-}
+    .photo-section img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ccc;
+      cursor: pointer;
+    }
 
-/* =========================
-   PROFILE PHOTO
-========================= */
-.profile-header {
-  text-align: center;
-  margin-bottom: 28px;
-}
+    .photo-section input {
+      display: none;
+    }
 
-.photo-section img {
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid rgba(255, 255, 255, 0.15);
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
+    .edit-btn{
+      margin-top: -30px;
+      padding: 0;
+      cursor: pointer;
+    }
 
-.photo-section img:hover {
-  transform: scale(1.05);
-}
+    label {
+      font-weight: bold;
+      display: block;
+      margin: 10px 0 5px;
+      background-color: #0f0f0fa4;
+      border-radius: 5px;
+      width: 100%;
+      color: #ffffffd5;
+      padding: 6px;
+    }
 
-/* =========================
-   FORM
-========================= */
-form {
-  margin-top: 10px;
-}
+    input[type="text"],
+    input[type="date"],
+    input[type="email"],
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #ffffff8e;
+      color: #000;
+      outline: #0d0d0e;
+      font-size: 15px;
+    }
 
-/* =========================
-   LABEL
-========================= */
-label {
-  display: block;
-  margin: 18px 0 6px;
-  font-size: 13px;
-  font-weight: 600;
-  opacity: 0.85;
-}
+    .gender {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+    }
 
-/* =========================
-   INPUT FIELDS
-========================= */
-input {
-  width: 100%;
-  padding: 14px 16px;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.06);
-  color: #ffffff;
-  font-size: 14px;
-  outline: none;
-  transition: all 0.2s ease;
-}
+    .gender label {
+      font-weight: normal;
+    }
 
-input:focus {
-  border-color: #38bdf8;
-  background: rgba(255, 255, 255, 0.08);
-}
+    .save-btn {
+      width: 100%;
+      background: #4aa5d2;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 20px;
+      cursor: pointer;
+      font-size: 16px;
+    }
 
-input:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* =========================
-   DATE INPUT FIX
-========================= */
-input[type="date"] {
-  color-scheme: dark;
-}
-
-/* =========================
-   GENDER FIELDSET
-========================= */
-.gender {
-  margin-top: 22px;
-  padding: 16px;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.gender legend {
-  padding: 0 8px;
-  font-size: 13px;
-  font-weight: 600;
-  opacity: 0.85;
-}
-
-/* =========================
-   RADIO GROUP
-========================= */
-.gender > div {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 12px;
-}
-
-.gender input[type="radio"] {
-  accent-color: #38bdf8;
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-}
-
-.gender label {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-/* =========================
-   SAVE BUTTON
-========================= */
-.save-btn {
-  width: 100%;
-  margin-top: 26px;
-  padding: 14px;
-  border-radius: 14px;
-  border: none;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  color: #ffffff;
-  background: linear-gradient(135deg, #38bdf8, #0284c7);
-  box-shadow: 0 10px 25px rgba(56, 189, 248, 0.35);
-  transition: all 0.2s ease;
-}
-
-.save-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 14px 30px rgba(56, 189, 248, 0.45);
-}
-
-.save-btn:active {
-  transform: scale(0.97);
-}
-
-/* =========================
-   FONT SMOOTHING
-========================= */
-* {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+    .save-btn:hover {
+      background: #4aa5d2;
+    }
+   
