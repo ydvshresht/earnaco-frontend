@@ -106,14 +106,22 @@ const getStatusBadge = (contest) => {
             >
               Delete
             </button>
-            <button
-  style={{ marginLeft: 10 }}
-  onClick={() =>
-    API.post(`/contests/admin/${c._id}/reset`).then(loadContests)
-  }
->
-  Reset
-</button>
+            {c.status === "live" && (
+  <button
+    style={{ marginLeft: 10 }}
+    onClick={async () => {
+      try {
+        await API.post(`/contests/admin/${c._id}/reset`);
+        loadContests();
+      } catch (err) {
+        alert(err.response?.data?.msg || "Reset failed");
+      }
+    }}
+  >
+    Reset
+  </button>
+)}
+
 
           </div>
         </div>
