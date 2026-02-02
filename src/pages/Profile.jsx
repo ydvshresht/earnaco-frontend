@@ -53,6 +53,18 @@ function Profile() {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.id]: e.target.value });
   };
+const handleImageChange = (e) => {
+  const file = e.target.files?.[0];
+  if (!file) return;
+
+  setImageFile(file);
+
+  const reader = new FileReader();
+  reader.onloadend = () => setPhoto(reader.result);
+  reader.readAsDataURL(file);
+
+  e.target.value = null; // important for mobile
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -99,30 +111,22 @@ function Profile() {
       </div>
 
       <div className="profile-header">
-        <div className="photo-section">
-        <img
-          src={photo}
-          alt="Profile"
-          onClick={() => document.getElementById("imageUpload").click()}
-        />
-        <input
-          type="file"
-          accept="image/*"
-          hidden
-          id="imageUpload"
-          onChange={(e) => {
-            const file = e.target.files[0];
-            if (!file) return;
+       <div className="photo-section">
+  <label htmlFor="imageUpload">
+    <img src={photo} alt="Profile" />
+  </label>
 
-            setImageFile(file);
+  <input
+    type="file"
+    id="imageUpload"
+    name="photo"
+    accept="image/*"
+    capture="environment"
+    style={{ display: "none" }}
+    onChange={handleImageChange}
+  />
+</div>
 
-            const reader = new FileReader();
-            reader.onloadend = () => setPhoto(reader.result);
-            reader.readAsDataURL(file);
-
-            e.target.value = null; // ✅ mobile fix
-          }}
-        /></div>
       </div>
 
       <form onSubmit={handleSubmit}>
@@ -141,15 +145,18 @@ function Profile() {
         <label>Gender</label>
         <div className="gender">
           {["male", "female", "other"].map((g) => (
-            <label key={g}>
-              <input
-                type="radio"
-                checked={form.gender === g}
-                onChange={() => setForm({ ...form, gender: g })}
-              />
-              {g.toUpperCase()}
-            </label>
-          ))}
+  <label key={g} htmlFor={`gender-${g}`}>
+    <input
+      id={`gender-${g}`}
+      name="gender"
+      type="radio"
+      checked={form.gender === g}
+      onChange={() => setForm({ ...form, gender: g })}
+    />
+    {g.toUpperCase()}
+  </label>
+))}
+
         </div>
 
         <button className="save-btn">Save</button>
