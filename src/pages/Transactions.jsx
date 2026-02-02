@@ -11,8 +11,9 @@ function Transactions() {
     const fetchHistory = async () => {
       try {
         const res = await API.get("/transactions");
-        setHistory(res.data || []);
-      } catch {
+        setHistory(Array.isArray(res.data) ? res.data : []);
+      } catch (err) {
+        console.error(err);
         alert("Failed to load transactions");
       }
     };
@@ -35,21 +36,13 @@ function Transactions() {
 
       {/* EMPTY STATE */}
       {history.length === 0 ? (
-        <p style={{ textAlign: "center", marginTop: "20px" }}>
+        <p style={{ textAlign: "center", marginTop: 20 }}>
           No transactions yet
         </p>
       ) : (
         history.map((item) => {
-          const isCredit =
-            item.type === "credit" ||
-            item.type === "prize" ||
-            item.reason === "Watched ad" ||
-            item.reason === "Signup bonus" ||
-            item.reason === "Referral bonus";
-
-          const isDebit =
-            item.type === "debit" ||
-            item.reason === "Contest entry";
+          const isCredit = item.type === "credit";
+          const coins = Number(item.coins) || 0;
 
           return (
             <div className="balance" key={item._id}>
@@ -80,14 +73,13 @@ function Transactions() {
                 {(item.status || "success").toUpperCase()}
               </div>
 
-              {/* AMOUNT (COINS) */}
+              {/* AMOUNT */}
               <div
                 className={`amount ${
                   isCredit ? "added" : "withdraw"
                 }`}
               >
-                {isCredit ? "+" : "-"}🪙
-                {item.coins ?? 0}
+                {isCredit ? "+" : "-"}🪙{coins}
               </div>
 
               {/* REASON */}
