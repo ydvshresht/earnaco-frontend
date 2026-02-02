@@ -178,27 +178,26 @@ function Profile() {
           disabled
         />
 
-        <fieldset className="gender">
-          <legend>Gender</legend>
+       <fieldset className="gender">
+  <legend>Gender</legend>
 
-          {["male", "female", "other"].map((g) => (
-            <div key={g}>
-              <input
-                type="radio"
-                id={`gender-${g}`}
-                name="gender"
-                autoComplete="sex"
-                checked={form.gender === g}
-                onChange={() =>
-                  setForm({ ...form, gender: g })
-                }
-              />
-              <label htmlFor={`gender-${g}`}>
-                {g.toUpperCase()}
-              </label>
-            </div>
-          ))}
-        </fieldset>
+  {["male", "female", "other"].map((g) => (
+    <div key={g}>
+      <input
+        type="radio"
+        id={`gender-${g}`}
+        name="gender"
+        checked={form.gender === g}
+        onChange={() =>
+          setForm({ ...form, gender: g })
+        }
+      />
+      <label htmlFor={`gender-${g}`}>
+        {g.toUpperCase()}
+      </label>
+    </div>
+  ))}
+</fieldset>
 
         <button type="submit" className="save-btn">
           Save
