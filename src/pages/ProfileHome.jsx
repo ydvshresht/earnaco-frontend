@@ -54,11 +54,15 @@ function ProfileHome() {
 
       {/* PROFILE CARD */}
       <div className="profile-header">
-        <img
-          className="profile-pic"
-          src={photo}
-          alt="Profile"
-        />
+       <img
+  src={photo}
+  alt=""
+  onError={(e) => {
+    e.target.src =
+      "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+  }}
+/>
+
 
         <h5>{user?.fullName}</h5>
         <p className="user-id">ID: {user?.userId}</p>
