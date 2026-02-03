@@ -6,22 +6,33 @@ import "../styles/mytest.css";
 function MyTest() {
   const navigate = useNavigate();
   const { contestId } = useParams();
+
   const [tests, setTests] = useState([]);
+  const [openIndex, setOpenIndex] = useState(null);
+useEffect(() => {
+  if (!contestId) return; // 🛑 prevent invalid call
 
-  useEffect(() => {
-    if (!contestId) return;
+  const loadTests = async () => {
+    try {
+      const res = await API.get(
+        `/results/my-tests/${contestId}`
+      );
+      setTests(res.data);
+    } catch (err) {
+      console.error(err);
+      alert("Failed to load test results");
+    }
+  };
 
-    API.get(`/results/my-tests/${contestId}`)
-      .then(res => setTests(res.data))
-      .catch(() => alert("Failed to load results"));
-  }, [contestId]);
+  loadTests();
+}, [contestId]);
 
-  if (!tests.length) return <p className="empty">No Results</p>;
+  const toggleResult = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
 
-  const test = tests[0];
-  const testId = test?.test?._id;
-  const answers = Object.values(test.answers || []);
-  const correct = answers.filter(a => a.status === "Right").length;
+  // ✅ SAFE IDs
+  const testId = tests[0]?.test?._id || null;
 
   return (
     <div className="screen">
@@ -117,3 +128,5 @@ function MyTest() {
 }
 
 export default MyTest;
+
+
