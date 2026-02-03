@@ -22,7 +22,7 @@
 /* PROFILE CARD */
 .profile-card {
   margin-top: 20px;
-  background: rgba(255,255,255,0.08);
+  
   backdrop-filter: blur(18px);
   border-radius: 20px;
   padding: 20px;

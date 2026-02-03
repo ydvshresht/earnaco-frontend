@@ -6,109 +6,132 @@ import "../styles/mytest.css";
 function MyTest() {
   const navigate = useNavigate();
   const { contestId } = useParams();
+
   const [tests, setTests] = useState([]);
+  const [openIndex, setOpenIndex] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!contestId) return;
 
-    API.get(`/results/my-tests/${contestId}`)
-      .then(res => setTests(res.data))
-      .catch(() => alert("Failed to load results"));
+    const loadTests = async () => {
+      try {
+        setLoading(true);
+        const res = await API.get(`/results/my-tests/${contestId}`);
+        setTests(res.data);
+      } catch (err) {
+        console.error(err);
+        alert("Failed to load test results");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadTests();
   }, [contestId]);
 
-  if (!tests.length) return <p className="empty">No Results</p>;
+  const toggleResult = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
 
-  const test = tests[0];
-  const answers = Object.values(test.answers || []);
-  const correct = answers.filter(a => a.status === "Right").length;
+  // Get the first test's ID to link back to the leaderboard
+  const testId = tests[0]?.test?._id || null;
+
+  if (loading) return <div className="screen"><h3>Loading results...</h3></div>;
 
   return (
-    <div className="result-screen">
-      
-      {/* 🔙 BACK ICON */}
+    <div className="screen">
+      {/* BACK BUTTON */}
       <div className="icon-text">
-        <i
-          className="material-icons"
-          onClick={() => navigate("/entry")}
-        >
+        <i className="material-icons" onClick={() => navigate("/entry")}>
           arrow_back
         </i>
       </div>
 
-      {/* 🔝 HEADER TABS */}
+      {/* NAVIGATION TABS */}
       <div className="coupon-header">
-        <div
-          className="header-item"
-          onClick={() => navigate(`/contest/${contestId}`)}
-        >
+        <div className="header-item" onClick={() => navigate(`/contest/${contestId}`)}>
           CONTEST
         </div>
-
         <div
           className="header-item"
           onClick={() => {
-            if (!testId)
-              return alert("Leaderboard not available");
+            if (!testId) return alert("Leaderboard not available");
             navigate(`/leaderboard/${testId}?contest=${contestId}`);
           }}
         >
           LEADERBOARD
         </div>
-
-        <div className="header-item active">
-          MY TEST
-        </div>
+        <div className="header-item active">MY TEST</div>
       </div>
-      <div className="result-card">
 
-        <h1 className="title">RESULTS</h1>
+      {/* RESULT LIST */}
+      <div className="results-container">
+        {tests.length === 0 ? (
+          <p className="no-data">No tests attempted in this contest.</p>
+        ) : (
+          tests.map((test, index) => {
+            // Logic to calculate stats dynamically
+            const answersArray = test.answers ? Object.values(test.answers) : [];
+            const correctCount = answersArray.filter(a => a.userAnswer === a.correctAnswer).length;
+            const incorrectCount = answersArray.filter(a => a.userAnswer && a.userAnswer !== a.correctAnswer).length;
+            const skippedCount = answersArray.length - (correctCount + incorrectCount);
+            const accuracy = answersArray.length > 0 ? ((correctCount / answersArray.length) * 100).toFixed(0) : 0;
 
-        {/* USER */}
-        <div className="user-box">
-          <img src="/avatar.png" alt="user" />
-          <div>
-            <h3>Hello, Jane Doe!</h3>
-            <p>(Peager is Heslingle)</p>
-          </div>
-        </div>
+            return (
+              <div key={test._id || index} className="test-card-wrapper">
+                {/* OVERVIEW STATS */}
+                <div className="stats-grid">
+                  <div><span>⏱</span> Time: <b>{test.timeTaken}s</b></div>
+                  <div><span>✅</span> Score: <b>{correctCount}/{answersArray.length}</b></div>
+                  <div><span>🎯</span> Accuracy: <b>{accuracy}%</b></div>
+                  <div><span>📅</span> {new Date(test.createdAt).toLocaleDateString()}</div>
+                </div>
 
-        {/* STATS */}
-        <div className="stats-grid">
-          <div><span>⏱</span> Time Taken <b>{test.timeTaken}s</b></div>
-          <div><span>✅</span> Score <b>{correct}/{answers.length}</b></div>
-          <div><span>🎯</span> Accuracy <b>100%</b></div>
-          <div><span>📅</span> {new Date(test.createdAt).toLocaleDateString()}</div>
-        </div>
+                <button className="view-btn" onClick={() => toggleResult(index)}>
+                  {openIndex === index ? "Hide Detailed Result" : "View Detailed Result"}
+                </button>
 
-        {/* RANK */}
-        <div className="rank-box">
-          <div className="rank-badge">
-            🏆 <span>1st Rank</span>
-          </div>
+                {/* EXPANDABLE SECTION */}
+                {openIndex === index && (
+                  <div className="details-expanded">
+                    <div className="rank-box">
+                      <div className="rank-badge">
+                        🏆 <span>Performance Summary</span>
+                      </div>
+                      <div className="summary">
+                        <p className="green">✔ {correctCount} Correct</p>
+                        <p className="red">✖ {incorrectCount} Incorrect</p>
+                        <p className="orange">➖ {skippedCount} Skipped</p>
+                      </div>
+                    </div>
 
-          <div className="summary">
-            <p className="green">✔ {correct} Correct</p>
-            <p className="red">✖ 0 Incorrect</p>
-            <p className="orange">➖ 0 Skipped</p>
-          </div>
-        </div>
-
-        {/* QUESTIONS */}
-        <div className="question-list">
-          {answers.map((q, i) => (
-            <div key={i} className="question-item">
-              <h4>Q{i + 1}. {q.question}</h4>
-              <p>Your Answer: <b>{q.userAnswer}</b></p>
-              <p className="correct">Correct Answer: {q.correctAnswer}</p>
-              <span className="right">Right</span>
-            </div>
-          ))}
-        </div>
-
+                    <div className="question-list">
+                      {answersArray.map((q, i) => {
+                        const isCorrect = q.userAnswer === q.correctAnswer;
+                        return (
+                          <div key={i} className={`question-item ${isCorrect ? "is-right" : "is-wrong"}`}>
+                            <h4>Q{i + 1}. {q.question}</h4>
+                            <p>Your Answer: <span className={isCorrect ? "text-green" : "text-red"}>
+                              {q.userAnswer || "Not Answered"}
+                            </span></p>
+                            {!isCorrect && <p className="correct-ans">Correct Answer: {q.correctAnswer}</p>}
+                            <span className={`status-tag ${isCorrect ? "right" : "wrong"}`}>
+                              {isCorrect ? "Correct" : "Incorrect"}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })
+        )}
       </div>
     </div>
   );
 }
 
 export default MyTest;
-

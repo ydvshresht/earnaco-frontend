@@ -40,7 +40,7 @@ function ProfileHome() {
   }, []);
 
    return (
-    <div className="profile-home-screen">
+    <div className="screen">
 
       {/* HEADER */}
       <div className="profile-top">
