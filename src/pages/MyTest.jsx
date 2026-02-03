@@ -6,7 +6,7 @@ import "../styles/mytest.css";
 function MyTest() {
   const navigate = useNavigate();
   const { contestId } = useParams();
-
+   const [contest, setContest] = useState(null);
   const [tests, setTests] = useState([]);
   const [openIndex, setOpenIndex] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -19,6 +19,8 @@ function MyTest() {
         setLoading(true);
         const res = await API.get(`/results/my-tests/${contestId}`);
         setTests(res.data);
+         const contestRes = await API.get(`/contests/${contestId}`);
+    setContest(contestRes.data);
       } catch (err) {
         console.error(err);
         alert("Failed to load test results");
@@ -57,7 +59,7 @@ function MyTest() {
           className="header-item"
           onClick={() => {
             if (!testId) return alert("Leaderboard not available");
-            navigate(`/leaderboard/${testId}?contest=${contestId}`);
+            navigate(`/leaderboard/${contest.test._id}?contest=${contest._id}`);
           }}
         >
           LEADERBOARD
