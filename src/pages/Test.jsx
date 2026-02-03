@@ -85,9 +85,11 @@ const submitTest = async () => {
       answers,
       timeTaken: totalDuration - timeLeft
     });
-
+const userRes = await API.get("/auth/me");
     // ✅ clear started flag
-    sessionStorage.removeItem(`started-${contestId}`);
+   sessionStorage.removeItem(
+  `started-${contestId}-${userRes.data._id}`
+);
 
     setResult({
       total: res.data.totalQuestions,

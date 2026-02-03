@@ -32,10 +32,13 @@ function ContestPage() {
     setAttempted(attemptRes.data.attempted);
 
     // 🔥 if attempted, clear started flag
-    if (attemptRes.data.attempted) {
-      sessionStorage.removeItem(`started-${contestId}`);
-      setStartedOnce(false);
-    }
+   if (attemptRes.data.attempted) {
+  sessionStorage.removeItem(
+    `started-${contestId}-${user._id}`
+  );
+  setStartedOnce(false);
+}
+
 
   } catch {
     alert("Failed to load contest");
@@ -47,18 +50,18 @@ function ContestPage() {
 
 
   /* restore started state */
-  useEffect(() => {
-    const started = sessionStorage.getItem(
-      `started-${contestId}`
-    );
-    if (started === "true") {
-      setStartedOnce(true);
-    }
-  }, [contestId]);
+ useEffect(() => {
+  if (!user) return;
 
-  useEffect(() => {
-    loadData();
-  }, [contestId]);
+  const started = sessionStorage.getItem(
+    `started-${contestId}-${user._id}`
+  );
+
+  if (started === "true") {
+    setStartedOnce(true);
+  }
+}, [contestId, user]);
+
 
   if (loading) return <h3>Loading...</h3>;
   if (!contest || !contest.test || !user) return null;
@@ -93,10 +96,11 @@ function ContestPage() {
       const res = await API.get(`/contests/can-start/${contestId}`);
       if (!res.data.allowed) return alert("Not allowed");
 
-      sessionStorage.setItem(
-        `started-${contestId}`,
-        "true"
-      );
+     sessionStorage.setItem(
+  `started-${contestId}-${user._id}`,
+  "true"
+);
+
 
       setStartedOnce(true);
       navigate(`/test/${contest.test._id}?contest=${contest._id}`);
