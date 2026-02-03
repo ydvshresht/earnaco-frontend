@@ -64,8 +64,8 @@ function Wallet() {
       <div className="balance">
         
       </div>
-      <div className="balance-text">🪙 {coins}</div>
-<p>Available Coins</p> 
+      <div className="balance-text">🪙 {coins}<p>Available Coins</p> </div>
+
       {/* BUY COINS */}
       <div className="card">
         <div className="left-part">
