@@ -52,16 +52,17 @@
   backdrop-filter: blur(14px);
 }
 
-/* LABELS */
-.profile-card label {
+label {
   display: block;
   font-size: 13px;
   margin: 14px 0 6px;
   opacity: 0.75;
+  color: #ddd;
 }
 
+
 /* INPUTS */
-.profile-card input {
+ input {
   width: 100%;
   padding: 12px 14px;
   border-radius: 14px;

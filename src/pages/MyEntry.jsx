@@ -69,12 +69,12 @@ function MyEntry() {
   );
 
  return (
-    <div className="myentry-screen">
+    <div className="entry-screen">
 
       {/* HEADER */}
-      <div className="top-header">
+      <div className="profile-card">
         <div
-          className="profile-mini"
+          className="profile-left"
           onClick={() => navigate("/profile")}
         >
           <img src={photo} alt="profile" />
