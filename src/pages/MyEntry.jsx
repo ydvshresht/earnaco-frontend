@@ -68,61 +68,66 @@ function MyEntry() {
     )
   );
 
-  return (
-    <div className="screen">
-      {/* HEADER */}
-      <header>
-        <div className="profile">
-          <div
-            className="photo-sect"
-            onClick={() => navigate("/profile")}
-            style={{ cursor: "pointer" }}
-          >
-            <img src={photo} alt="Profile" />
-          </div>
+ return (
+    <div className="myentry-screen">
 
-          <div className="profile-info">
-            <h2>{user?.fullName}</h2>
+      {/* HEADER */}
+      <div className="top-header">
+        <div
+          className="profile-mini"
+          onClick={() => navigate("/profile")}
+        >
+          <img src={photo} alt="profile" />
+          <div>
+            <h4>{user?.fullName}</h4>
             <p>ID: {user?.userId}</p>
           </div>
         </div>
 
-        <div className="wallet" onClick={() => navigate("/wallet")}>
+        <div
+          className="coin-box"
+          onClick={() => navigate("/wallet")}
+        >
           🪙 {coins}
         </div>
-      </header>
+      </div>
 
-      {/* TAB HEADER */}
-      <div className="title-row">
+      {/* TABS */}
+      <div className="tabs">
         <div
-          className="row-item"
+          className="tab"
           onClick={() => navigate("/entry")}
         >
           ENTRY
         </div>
-        <div className="row-item active">
-          MY ENTRY
-        </div>
+        <div className="tab active">MY ENTRY</div>
       </div>
 
       {/* CONTENT */}
-      {joinedContests.length === 0 ? (
-        <p>You have not joined any contests yet.</p>
+      {joined.length === 0 ? (
+        <div className="empty">
+          You have not joined any contests yet.
+        </div>
       ) : (
         <div className="entry-list">
-          {joinedContests.map((contest) => (
+          {joined.map(contest => (
             <div
               key={contest._id}
               className="entry-card"
               onClick={() => handleContestClick(contest)}
             >
-              <div className="entry-left">
-                <span>🪙 {contest.entryFee}</span>
-                <span>🏆 {contest.prizePool} Coins</span>
+              <div className="left">
+                <span className="coin">
+                  🪙 {contest.entryFee}
+                </span>
+                <span className="prize">
+                  🏆 {contest.prizePool} Coins
+                </span>
               </div>
 
-              <div className="entry-right">
-                Tap to view
+              <div className="right">
+                {contest.joinedUsers.length}/
+                {contest.maxSpots}
               </div>
             </div>
           ))}

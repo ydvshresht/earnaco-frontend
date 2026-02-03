@@ -41,7 +41,9 @@ function Entry() {
 
       {/* PROFILE CARD */}
       <div className="profile-card">
-        <div className="profile-left">
+        <div className="profile-left"
+           onClick={() => navigate("/profile")}
+            style={{ cursor: "pointer" }}>
           <img src={photo} alt="profile" />
           <div>
             <h3>{user?.fullName}</h3>

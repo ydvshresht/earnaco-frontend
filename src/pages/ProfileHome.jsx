@@ -57,8 +57,8 @@ function ProfileHome() {
       <div className="profile-card">
         <img src={photo} alt="profile" className="avatar" />
 
-        <h4>{user?.fullName}</h4>
-        <p>ID: {user?.userId}</p>
+      <div className="userd" > <h4>{user?.fullName}</h4>
+        <p>ID: {user?.userId}</p></div>
 
         <div
           className="coin-badge"
