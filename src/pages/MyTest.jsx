@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import API from "../api/api";
-import "../styles/result-ui.css";
+import "../styles/mytest.css";
 
 function MyTest() {
   const navigate = useNavigate();
