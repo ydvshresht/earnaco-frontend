@@ -106,102 +106,80 @@ function Profile() {
 
   if (loading) return <h3>Loading...</h3>;
 
-  return (
-    <div className="screen">
+   return (
+    <div className="profile-screen">
+
       {/* HEADER */}
-      <div className="icon-text">
-        <i
-          className="material-icons"
-          onClick={() => navigate(-1)}
-          style={{ cursor: "pointer" }}
-        >
+      <div className="profile-header-bar">
+        <i className="material-icons" onClick={() => navigate(-1)}>
           arrow_back
         </i>
-        Personal Details
+        <span>Personal Details</span>
       </div>
 
-      {/* PROFILE PHOTO */}
-      <div className="profile-header">
-        <div className="photo-section">
-          <label htmlFor="imageUpload">
-            <img src={photo} alt="Profile" />
-          </label>
-
-          <input
-            type="file"
-            id="imageUpload"
-            name="photo"
-            accept="image/*"
-            style={{ display: "none" }}
-            onChange={handleImageChange}
-          />
-        </div>
-      </div>
-
-      {/* FORM */}
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="fullName">Full Name</label>
+      {/* PHOTO */}
+      <div className="avatar-section">
+        <label htmlFor="photo">
+          <img src={photo} alt="profile" />
+        </label>
         <input
-          id="fullName"
-          name="fullName"
-          autoComplete="name"
+          type="file"
+          id="photo"
+          accept="image/*"
+          hidden
+          onChange={handleImageChange}
+        />
+      </div>
+
+      {/* FORM CARD */}
+      <form className="profile-card" onSubmit={handleSubmit}>
+
+        <label>Full Name</label>
+        <input
           value={form.fullName}
-          onChange={handleChange}
+          onChange={(e) =>
+            setForm({ ...form, fullName: e.target.value })
+          }
         />
 
-        <label htmlFor="dob">DOB</label>
+        <label>DOB</label>
         <input
-          id="dob"
-          name="dob"
           type="date"
-          autoComplete="bday"
           value={form.dob}
-          onChange={handleChange}
+          onChange={(e) =>
+            setForm({ ...form, dob: e.target.value })
+          }
         />
 
-        <label htmlFor="mobile">Mobile</label>
+        <label>Mobile</label>
         <input
-          id="mobile"
-          name="mobile"
-          autoComplete="tel"
-          inputMode="numeric"
           value={form.mobile}
-          onChange={handleChange}
+          onChange={(e) =>
+            setForm({ ...form, mobile: e.target.value })
+          }
         />
 
-        <label htmlFor="email">Email</label>
-        <input
-          id="email"
-          name="email"
-          autoComplete="email"
-          value={form.email}
-          disabled
-        />
+        <label>Email</label>
+        <input value={form.email} disabled />
 
-       <fieldset className="gender">
-  <legend>Gender</legend>
+        {/* GENDER */}
+        <label>Gender</label>
+        <div className="gender-row">
+          {["male", "female", "other"].map(g => (
+            <label key={g} className="radio">
+              <input
+                type="radio"
+                checked={form.gender === g}
+                onChange={() =>
+                  setForm({ ...form, gender: g })
+                }
+              />
+              <span>{g.toUpperCase()}</span>
+            </label>
+          ))}
+        </div>
 
-  {["male", "female", "other"].map((g) => (
-    <div key={g}>
-      <input
-        type="radio"
-        id={`gender-${g}`}
-        name="gender"
-        checked={form.gender === g}
-        onChange={() =>
-          setForm({ ...form, gender: g })
-        }
-      />
-      <label htmlFor={`gender-${g}`}>
-        {g.toUpperCase()}
-      </label>
-    </div>
-  ))}
-</fieldset>
-
-        <button type="submit" className="save-btn">
-          Save
-        </button>
+        <button className="save-btn">Save</button>
       </form>
     </div>
   );

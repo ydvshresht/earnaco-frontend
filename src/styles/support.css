@@ -1,64 +1,124 @@
+.support-screen {
+  min-height: 100vh;
+  padding: 20px;
+  background: radial-gradient(circle, #1b1b1b, #000);
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+}
 
-    h2 {
-      margin: 0;
-      font-size: 26px;
-      font-weight: bold;
-    }
+/* HEADER */
+.support-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
 
-    p.subtitle {
-      color: #777;
-      font-size: 14px;
-      margin-top: 5px;
-      margin-bottom: 25px;
-      text-align: center;
-      align-items: center;
-    }
-    .support-box button {
-  width: 100%;
-  padding: 15px;
-  background: #f7f7f7;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: 500;
+.support-header i {
+  font-size: 26px;
   cursor: pointer;
-  text-align: left;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  margin-bottom: 10px;
 }
 
-.support-box button:hover {
-  background: #eeeeee;
-}
-.support-box small {
-  font-size: 12px;  color:gray;
-}
-
-
-    h3 {
-      margin-top: 30px;
-      font-size: 20px;
-      border-bottom: 2px solid #007bff;
-      display: inline-block;
-      padding-bottom: 4px;
-    }
-
-    .faq-item {
-  padding: 10px;
-  background: #f7f7f7;
-  border-radius: 8px;
-  margin: 5px 0;
-  cursor: pointer;
-  font-weight: 500;
+/* CARD */
+.support-card {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(16px);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
 }
 
-.faq-item:hover {
-  background: #ececec;
-}
-
-.faq-answer {
-  display: none;
+.support-card label {
   font-size: 14px;
-  color: gray;
-  margin-top:5px;
+  opacity: 0.8;
+}
+
+.support-card input,
+.support-card textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.06);
+  border: none;
+  border-radius: 14px;
+  padding: 12px;
+  color: #fff;
+  margin: 10px 0;
+  font-family: inherit;
+}
+
+.support-card textarea {
+  resize: none;
+  min-height: 90px;
+}
+
+.support-card button {
+  margin-top: 10px;
+  background: rgba(255,255,255,0.15);
+  border: none;
+  padding: 12px 20px;
+  border-radius: 14px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.support-card button:disabled {
+  opacity: 0.5;
+}
+
+/* TICKETS */
+.ticket-title {
+  margin: 25px 0 10px;
+  font-weight: 500;
+}
+
+.empty-ticket {
+  background: rgba(255,255,255,0.06);
+  padding: 14px;
+  border-radius: 14px;
+  text-align: center;
+  opacity: 0.6;
+}
+
+/* TICKET CARD */
+.ticket-card {
+  background: rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
+}
+
+.ticket-card h4 {
+  margin: 0 0 6px;
+}
+
+.ticket-card p {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.status {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.12);
+}
+
+.status.open {
+  color: #ff9800;
+}
+
+.status.closed {
+  color: #4caf50;
+}
+
+.reply {
+  margin-top: 10px;
+  background: rgba(255,255,255,0.05);
+  padding: 10px;
+  border-radius: 12px;
+  font-size: 13px;
 }

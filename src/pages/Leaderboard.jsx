@@ -36,75 +36,68 @@ function Leaderboard() {
 
   if (loading) return <h3>Loading leaderboard...</h3>;
 
-  return (
-    <div className="screen">
+   return (
+    <div className="leaderboard-screen">
+
+      {/* BACK */}
       <i
-        className="material-icons"
+        className="material-icons back"
         onClick={() => navigate("/entry")}
-        style={{ cursor: "pointer" }}
       >
         arrow_back
       </i>
 
-      {/* HEADER */}
-      <div className="coupon-header">
+      {/* TABS */}
+      <div className="leaderboard-tabs">
         <div
-          className="header-item"
+          className="tab"
           onClick={() => navigate(`/contest/${contestId}`)}
         >
           CONTEST
         </div>
-        <div className="header-item">LEADERBOARD</div>
+        <div className="tab active">LEADERBOARD</div>
         <div
-  className="header-item"
-  onClick={() => navigate(`/my-test/${contestId}`)}
->
-  MY TEST
-</div>
+          className="tab"
+          onClick={() => navigate(`/my-test/${contestId}`)}
+        >
+          MY TEST
+        </div>
       </div>
 
-      {/* TABLE */}
-      <table>
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Name</th>
-            <th>User ID</th>
-            <th>Score</th>
-            <th>Time</th>
-            {/* Optional */}
-            {/* <th>Reward 🪙</th> */}
-          </tr>
-        </thead>
+      {/* TABLE CARD */}
+      <div className="table-card">
 
-        <tbody>
-          {leaders.length === 0 ? (
-            <tr>
-              <td colSpan="5">Results will be declared at 7 PM</td>
-            </tr>
-          ) : (
-            leaders.map((item, index) => {
-              const minutes = Math.floor(item.timeTaken / 60);
-              const seconds = item.timeTaken % 60;
+        {/* HEADER ROW */}
+        <div className="table-head">
+          <span>Rank</span>
+          <span>Name</span>
+          <span>User ID</span>
+          <span>Score</span>
+          <span>Time</span>
+        </div>
 
-              return (
-                <tr key={item._id}>
-                  <td>#{index + 1}</td>
-                  <td>{item.user?.fullName || "—"}</td>
-                  <td>{item.user?.userId || "—"}</td>
-                  <td>{item.score}</td>
-                  <td>
-                    {minutes}m {seconds}s
-                  </td>
+        {/* EMPTY STATE */}
+        {leaders.length === 0 ? (
+          <div className="empty-row">
+            Results will be declared at <b>7 PM</b>
+          </div>
+        ) : (
+          leaders.map((item, index) => {
+            const min = Math.floor(item.timeTaken / 60);
+            const sec = item.timeTaken % 60;
 
-                  {/* Optional Coin Reward */}
-                  {/* <td>{item.reward || 0} 🪙</td> */}
-                </tr>
-              );
-            })
-          )}
-        </tbody>
-      </table>
+            return (
+              <div className="table-row" key={item._id}>
+                <span>#{index + 1}</span>
+                <span>{item.user?.fullName || "—"}</span>
+                <span>{item.user?.userId || "—"}</span>
+                <span>{item.score}</span>
+                <span>{min}m {sec}s</span>
+              </div>
+            );
+          })
+        )}
+      </div>
     </div>
   );
 }

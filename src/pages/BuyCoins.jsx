@@ -76,42 +76,58 @@ function BuyCoins() {
   };
 
   return (
-    <div className="screen">
+    <div className="buy-screen">
+
       {/* BACK */}
       <i
-        className="material-icons"
+        className="material-icons back-btn"
         onClick={() => navigate("/wallet")}
       >
         arrow_back
       </i>
 
-      <h1>Buy Coins</h1>
+      {/* TITLE */}
+      <h1 className="buy-title">Buy Coins</h1>
 
-      {/* BALANCE */}
-      <div className="available">
-        Your Coins: 🪙 {coins}
+      {/* COINS INFO */}
+      <div className="coin-info">
+        Your Coins: <span>🪙 {coins}</span>
       </div>
 
-      {/* COIN PACKS */}
-      <div className="quick-buttons">
-        <button onClick={() => buyCoins(50)} disabled={loading}>
-          ₹29 → 50 🪙
-        </button>
-        <button onClick={() => buyCoins(120)} disabled={loading}>
-          ₹59 → 120 🪙
-        </button>
-        <button onClick={() => buyCoins(250)} disabled={loading}>
-          ₹99 → 250 🪙
-        </button>
+      {/* COIN IMAGE */}
+      <div className="coin-stack">
+        🪙🪙🪙
+      </div>
+
+      {/* PACKS */}
+      <div className="pack" onClick={() => buyCoins(50, 29)}>
+        <span>₹29</span>
+        <span>–</span>
+        <span>50 🪙</span>
+      </div>
+
+      <div className="pack" onClick={() => buyCoins(120, 59)}>
+        <span>₹59</span>
+        <span>–</span>
+        <span>120 🪙</span>
+      </div>
+
+      <div className="pack" onClick={() => buyCoins(250, 99)}>
+        <span>₹99</span>
+        <span>–</span>
+        <span>250 🪙</span>
       </div>
 
       {/* INFO */}
-      <div style={{ marginTop: "20px", fontSize: "13px", opacity: 0.7 }}>
-        • Coins are virtual and non-withdrawable  
-        <br />
-        • Coins can be used to join contests  
-        <br />
-        • Secure payment via Razorpay
+      <ul className="info-list">
+        <li>Coins are virtual and non-withdrawable</li>
+        <li>Coins can be used to join contests</li>
+        <li>Secure payment via Razorpay</li>
+      </ul>
+
+      {/* RAZORPAY */}
+      <div className="razorpay">
+        Razorpay
       </div>
     </div>
   );

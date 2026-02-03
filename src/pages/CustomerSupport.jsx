@@ -39,23 +39,33 @@ const navigate = useNavigate();
     }
   };
 
-  return (
-    <div className="screen">
-        <div className="icon-text"><i className="material-icons" onClick={() => navigate("/profile")}>arrow_back</i>
-      Customer Support</div>
+   return (
+    <div className="support-screen">
 
-      {/* NEW TICKET */}
-      <div className="card">
+      {/* HEADER */}
+      <div className="support-header">
+        <i
+          className="material-icons"
+          onClick={() => navigate("/profile")}
+        >
+          arrow_back
+        </i>
+        <span>Customer Support</span>
+      </div>
+
+      {/* NEW TICKET CARD */}
+      <div className="support-card">
+        <label>Subject</label>
         <input
           placeholder="Subject"
           value={subject}
-          onChange={(e) => setSubject(e.target.value)}
+          onChange={e => setSubject(e.target.value)}
         />
 
         <textarea
           placeholder="Describe your issue"
           value={message}
-          onChange={(e) => setMessage(e.target.value)}
+          onChange={e => setMessage(e.target.value)}
         />
 
         <button onClick={submitTicket} disabled={loading}>
@@ -64,13 +74,15 @@ const navigate = useNavigate();
       </div>
 
       {/* MY TICKETS */}
-      <h3>My Tickets</h3>
+      <h3 className="ticket-title">My Tickets</h3>
 
       {tickets.length === 0 ? (
-        <p>No support tickets yet</p>
+        <div className="empty-ticket">
+          No support tickets yet
+        </div>
       ) : (
-        tickets.map((t) => (
-          <div className="ticket" key={t._id}>
+        tickets.map(t => (
+          <div className="ticket-card" key={t._id}>
             <h4>{t.subject}</h4>
             <p>{t.message}</p>
 
@@ -80,7 +92,7 @@ const navigate = useNavigate();
 
             {t.reply && (
               <div className="reply">
-                <strong>Support Reply:</strong>
+                <strong>Support Reply</strong>
                 <p>{t.reply}</p>
               </div>
             )}

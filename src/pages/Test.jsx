@@ -110,67 +110,81 @@ const submitTest = async () => {
   if (loading) return <h3>Loading test...</h3>;
   if (result) {
     return (
-      <div className="screen">
-        <h2>Result</h2>
-        <p>Correct: {result.correct}</p>
-        <p>Wrong: {result.wrong}</p>
-        <button onClick={() => navigate("/entry")}>
-          Back to Entry
-        </button>
+    <div className="test-screen">
+
+      {/* TIMER + PROGRESS */}
+      <div className="top-bar">
+        <div className="timer">
+          ⏱ {Math.floor(timeLeft / 60)}:
+          {String(timeLeft % 60).padStart(2, "0")}
+        </div>
+
+        <div className="progress">
+          {questions.map((_, i) => (
+            <span
+              key={i}
+              className={i <= currentIndex ? "dot active" : "dot"}
+            />
+          ))}
+        </div>
       </div>
-    );
-  }
 
-  const q = questions[currentIndex];
+      {/* QUESTION COUNT */}
+      <p className="q-count">
+        Question {currentIndex + 1} of {questions.length}
+      </p>
 
-  return (
-    <div className="screen">
-      <h3>
-        ⏱ {Math.floor(timeLeft / 60)}:
-        {String(timeLeft % 60).padStart(2, "0")}
-      </h3>
+      {/* QUESTION */}
+      <div className="question-box">
+        {q.question}
+      </div>
 
-      <h4>
-        Question {currentIndex + 1}/{questions.length}
-      </h4>
+      {/* OPTIONS */}
+      <div className="options">
+        {q.options.map((opt, i) => (
+          <label
+            key={i}
+            className={
+              answers[currentIndex] === i
+                ? "option selected"
+                : "option"
+            }
+          >
+            <span>{opt}</span>
+            <input
+              type="radio"
+              checked={answers[currentIndex] === i}
+              onChange={() => {
+                const copy = [...answers];
+                copy[currentIndex] = i;
+                setAnswers(copy);
+              }}
+            />
+          </label>
+        ))}
+      </div>
 
-      <h2>{q.question}</h2>
-
-      {q.options.map((opt, i) => (
-        <label key={i}>
-          <input
-            type="radio"
-            checked={answers[currentIndex] === i}
-            onChange={() => {
-              const copy = [...answers];
-              copy[currentIndex] = i;
-              setAnswers(copy);
-            }}
-          />
-          {opt}
-        </label>
-      ))}
-
-      <br />
-
-      <button
-        disabled={currentIndex === 0}
-        onClick={() => setCurrentIndex(i => i - 1)}
-      >
-        Previous
-      </button>
-
-      {currentIndex === questions.length - 1 ? (
-        <button onClick={submitTest} style={{ color: "red" }}>
-          Submit
+      {/* NAV BUTTONS */}
+      <div className="nav-buttons">
+        <button
+          disabled={currentIndex === 0}
+          onClick={() => setCurrentIndex(i => i - 1)}
+        >
+          Previous
         </button>
-      ) : (
-        <button onClick={() => setCurrentIndex(i => i + 1)}>
-          Next
-        </button>
-      )}
+
+        {currentIndex === questions.length - 1 ? (
+          <button className="submit" onClick={submitTest}>
+            Submit
+          </button>
+        ) : (
+          <button onClick={() => setCurrentIndex(i => i + 1)}>
+            Next
+          </button>
+        )}
+      </div>
     </div>
   );
 }
-
+}
 export default Test;

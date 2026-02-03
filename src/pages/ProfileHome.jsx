@@ -39,48 +39,45 @@ function ProfileHome() {
     loadData();
   }, []);
 
-  return (
-    <div className="screen">
+   return (
+    <div className="profile-home-screen">
+
       {/* HEADER */}
-      <div className="icon-text">
+      <div className="profile-top">
         <i
           className="material-icons"
           onClick={() => navigate("/entry")}
         >
           arrow_back
         </i>
-        Profile
+        <span>Profile</span>
       </div>
 
       {/* PROFILE CARD */}
-      <div className="profile-header">
-        <img
-          className="profile-pic"
-          src={photo}
-          alt="Profile"
-        />
+      <div className="profile-card">
+        <img src={photo} alt="profile" className="avatar" />
 
-        <h5>{user?.fullName}</h5>
-        <p className="user-id">ID: {user?.userId}</p>
+        <h4>{user?.fullName}</h4>
+        <p>ID: {user?.userId}</p>
 
-        {/* COIN WALLET */}
         <div
-          className="wallet"
+          className="coin-badge"
           onClick={() => navigate("/wallet")}
         >
-        
           🪙 {coins}
         </div>
       </div>
 
       {/* MENU */}
-      <div className="menu">
+      <div className="profile-menu">
+
         <div
           className="menu-item"
           onClick={() => navigate("/profile/details")}
         >
           <i className="material-icons">person</i>
           Personal Details
+          <span>›</span>
         </div>
 
         <div
@@ -89,6 +86,7 @@ function ProfileHome() {
         >
           <i className="material-icons">assignment</i>
           My Entry
+          <span>›</span>
         </div>
 
         <div
@@ -97,6 +95,7 @@ function ProfileHome() {
         >
           <i className="material-icons">group_add</i>
           Refer & Earn
+          <span>›</span>
         </div>
 
         <div
@@ -105,9 +104,9 @@ function ProfileHome() {
         >
           <i className="material-icons">support_agent</i>
           Customer Support
+          <span>›</span>
         </div>
 
-        {/* ADMIN PANEL */}
         {user?.role === "admin" && (
           <div
             className="menu-item admin"
@@ -117,15 +116,13 @@ function ProfileHome() {
               admin_panel_settings
             </i>
             Admin Panel
+            <span>›</span>
           </div>
         )}
       </div>
 
       {/* LOGOUT */}
-      <button
-        className="logout-btn"
-        onClick={handleLogout}
-      >
+      <button className="logout-btn" onClick={handleLogout}>
         Logout
       </button>
     </div>

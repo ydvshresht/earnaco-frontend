@@ -17,15 +17,11 @@ function Refer() {
   }, []);
 
   const shareMessage = `Earnaco 🪙
-
 Learn • Play • Win Coins
-
 Use my referral code:
 ${refCode}
-
 🎁 You get 1 Coin
 🎁 I get 1 Coin
-
 Join now 👇
 ${WEBSITE_LINK}/register?ref=${refCode}`;
 
@@ -48,6 +44,7 @@ ${WEBSITE_LINK}/register?ref=${refCode}`;
 
   return (
     <div className="refer-screen">
+
       {/* HEADER */}
       <div className="refer-header">
         <i className="material-icons" onClick={() => navigate(-1)}>
@@ -56,8 +53,10 @@ ${WEBSITE_LINK}/register?ref=${refCode}`;
         <span>Refer & Earn</span>
       </div>
 
-      {/* CARD */}
+      {/* MAIN CARD */}
       <div className="refer-card">
+
+        {/* BANNER */}
         <img
           src="/assets/refer-banner.png"
           alt="Refer & Earn"
@@ -69,7 +68,7 @@ ${WEBSITE_LINK}/register?ref=${refCode}`;
           Share your referral code and earn coins when your friend joins.
         </p>
 
-        {/* COIN INFO */}
+        {/* REWARD */}
         <div className="reward-box">
           <div>
             <span>🪙</span>
@@ -83,17 +82,17 @@ ${WEBSITE_LINK}/register?ref=${refCode}`;
           </div>
         </div>
 
-        {/* REF CODE */}
+        {/* CODE */}
         <div className="ref-code">
           <span>{refCode}</span>
           <button onClick={copyCode}>Copy</button>
         </div>
 
-        {/* ACTIONS */}
+        {/* SHARE */}
         <button className="whatsapp-btn" onClick={shareWhatsApp}>
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-            alt="WhatsApp"
+            alt=""
           />
           Share on WhatsApp
         </button>
@@ -101,7 +100,7 @@ ${WEBSITE_LINK}/register?ref=${refCode}`;
         <button className="insta-btn" onClick={shareInstagram}>
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
-            alt="Instagram"
+            alt=""
           />
           Share on Instagram
         </button>
