@@ -1,117 +1,146 @@
-.entry-screen {
-  min-height: 100vh;
-  padding: 20px;
-  background: radial-gradient(circle, #1b1b1b, #000);
-  color: #fff;
-  font-family: "Poppins", sans-serif;
-}
+    header{
+           
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 25px;
+            border-radius: 0 0 12px 12px;
+        }
+    .profile{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+    }
+     .photo-sect {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+    }
 
-/* PROFILE CARD */
-.profile-card {
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(16px);
-  border-radius: 18px;
-  padding: 14px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
-}
+    .photo-sect img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      
+    }
 
-.profile-left {
-  display: flex;
-  gap: 14px;
-  align-items: center;
-}
+    .profile-info h2 {
+            margin: 0;
+            font-size: 14px;
+            text-align: left;
+        }
 
-.profile-left img {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.profile-left h3 {
-  margin: 0;
-  font-size: 16px;
-}
-
-.profile-left p {
-  margin: 0;
-  font-size: 12px;
-  opacity: 0.7;
-}
-
-.coin-box {
-  background: rgba(255,255,255,0.12);
-  padding: 8px 14px;
-  border-radius: 14px;
-  cursor: pointer;
-}
-
-/* TABS */
-.entry-tabs {
-  margin: 20px 0;
-  display: flex;
-  background: rgba(255,255,255,0.06);
-  border-radius: 18px;
-  padding: 4px;
-}
-
-.tab {
-  flex: 1;
-  text-align: center;
-  padding: 10px 0;
-  border-radius: 14px;
-  opacity: 0.6;
-  cursor: pointer;
-}
-
-.tab.active {
-  background: rgba(255,255,255,0.15);
-  opacity: 1;
-}
-
-/* CONTEST CARD */
-.entry-list {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.contest-card {
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(14px);
-  border-radius: 16px;
-  padding: 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
-  cursor: pointer;
-}
-
-.contest-left {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.coin-line {
-  font-size: 16px;
-}
-
-.prize-line {
+    .profile-info p {
+            margin: 0;
+            font-size: 9px;
+            color: gray;
+        }
+.test-name {
+  font-weight: 600;
   font-size: 14px;
-  opacity: 0.8;
+  margin-bottom: 6px;
+  color: white;
 }
 
-.contest-right {
-  font-size: 18px;
-  color: #ff5252;
+.entry-meta {
+  display: flex;
+  gap: 12px;
+  font-size: 13px;
+  opacity: 0.85;
 }
 
-.empty {
-  text-align: center;
-  opacity: 0.6;
-}
+   
+     main {
+            padding: 20px;
+
+    }
+    h3 {
+        margin-bottom: 10px;
+        font-size: 18px;
+        color: #aca7a7;
+
+    }
+    .entry.list {
+        display: flex;
+        
+        
+        
+
+    }
+    .entry-card {
+         background: rgb(255,255,255,0.1);
+        border-radius: 12px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content:space-between;
+        align-items: center;
+        padding: 15px;
+        margin-bottom: 10PX;
+        
+  
+
+    }
+    .entry-card:hover {
+        background: rgb(255,255,255,0.1)
+    }
+    .entry-left {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+    }
+    .entry-left span:first-child {
+        font-weight: bold;
+        font-size: 16px;
+
+    }
+    .entry-left span:last-child{
+        font-size: 13px;
+        color: #666;
+
+    }
+    .entry-right {
+        font-weight: bold;
+        font-size: 14px;
+       
+        padding: 6px 12px;
+        border-radius: 8px;
+        color: red;
+    }
+    .title-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        text-align: center;
+        font-weight: bold;
+        font-size: 16px;
+        
+        margin-bottom: 15px;
+        
+        border-radius: 8px;
+        padding: 8px 16px;
+        
+  color: var(--text-main);
+  border-radius: 10px;
+
+    }
+     .row-item {
+            transition: 0.3s ease;
+            cursor: pointer;
+            
+     }
+        
+        .row-item:nth-child(1):hover{
+            background: #ffffff1a;
+            border-radius: 8px;
+            
+            
+           
+        }
+        .row-item:nth-child(2):hover {
+            background: rgb(255,255,255,0.1);
+            border-radius: 8px;
+        }
+
