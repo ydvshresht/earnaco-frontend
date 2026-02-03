@@ -156,16 +156,14 @@ function ContestPage() {
           <li>No negative marking</li>
           <li>🔒 Test can be attempted only once</li>
         </ul>
-      </div>
-
-      {/* ERROR / INFO BAR */}
-      {attempted && (
-        <div className="error-box">
-          ❌ Test already attempted — check leaderboard
-        </div>
-      )}
-    </div>
-  );
-}
+      
+<div className="bottom-section"> {/* NOT JOINED */} {!alreadyJoined && ( <> <button className="agree-btn" disabled={!agree || buying} 
+onClick={joinContest} > {buying ? "Unlocking..." : `Unlock 🪙 ${contest.entryFee}`} 
+</button> <label> <input type="checkbox" checked={agree} onChange={() => setAgree(!agree)} /> I agree to instructions </label> 
+</> )} {/* START */} {alreadyJoined && !attempted && !startedOnce && 
+( <button className="agree-btn" onClick={startTest}> Start Test 🚀 </button> )}
+ {/* IN PROGRESS */} {alreadyJoined && !attempted && startedOnce && ( <p style={{ color: "#ff9800", fontWeight: "bold" }}>
+   ⏳ Test in progress — do not refresh </p> )} {/* ATTEMPTED */} {alreadyJoined && attempted && ( <p style={{ color: "red", fontWeight: "bold" }}> ❌ Test already attempted — check leaderboard </p> )} 
+   </div> </div> </div> ); }
 
 export default ContestPage;
