@@ -68,8 +68,9 @@ function BuyCoins() {
 
       new window.Razorpay(options).open();
     } catch (err) {
-      alert("Payment failed");
-    } finally {
+  alert(err.response?.data?.msg || "Payment failed");
+}
+ finally {
       setLoading(false);
     }
   };
