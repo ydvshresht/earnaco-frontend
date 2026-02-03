@@ -48,16 +48,16 @@ function Leaderboard() {
       </i>
 
       {/* TABS */}
-      <div className="leaderboard-tabs">
+      <div className="coupon-header">
         <div
-          className="tab"
+          className="header-item"
           onClick={() => navigate(`/contest/${contestId}`)}
         >
           CONTEST
         </div>
-        <div className="tab active">LEADERBOARD</div>
+        <div className="header-item">LEADERBOARD</div>
         <div
-          className="tab"
+          className="header-item"
           onClick={() => navigate(`/my-test/${contestId}`)}
         >
           MY TEST

@@ -75,7 +75,7 @@ function Entry() {
       {/* ENTRY LIST */}
       <div className="entry-list">
         {contests.length === 0 ? (
-          <p>No contests available.</p>
+          <p2>No contests available.</p2>
         ) : (
           contests.map((contest) => (
             <div
