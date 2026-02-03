@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/api";
-import "../styles/entry.css";
+import "../styles/myentry.css";
 import useProfile from "../hooks/useProfile";
 
 function MyEntry() {
@@ -104,13 +104,13 @@ function MyEntry() {
       </div>
 
       {/* CONTENT */}
-      {joined.length === 0 ? (
+      {joinedContests.length === 0 ? (
         <div className="empty">
           You have not joined any contests yet.
         </div>
       ) : (
         <div className="entry-list">
-          {joined.map(contest => (
+          {joinedContests.map(contest => (
             <div
               key={contest._id}
               className="entry-card"
