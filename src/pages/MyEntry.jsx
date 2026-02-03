@@ -117,7 +117,7 @@ function MyEntry() {
               onClick={() => handleContestClick(contest)}
             >
               <div className="entry-left">
-                 <span>{c.test?.testName}</span>
+                 <span>{contest.test?.testName}</span>
                 <span>🪙 {contest.entryFee}</span>
                 <span>🏆 {contest.prizePool} Coins</span>
               </div>
