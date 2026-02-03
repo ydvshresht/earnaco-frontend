@@ -6,7 +6,8 @@ import "../styles/mytest.css";
 function MyTest() {
   const navigate = useNavigate();
   const { contestId } = useParams();
-   const [contest, setContest] = useState(null);
+
+  const [contest, setContest] = useState(null);
   const [tests, setTests] = useState([]);
   const [openIndex, setOpenIndex] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -14,30 +15,31 @@ function MyTest() {
   useEffect(() => {
     if (!contestId) return;
 
-    const loadTests = async () => {
+    const loadData = async () => {
       try {
         setLoading(true);
-        const res = await API.get(`/results/my-tests/${contestId}`);
-        setTests(res.data);
-         const contestRes = await API.get(`/contests/${contestId}`);
-    setContest(contestRes.data);
+        // Using Promise.all to fetch both datasets simultaneously
+        const [resultsRes, contestRes] = await Promise.all([
+          API.get(`/results/my-tests/${contestId}`),
+          API.get(`/contests/${contestId}`)
+        ]);
+
+        setTests(resultsRes.data);
+        setContest(contestRes.data);
       } catch (err) {
-        console.error(err);
+        console.error("Error loading MyTest data:", err);
         alert("Failed to load test results");
       } finally {
         setLoading(false);
       }
     };
 
-    loadTests();
+    loadData();
   }, [contestId]);
 
   const toggleResult = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
-
-  // Get the first test's ID to link back to the leaderboard
-  const testId = tests[0]?.test?._id || null;
 
   if (loading) return <div className="screen"><h3>Loading results...</h3></div>;
 
@@ -45,35 +47,50 @@ function MyTest() {
     <div className="screen">
       {/* BACK BUTTON */}
       <div className="icon-text">
-        <i className="material-icons" onClick={() => navigate("/entry")}>
+        <i 
+          className="material-icons" 
+          onClick={() => navigate("/entry")}
+          style={{ cursor: "pointer" }}
+        >
           arrow_back
         </i>
       </div>
 
       {/* NAVIGATION TABS */}
       <div className="coupon-header">
-        <div className="header-item" onClick={() => navigate(`/contest/${contestId}`)}>
+        <div 
+          className="header-item" 
+          onClick={() => navigate(`/contest/${contestId}`)}
+        >
           CONTEST
         </div>
+        
         <div
           className="header-item"
           onClick={() => {
-            if (!testId) return alert("Leaderboard not available");
-            navigate(`/leaderboard/${contest.test._id}?contest=${contest._id}`);
+            // FIX: Use contest object instead of tests array for navigation
+            if (contest?.test?._id) {
+              navigate(`/leaderboard/${contest.test._id}?contest=${contest._id}`);
+            } else {
+              alert("Leaderboard information is currently unavailable.");
+            }
           }}
         >
           LEADERBOARD
         </div>
+
         <div className="header-item active">MY TEST</div>
       </div>
 
       {/* RESULT LIST */}
       <div className="results-container">
         {tests.length === 0 ? (
-          <p className="no-data">No tests attempted in this contest.</p>
+          <div className="no-data-card">
+            <p>No tests attempted in this contest yet.</p>
+            
+          </div>
         ) : (
           tests.map((test, index) => {
-            // Logic to calculate stats dynamically
             const answersArray = test.answers ? Object.values(test.answers) : [];
             const correctCount = answersArray.filter(a => a.userAnswer === a.correctAnswer).length;
             const incorrectCount = answersArray.filter(a => a.userAnswer && a.userAnswer !== a.correctAnswer).length;
@@ -111,15 +128,21 @@ function MyTest() {
                     <div className="question-list">
                       {answersArray.map((q, i) => {
                         const isCorrect = q.userAnswer === q.correctAnswer;
+                        const isSkipped = !q.userAnswer;
+                        
                         return (
                           <div key={i} className={`question-item ${isCorrect ? "is-right" : "is-wrong"}`}>
                             <h4>Q{i + 1}. {q.question}</h4>
-                            <p>Your Answer: <span className={isCorrect ? "text-green" : "text-red"}>
-                              {q.userAnswer || "Not Answered"}
-                            </span></p>
-                            {!isCorrect && <p className="correct-ans">Correct Answer: {q.correctAnswer}</p>}
+                            <p>Your Answer: 
+                              <span className={isCorrect ? "text-green" : isSkipped ? "text-orange" : "text-red"}>
+                                {q.userAnswer || "Not Answered"}
+                              </span>
+                            </p>
+                            {!isCorrect && (
+                              <p className="correct-ans">Correct Answer: {q.correctAnswer}</p>
+                            )}
                             <span className={`status-tag ${isCorrect ? "right" : "wrong"}`}>
-                              {isCorrect ? "Correct" : "Incorrect"}
+                              {isCorrect ? "Correct" : isSkipped ? "Skipped" : "Incorrect"}
                             </span>
                           </div>
                         );
