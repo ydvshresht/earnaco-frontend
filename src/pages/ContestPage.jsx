@@ -117,7 +117,7 @@ function ContestPage() {
 
      {/* HEADER */}
       <div className="coupon-header">
-        <div className="header-item">CONTEST</div>
+        <div className="header-item active">CONTEST</div>
         <div
           className="header-item"
           onClick={() =>

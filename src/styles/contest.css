@@ -41,7 +41,12 @@
 
         }
 
-
+.header-item.active {
+  background: gold;
+  color: #000;
+  opacity: 1;
+  font-weight: bold;
+}
 
         .winner {
             background: #fff7d6;
