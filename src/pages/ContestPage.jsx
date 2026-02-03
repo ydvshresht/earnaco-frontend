@@ -16,52 +16,52 @@ function ContestPage() {
   const [startedOnce, setStartedOnce] = useState(false);
 
   /* =====================
-     LOAD DATA
+     LOAD DATA (ONCE)
   ===================== */
   const loadData = async () => {
-  try {
-    const userRes = await API.get("/auth/me");
-    setUser(userRes.data);
+    try {
+      const userRes = await API.get("/auth/me");
+      setUser(userRes.data);
 
-    const contestRes = await API.get(`/contests/${contestId}`);
-    setContest(contestRes.data);
+      const contestRes = await API.get(`/contests/${contestId}`);
+      setContest(contestRes.data);
 
-    const attemptRes = await API.get(
-      `/results/attempted/${contestId}`
+      const attemptRes = await API.get(
+        `/results/attempted/${contestId}`
+      );
+      setAttempted(attemptRes.data.attempted);
+
+      if (attemptRes.data.attempted) {
+        sessionStorage.removeItem(
+          `started-${contestId}-${userRes.data._id}`
+        );
+        setStartedOnce(false);
+      }
+    } catch {
+      alert("Failed to load contest");
+      navigate("/entry");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  /* LOAD ON CONTEST CHANGE */
+  useEffect(() => {
+    loadData();
+  }, [contestId]);
+
+  /* RESTORE STARTED STATE */
+  useEffect(() => {
+    if (!user) return;
+
+    const started = sessionStorage.getItem(
+      `started-${contestId}-${user._id}`
     );
-    setAttempted(attemptRes.data.attempted);
 
-    // 🔥 if attempted, clear started flag
-   if (attemptRes.data.attempted) {
-  sessionStorage.removeItem(
-    `started-${contestId}-${user._id}`
-  );
-  setStartedOnce(false);
-}
-
-
-  } catch {
-    alert("Failed to load contest");
-    navigate("/entry");
-  } finally {
-    setLoading(false);
-  }
-};
-
-
-  /* restore started state */
- useEffect(() => {
-  if (!user) return;
-
-  const started = sessionStorage.getItem(
-    `started-${contestId}-${user._id}`
-  );
-
-  if (started === "true") {
-    setStartedOnce(true);
-  }
-}, [contestId, user]);
-
+    if (started === "true") {
+      setStartedOnce(true);
+    }
+  }, [contestId, user]);
 
   if (loading) return <h3>Loading...</h3>;
   if (!contest || !contest.test || !user) return null;
@@ -96,11 +96,10 @@ function ContestPage() {
       const res = await API.get(`/contests/can-start/${contestId}`);
       if (!res.data.allowed) return alert("Not allowed");
 
-     sessionStorage.setItem(
-  `started-${contestId}-${user._id}`,
-  "true"
-);
-
+      sessionStorage.setItem(
+        `started-${contestId}-${user._id}`,
+        "true"
+      );
 
       setStartedOnce(true);
       navigate(`/test/${contest.test._id}?contest=${contest._id}`);
@@ -119,27 +118,26 @@ function ContestPage() {
         arrow_back
       </i>
 
-     {/* HEADER */}
       <div className="coupon-header">
         <div className="header-item active">CONTEST</div>
         <div
           className="header-item"
           onClick={() =>
-            navigate(`/leaderboard/${contest.test._id}?contest=${contest._id}`)
+            navigate(
+              `/leaderboard/${contest.test._id}?contest=${contest._id}`
+            )
           }
         >
           LEADERBOARD
         </div>
-       <div
-  className="header-item"
-  onClick={() => navigate(`/my-test/${contestId}`)}
->
-  MY TEST
-</div>
-
+        <div
+          className="header-item"
+          onClick={() => navigate(`/my-test/${contestId}`)}
+        >
+          MY TEST
+        </div>
       </div>
 
-      {/* DETAILS */}
       <div className="test-container">
         <div className="test-details">
           <span>Duration: {contest.test.duration} mins</span>
@@ -155,9 +153,8 @@ function ContestPage() {
           <li>No negative marking</li>
           <li>Test can be attempted only once</li>
         </ul>
-        <div className="bottom-section">
 
-          {/* NOT JOINED */}
+        <div className="bottom-section">
           {!alreadyJoined && (
             <>
               <button
@@ -175,32 +172,29 @@ function ContestPage() {
                   type="checkbox"
                   checked={agree}
                   onChange={() => setAgree(!agree)}
-                /> I agree to instructions
+                />{" "}
+                I agree to instructions
               </label>
             </>
           )}
 
-          {/* START */}
           {alreadyJoined && !attempted && !startedOnce && (
             <button className="agree-btn" onClick={startTest}>
               Start Test 🚀
             </button>
           )}
 
-          {/* IN PROGRESS */}
           {alreadyJoined && !attempted && startedOnce && (
             <p style={{ color: "#ff9800", fontWeight: "bold" }}>
               ⏳ Test in progress — do not refresh
             </p>
           )}
 
-          {/* ATTEMPTED */}
           {alreadyJoined && attempted && (
             <p style={{ color: "red", fontWeight: "bold" }}>
               ❌ Test already attempted — check leaderboard
             </p>
           )}
-
         </div>
       </div>
     </div>
