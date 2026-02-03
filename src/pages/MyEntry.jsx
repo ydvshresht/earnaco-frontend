@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/api";
-import "../styles/myentry.css";
+import "../styles/entry.css";
 import useProfile from "../hooks/useProfile";
 
 function MyEntry() {
@@ -68,66 +68,62 @@ function MyEntry() {
     )
   );
 
- return (
-    <div className="entry-screen">
-
+  return (
+    <div className="screen">
       {/* HEADER */}
-      <div className="profile-card">
-        <div
-          className="profile-left"
-          onClick={() => navigate("/profile")}
-        >
-          <img src={photo} alt="profile" />
-          <div>
-            <h4>{user?.fullName}</h4>
+      <header>
+        <div className="profile">
+          <div
+            className="photo-sect"
+            onClick={() => navigate("/profile")}
+            style={{ cursor: "pointer" }}
+          >
+            <img src={photo} alt="Profile" />
+          </div>
+
+          <div className="profile-info">
+            <h2>{user?.fullName}</h2>
             <p>ID: {user?.userId}</p>
           </div>
         </div>
 
-        <div
-          className="coin-box"
-          onClick={() => navigate("/wallet")}
-        >
+        <div className="wallet" onClick={() => navigate("/wallet")}>
           🪙 {coins}
         </div>
-      </div>
+      </header>
 
-      {/* TABS */}
-      <div className="tabs">
+      {/* TAB HEADER */}
+      <div className="title-row">
         <div
-          className="tab"
+          className="row-item"
           onClick={() => navigate("/entry")}
         >
           ENTRY
         </div>
-        <div className="tab active">MY ENTRY</div>
+        <div className="row-item active">
+          MY ENTRY
+        </div>
       </div>
 
       {/* CONTENT */}
       {joinedContests.length === 0 ? (
-        <div className="empty">
-          You have not joined any contests yet.
-        </div>
+        <p>You have not joined any contests yet.</p>
       ) : (
         <div className="entry-list">
-          {joinedContests.map(contest => (
+          {joinedContests.map((contest) => (
             <div
               key={contest._id}
               className="entry-card"
               onClick={() => handleContestClick(contest)}
             >
-              <div className="left">
-                <span className="coin">
-                  🪙 {contest.entryFee}
-                </span>
-                <span className="prize">
-                  🏆 {contest.prizePool} Coins
-                </span>
+              <div className="entry-left">
+                 <span>{c.test?.testName}</span>
+                <span>🪙 {contest.entryFee}</span>
+                <span>🏆 {contest.prizePool} Coins</span>
               </div>
 
-              <div className="right">
-                {contest.joinedUsers.length}/
-                {contest.maxSpots}
+              <div className="entry-right">
+                Tap to view
               </div>
             </div>
           ))}

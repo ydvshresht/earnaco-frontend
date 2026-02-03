@@ -21,79 +21,79 @@ function AdminDashboard() {
 
   if (!stats) return <h3>Loading...</h3>;
 
-   return (
-    <div className="admin-screen">
-
+  return (
+    <div className="screen">
       {/* HEADER */}
-      <div className="admin-header">
+      <div className="icon-text">
         <i
           className="material-icons"
           onClick={() => navigate("/profile")}
         >
           arrow_back
         </i>
-        <span>⚙️ Admin Dashboard</span>
+        Admin
       </div>
 
-      {/* STATS GRID */}
-      <div className="stats-grid">
+      <h2>⚙️ Admin Dashboard</h2>
 
-        <div className="stat-card blue">
-          <h4>👥 Total Users</h4>
+      {/* STATS GRID */}
+      <div className="grid">
+        <div className="card">
+          <h3>Total Users</h3>
           <p>{stats.totalUsers}</p>
         </div>
 
-        <div className="stat-card green">
-          <h4>➕ Today’s Signup</h4>
+        <div className="card">
+          <h3>Today's Signup</h3>
           <p>{stats.todayUsers}</p>
         </div>
 
-        <div className="stat-card gold">
-          <h4>🪙 Coins Sold</h4>
+        <div className="card">
+          <h3>🪙 Coins Sold</h3>
           <p>{stats.coinsSold}</p>
         </div>
 
-        <div className="stat-card gold">
-          <h4>🪙 Coins in Circulation</h4>
+        <div className="card">
+          <h3>🪙 Coins in Circulation</h3>
           <p>{stats.totalCoins}</p>
         </div>
 
-        <div className="stat-card purple">
-          <h4>📅 Total Contests</h4>
+        <div className="card">
+          <h3>Total Contests</h3>
           <p>{stats.contests}</p>
         </div>
 
-        <div className="stat-card red">
-          <h4>🚨 Fraud Cases</h4>
+        <div className="card">
+          <h3>Fraud Cases</h3>
           <p>{stats.frauds}</p>
         </div>
 
-        <div className="stat-card orange wide">
-          <h4>❓ Questions</h4>
+        <div className="card">
+          <h3>❓ Questions</h3>
           <p>{stats.questions}</p>
         </div>
-
       </div>
 
-      {/* ACTIONS */}
-      <div className="admin-actions">
+      {/* ADMIN ACTIONS */}
+      <div className="admin-menu">
 
-        <div
-          className="action-card"
-          onClick={() => navigate("/admin/manage-contests")}
-        >
-          🧪 Manage Contests
-          <span>›</span>
-        </div>
 
-        <div
-          className="action-card"
-          onClick={() => navigate("/admin/create-contest-wizard")}
-        >
+        <button onClick={() => navigate("/admin/manage-contests")}>
+          🧪 Manage contest
+        </button>
+
+        <button onClick={() => navigate("/admin/create-contest-wizard")}>
           🏆 Create Contests
-          <span>›</span>
-        </div>
+        </button>
 
+        {/* SECONDARY */}
+        <button onClick={() => navigate("/admin/analytics")}>
+          📊 Analytics
+        </button>
+
+        <button onClick={() => navigate("/admin/fraud")}>
+          🚨 Fraud Monitor
+        </button>
       </div>
     </div>
   );

@@ -22,51 +22,72 @@ function Transactions() {
   }, []);
 
   return (
-    <div className="txn-screen">
-
+    <div className="screen">
       {/* HEADER */}
-      <div className="txn-header">
+      <div className="icon-text">
         <i
           className="material-icons"
           onClick={() => navigate("/wallet")}
         >
           arrow_back
         </i>
-        <span>Transactions</span>
+        Transactions
       </div>
 
-      {/* EMPTY */}
+      {/* EMPTY STATE */}
       {history.length === 0 ? (
-        <p className="empty">No transactions yet</p>
+        <p style={{ textAlign: "center", marginTop: 20 }}>
+          No transactions yet
+        </p>
       ) : (
-        history.map(item => {
-          const credit = item.type === "credit";
+        history.map((item) => {
+          const isCredit = item.type === "credit";
+          const coins = Number(item.coins) || 0;
 
           return (
-            <div className="txn-card" key={item._id}>
-              <div className="txn-left">
-                <h3 className={credit ? "added" : "deducted"}>
-                  {credit ? "Added" : "Deducted"}
-                </h3>
-
-                <p className="date">
-                  {new Date(item.createdAt).toLocaleString()}
-                </p>
-
-                <p className="status success">
-                  {(item.status || "success").toUpperCase()}
-                </p>
-
-                <p className="reason">{item.reason}</p>
-              </div>
-
+            <div className="balance" key={item._id}>
+              {/* TYPE */}
               <div
-                className={`txn-amount ${
-                  credit ? "added" : "deducted"
+                className={`left-type ${
+                  isCredit ? "added" : "withdraw"
                 }`}
               >
-                {credit ? "+" : "-"}🪙{item.coins}
+                {isCredit ? "Added" : "Deducted"}
               </div>
+
+              {/* DATE */}
+              <div className="left-date">
+                {new Date(item.createdAt).toLocaleString()}
+              </div>
+
+              {/* STATUS */}
+              <div
+                className={`status ${
+                  item.status === "pending"
+                    ? "pending"
+                    : item.status === "failed"
+                    ? "failed"
+                    : "success"
+                }`}
+              >
+                {(item.status || "success").toUpperCase()}
+              </div>
+
+              {/* AMOUNT */}
+              <div
+                className={`amount ${
+                  isCredit ? "added" : "withdraw"
+                }`}
+              >
+                {isCredit ? "+" : "-"}🪙{coins}
+              </div>
+
+              {/* REASON */}
+              {item.reason && (
+                <div className="txn-reason">
+                  {item.reason}
+                </div>
+              )}
             </div>
           );
         })

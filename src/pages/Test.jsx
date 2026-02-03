@@ -110,6 +110,20 @@ const submitTest = async () => {
   if (loading) return <h3>Loading test...</h3>;
   if (result) {
     return (
+      <div className="screen">
+        <h2>Result</h2>
+        <p>Correct: {result.correct}</p>
+        <p>Wrong: {result.wrong}</p>
+        <button onClick={() => navigate("/entry")}>
+          Back to Entry
+        </button>
+      </div>
+    );
+  }
+
+  const q = questions[currentIndex];
+
+   return (
     <div className="test-screen">
 
       {/* TIMER + PROGRESS */}
@@ -186,5 +200,5 @@ const submitTest = async () => {
     </div>
   );
 }
-}
+
 export default Test;

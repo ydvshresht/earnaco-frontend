@@ -36,34 +36,36 @@ function Entry() {
     loadData();
   }, [navigate]);
 
-   return (
-    <div className="entry-screen">
+  return (
+    <div className="screen">
+      {/* HEADER */}
+      <header>
+        <div className="profile">
+          <div
+            className="photo-sect"
+            onClick={() => navigate("/profile")}
+            style={{ cursor: "pointer" }}
+          >
+            <img src={photo} alt="Profile" />
+          </div>
 
-      {/* PROFILE CARD */}
-      <div className="profile-card">
-        <div className="profile-left"
-           onClick={() => navigate("/profile")}
-            style={{ cursor: "pointer" }}>
-          <img src={photo} alt="profile" />
-          <div>
-            <h3>{user?.fullName}</h3>
+          <div className="profile-info">
+            <h2>{user?.fullName}</h2>
             <p>ID: {user?.userId}</p>
           </div>
         </div>
 
-        <div
-          className="coin-box"
-          onClick={() => navigate("/wallet")}
-        >
+        {/* 🪙 COINS */}
+        <div className="wallet" onClick={() => navigate("/wallet")}>
           🪙 {coins}
         </div>
-      </div>
+      </header>
 
-      {/* TABS */}
-      <div className="entry-tabs">
-        <div className="tab active">ENTRY</div>
+      {/* TAB HEADER */}
+      <div className="title-row">
+        <div className="row-item active">ENTRY</div>
         <div
-          className="tab"
+          className="row-item"
           onClick={() => navigate("/my-entry")}
         >
           MY ENTRY
@@ -73,31 +75,24 @@ function Entry() {
       {/* ENTRY LIST */}
       <div className="entry-list">
         {contests.length === 0 ? (
-          <p className="empty">No contests available</p>
+          <p>No contests available.</p>
         ) : (
-          contests.map(c => (
+          contests.map((contest) => (
             <div
-              key={c._id}
-              className="contest-card"
+              key={contest._id}
+              className="entry-card"
               onClick={() =>
-                navigate(`/contest/${c._id}`)
+                navigate(`/contest/${contest._id}`)
               }
             >
-              <div className="contest-left">
-                <span>{c.test?.testName}</span>
-                <div className="coin-line">
-                  🪙 {c.entryFee}
-                </div>
-
-                <div className="prize-line">
-                  🏆 {c.prizePool} Coins
-                </div>
+              <div className="entry-left">
+                <span> {contest.test?.testName}</span>
+                <span>🪙 {contest.entryFee}</span>
+                <span>🏆 {contest.prizePool} Coins</span>
               </div>
 
-              <div className="contest-right">
-                <span>
-                  {c.joinedUsers?.length || 0}/{c.maxSpots}
-                </span>
+              <div className="entry-right">
+                {contest.joinedUsers?.length || 0}/{contest.maxSpots}
               </div>
             </div>
           ))

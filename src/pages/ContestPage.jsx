@@ -105,65 +105,102 @@ function ContestPage() {
     }
   };
 
-   return (
-    <div className="contest-screen">
-
-      {/* BACK */}
+  return (
+    <div className="screen">
       <i
-        className="material-icons back"
+        className="material-icons"
         onClick={() => navigate("/entry")}
+        style={{ cursor: "pointer" }}
       >
         arrow_back
       </i>
 
-      {/* TABS */}
-      <div className="contest-tabs">
-        <div className="tab active">CONTEST</div>
+     {/* HEADER */}
+      <div className="coupon-header">
+        <div className="header-item">CONTEST</div>
         <div
-          className="tab"
+          className="header-item"
           onClick={() =>
             navigate(`/leaderboard/${contest.test._id}?contest=${contest._id}`)
           }
         >
           LEADERBOARD
         </div>
-        <div
-          className="tab"
-          onClick={() => navigate(`/my-test/${contestId}`)}
-        >
-          MY TEST
-        </div>
+       <div
+  className="header-item"
+  onClick={() => navigate(`/my-test/${contestId}`)}
+>
+  MY TEST
+</div>
+
       </div>
 
-      {/* DETAILS CARD */}
-      <div className="contest-card">
-
-        {/* TOP INFO */}
-        <div className="top-info">
-          <div className="info">
-            ⏱ Duration: {contest.test.duration} mins
-          </div>
-          <div className="info">
-            ⭐ Max Marks: {contest.test.questions.length}
-          </div>
+      {/* DETAILS */}
+      <div className="test-container">
+        <div className="test-details">
+          <span>Duration: {contest.test.duration} mins</span>
+          <span>
+            Maximum Marks: {contest.test.questions.length}
+          </span>
         </div>
 
-        {/* RULES */}
-        <ul className="rules">
+        <ul className="instructions">
           <li>Total questions: {contest.test.questions.length}</li>
           <li>Each question has 4 options</li>
           <li>+1 for correct answer</li>
           <li>No negative marking</li>
-          <li>🔒 Test can be attempted only once</li>
+          <li>Test can be attempted only once</li>
         </ul>
-      
-<div className="bottom-section"> {/* NOT JOINED */} {!alreadyJoined && ( <> <button className="agree-btn" disabled={!agree || buying} 
-onClick={joinContest} > {buying ? "Unlocking..." : `Unlock 🪙 ${contest.entryFee}`} 
-</button> <label> <input type="checkbox" checked={agree} onChange={() => setAgree(!agree)} /> I agree to instructions </label> 
-</> )} {/* START */} {alreadyJoined && !attempted && !startedOnce && 
-( <button className="agree-btn" onClick={startTest}> Start Test 🚀 </button> )}
- {/* IN PROGRESS */} {alreadyJoined && !attempted && startedOnce && ( <p style={{ color: "#ff9800", fontWeight: "bold" }}>
-   ⏳ Test in progress — do not refresh </p> )} {/* ATTEMPTED */} {alreadyJoined && attempted && ( <p style={{ color: "red", fontWeight: "bold" }}> ❌ Test already attempted — check leaderboard </p> )} 
-   </div> </div> </div> ); }
+        <div className="bottom-section">
+
+          {/* NOT JOINED */}
+          {!alreadyJoined && (
+            <>
+              <button
+                className="agree-btn"
+                disabled={!agree || buying}
+                onClick={joinContest}
+              >
+                {buying
+                  ? "Unlocking..."
+                  : `Unlock 🪙 ${contest.entryFee}`}
+              </button>
+
+              <label>
+                <input
+                  type="checkbox"
+                  checked={agree}
+                  onChange={() => setAgree(!agree)}
+                /> I agree to instructions
+              </label>
+            </>
+          )}
+
+          {/* START */}
+          {alreadyJoined && !attempted && !startedOnce && (
+            <button className="agree-btn" onClick={startTest}>
+              Start Test 🚀
+            </button>
+          )}
+
+          {/* IN PROGRESS */}
+          {alreadyJoined && !attempted && startedOnce && (
+            <p style={{ color: "#ff9800", fontWeight: "bold" }}>
+              ⏳ Test in progress — do not refresh
+            </p>
+          )}
+
+          {/* ATTEMPTED */}
+          {alreadyJoined && attempted && (
+            <p style={{ color: "red", fontWeight: "bold" }}>
+              ❌ Test already attempted — check leaderboard
+            </p>
+          )}
+
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default ContestPage;

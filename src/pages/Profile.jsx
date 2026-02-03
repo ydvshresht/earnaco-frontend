@@ -106,80 +106,102 @@ function Profile() {
 
   if (loading) return <h3>Loading...</h3>;
 
-   return (
-    <div className="profile-screen">
-
+  return (
+    <div className="screen">
       {/* HEADER */}
-      <div className="profile-header-bar">
-        <i className="material-icons" onClick={() => navigate(-1)}>
+      <div className="icon-text">
+        <i
+          className="material-icons"
+          onClick={() => navigate(-1)}
+          style={{ cursor: "pointer" }}
+        >
           arrow_back
         </i>
-        <span>Personal Details</span>
+        Personal Details
       </div>
 
-      {/* PHOTO */}
-      <div className="avatar-section">
-        <label htmlFor="photo">
-          <img src={photo} alt="profile" />
-        </label>
-        <input
-          type="file"
-          id="photo"
-          accept="image/*"
-          hidden
-          onChange={handleImageChange}
-        />
-      </div>
+      {/* PROFILE PHOTO */}
+      <div className="profile-header">
+        <div className="photo-section">
+          <label htmlFor="imageUpload">
+            <img src={photo} alt="Profile" />
+          </label>
 
-      {/* FORM CARD */}
-      <form className="profile-card" onSubmit={handleSubmit}>
-
-        <label>Full Name</label>
-        <input
-          value={form.fullName}
-          onChange={(e) =>
-            setForm({ ...form, fullName: e.target.value })
-          }
-        />
-
-        <label>DOB</label>
-        <input
-          type="date"
-          value={form.dob}
-          onChange={(e) =>
-            setForm({ ...form, dob: e.target.value })
-          }
-        />
-
-        <label>Mobile</label>
-        <input
-          value={form.mobile}
-          onChange={(e) =>
-            setForm({ ...form, mobile: e.target.value })
-          }
-        />
-
-        <label>Email</label>
-        <input value={form.email} disabled />
-
-        {/* GENDER */}
-        <label>Gender</label>
-        <div className="gender-row">
-          {["male", "female", "other"].map(g => (
-            <label key={g} className="radio">
-              <input
-                type="radio"
-                checked={form.gender === g}
-                onChange={() =>
-                  setForm({ ...form, gender: g })
-                }
-              />
-              <span>{g.toUpperCase()}</span>
-            </label>
-          ))}
+          <input
+            type="file"
+            id="imageUpload"
+            name="photo"
+            accept="image/*"
+            style={{ display: "none" }}
+            onChange={handleImageChange}
+          />
         </div>
+      </div>
 
-        <button className="save-btn">Save</button>
+      {/* FORM */}
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="fullName">Full Name</label>
+        <input
+          id="fullName"
+          name="fullName"
+          autoComplete="name"
+          value={form.fullName}
+          onChange={handleChange}
+        />
+
+        <label htmlFor="dob">DOB</label>
+        <input
+          id="dob"
+          name="dob"
+          type="date"
+          autoComplete="bday"
+          value={form.dob}
+          onChange={handleChange}
+        />
+
+        <label htmlFor="mobile">Mobile</label>
+        <input
+          id="mobile"
+          name="mobile"
+          autoComplete="tel"
+          inputMode="numeric"
+          value={form.mobile}
+          onChange={handleChange}
+        />
+
+        <label htmlFor="email">Email</label>
+        <input
+          id="email"
+          name="email"
+          autoComplete="email"
+          value={form.email}
+          disabled
+        />
+
+       <fieldset className="gender">
+  <legend>Gender</legend>
+
+  {["male", "female", "other"].map((g) => (
+    <div key={g}>
+      <input
+        type="radio"
+        id={`gender-${g}`}
+        name="gender"
+        checked={form.gender === g}
+        onChange={() =>
+          setForm({ ...form, gender: g })
+        }
+      />
+      <label htmlFor={`gender-${g}`}>
+        {g.toUpperCase()}
+      </label>
+    </div>
+  ))}
+</fieldset>
+
+        <button type="submit" className="save-btn">
+          Save
+        </button>
       </form>
     </div>
   );

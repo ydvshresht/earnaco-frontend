@@ -7,94 +7,138 @@ function Wallet() {
   const [coins, setCoins] = useState(0);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    API.get("/auth/me")
-      .then(res => setCoins(res.data.coins))
-      .catch(() => alert("Failed to load wallet"));
-  }, []);
-
-  const watchAd = async () => {
+  /* =====================
+     LOAD COIN BALANCE
+  ===================== */
+ useEffect(() => {
+  const fetchCoins = async () => {
     try {
-      const res = await API.post("/wallet/watch-ad");
-      alert(res.data.msg);
+      const res = await API.get("/auth/me");
       setCoins(res.data.coins);
     } catch (err) {
-      alert(err.response?.data?.msg || "Ad failed");
+      console.error(err);
+      alert("Failed to load wallet");
     }
   };
 
-  return (
-    <div className="wallet-screen">
+  fetchCoins();
+}, []);
 
+    
+
+  /* =====================
+     WATCH AD → +1 COIN
+  ===================== */
+  const watchAd = async () => {
+  try {
+    const res = await API.post("/wallet/watch-ad");
+
+    alert(res.data.msg);
+
+    // ✅ set coins from backend response
+    if (typeof res.data.coins === "number") {
+      setCoins(res.data.coins);
+    }
+  } catch (err) {
+    if (err.response?.status === 429) {
+      alert(err.response.data.msg); // "You can watch only 1 ad per day"
+    } else {
+      alert("Ad reward failed");
+    }
+  }
+};
+
+  return (
+    <div className="screen">
       {/* BACK */}
       <i
-        className="material-icons back-btn"
+        className="material-icons"
         onClick={() => navigate("/entry")}
       >
         arrow_back
       </i>
 
-      {/* TITLE */}
-      <h1 className="wallet-title">My Coins</h1>
+      <h1>My Coins</h1>
 
-      {/* BALANCE */}
-      <div className="coin-balance">
-        <span className="coin">🪙</span>
-        <span className="coin-count">{coins}</span>
-        <p>Available Coins</p>
+      {/* COIN BALANCE */}
+      <div className="balance">
+        
       </div>
+      <div className="balance-text">🪙 {coins}<p>Available Coins</p> </div>
 
       {/* BUY COINS */}
-      <div className="wallet-card">
-        <div className="card-left">
-          <div className="card-icon">$</div>
+      <div className="card">
+        <div className="left-part">
+          <div className="icon-box">
+            <i className="material-icons">paid</i>
+          </div>
           <div>
-            <h3>Buy Coins</h3>
-            <p>Purchase using real money</p>
+            <div className="text-title">Buy Coins</div>
+            <div className="sub-text">Purchase using real money</div>
           </div>
         </div>
-        <button onClick={() => navigate("/buy-coins")}>Buy</button>
+        <button
+          className="action-btn"
+          onClick={() => navigate("/buy-coins")}
+        >
+          Buy
+        </button>
       </div>
 
       {/* WATCH AD */}
-      <div className="wallet-card">
-        <div className="card-left">
-          <div className="card-icon">▶</div>
+      <div className="card">
+        <div className="left-part">
+          <div className="icon-box">
+            <i className="material-icons">smart_display</i>
+          </div>
           <div>
-            <h3>Watch Ad</h3>
-            <p>Get 1 free coin</p>
+            <div className="text-title">Watch Ad</div>
+            <div className="sub-text">Get 1 free coin</div>
           </div>
         </div>
-        <button onClick={watchAd}>Watch</button>
+        <button className="action-btn" onClick={watchAd}>
+          Watch
+        </button>
       </div>
 
       {/* REFER */}
-      <div className="wallet-card">
-        <div className="card-left">
-          <div className="card-icon">👥</div>
+      <div className="card">
+        <div className="left-part">
+          <div className="icon-box">
+            <i className="material-icons">group</i>
+          </div>
           <div>
-            <h3>Refer & Earn</h3>
-            <p>Invite friends & earn coins</p>
+            <div className="text-title">Refer & Earn</div>
+            <div className="sub-text">Invite friends & earn coins</div>
           </div>
         </div>
-        <button onClick={() => navigate("/refer")}>Refer</button>
+        <button
+          className="action-btn"
+          onClick={() => navigate("/refer")}
+        >
+          Refer
+        </button>
       </div>
 
       {/* QUICK ACTIONS */}
-      <h4 className="section">Quick Actions</h4>
+      <div className="section-title">Quick Actions</div>
 
       <div
         className="quick-card"
         onClick={() => navigate("/transactions")}
       >
-        <div className="card-left">
-          <div className="card-icon">🧾</div>
+        <div className="left-part">
+          <div className="quick-icon">
+            <i className="material-icons">receipt_long</i>
+          </div>
           <div>
-            <h3>Coin History</h3>
-            <p>All coin credits & debits</p>
+            <div className="text-title">Coin History</div>
+            <div className="sub-text">
+              All coin credits & debits
+            </div>
           </div>
         </div>
-        <span className="arrow">›</span>
+        <div>›</div>
       </div>
     </div>
   );

@@ -44,7 +44,6 @@ ${WEBSITE_LINK}/register?ref=${refCode}`;
 
   return (
     <div className="refer-screen">
-
       {/* HEADER */}
       <div className="refer-header">
         <i className="material-icons" onClick={() => navigate(-1)}>
@@ -53,10 +52,8 @@ ${WEBSITE_LINK}/register?ref=${refCode}`;
         <span>Refer & Earn</span>
       </div>
 
-      {/* MAIN CARD */}
+      {/* CARD */}
       <div className="refer-card">
-
-        {/* BANNER */}
         <img
           src="/assets/refer-banner.png"
           alt="Refer & Earn"
@@ -68,7 +65,7 @@ ${WEBSITE_LINK}/register?ref=${refCode}`;
           Share your referral code and earn coins when your friend joins.
         </p>
 
-        {/* REWARD */}
+        {/* COIN INFO */}
         <div className="reward-box">
           <div>
             <span>🪙</span>
@@ -82,17 +79,17 @@ ${WEBSITE_LINK}/register?ref=${refCode}`;
           </div>
         </div>
 
-        {/* CODE */}
+        {/* REF CODE */}
         <div className="ref-code">
           <span>{refCode}</span>
           <button onClick={copyCode}>Copy</button>
         </div>
 
-        {/* SHARE */}
+        {/* ACTIONS */}
         <button className="whatsapp-btn" onClick={shareWhatsApp}>
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-            alt=""
+            alt="WhatsApp"
           />
           Share on WhatsApp
         </button>
@@ -100,7 +97,7 @@ ${WEBSITE_LINK}/register?ref=${refCode}`;
         <button className="insta-btn" onClick={shareInstagram}>
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
-            alt=""
+            alt="Instagram"
           />
           Share on Instagram
         </button>
