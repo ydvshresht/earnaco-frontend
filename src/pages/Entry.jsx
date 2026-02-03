@@ -71,38 +71,33 @@ function Entry() {
           MY ENTRY
         </div>
       </div>
-{/* ENTRY LIST */}
-<div className="entry-list">
-  {contests.length === 0 ? (
-    <p>No contests available.</p>
-  ) : (
-    contests.map((contest) => (
-      <div
-        key={contest._id}
-        className="entry-card"
-        onClick={() => navigate(`/contest/${contest._id}`)}
-      >
-        <div className="entry-left">
-          {/* TEST NAME */}
-          <div className="test-name">
-            {contest.testName}
-          </div>
 
-          {/* ENTRY + PRIZE */}
-          <div className="entry-meta">
-            <span>🪙 {contest.entryFee}</span>
-            <span>🏆 {contest.prizePool} Coins</span>
-          </div>
-        </div>
+      {/* ENTRY LIST */}
+      <div className="entry-list">
+        {contests.length === 0 ? (
+          <p>No contests available.</p>
+        ) : (
+          contests.map((contest) => (
+            <div
+              key={contest._id}
+              className="entry-card"
+              onClick={() =>
+                navigate(`/contest/${contest._id}`)
+              }
+            >
+              <div className="entry-left">
+                <span> {contest.test?.testName}</span>
+                <span>🪙 {contest.entryFee}</span>
+                <span>🏆 {contest.prizePool} Coins</span>
+              </div>
 
-        <div className="entry-right">
-          {contest.joinedUsers?.length || 0}/{contest.maxSpots}
-        </div>
+              <div className="entry-right">
+                {contest.joinedUsers?.length || 0}/{contest.maxSpots}
+              </div>
+            </div>
+          ))
+        )}
       </div>
-    ))
-  )}
-</div>
-
     </div>
   );
 }
