@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/api";
-import "../styles/wallet-ui.css";
+import "../styles/wallet.css";
 
 function Wallet() {
   const [coins, setCoins] = useState(0);
