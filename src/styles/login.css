@@ -11,9 +11,9 @@
       object-fit: cover;
       border: 2px solid #ccc;
     }
-         h2 {
+         .logt {
             font-weight: 600;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             color: #928d8d;
             text-align: center;
 

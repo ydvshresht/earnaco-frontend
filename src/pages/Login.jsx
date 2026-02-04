@@ -66,7 +66,7 @@ function Login() {
   return (
     <div className="screen ">
       {/* TITLE */}
-      <h2>Login to Earnaco</h2>
+      <div className="logt">Login to Earnaco</div>
 
       {/* EMAIL */}
       <input

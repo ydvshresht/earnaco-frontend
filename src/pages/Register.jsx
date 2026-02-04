@@ -99,7 +99,7 @@ function Register() {
 
   return (
     <div className="screen ">
-      <h2>Create your Earnaco account</h2>
+      <div className="logt">Create your Earnaco account</div>
 
 
       {/* NAME */}
