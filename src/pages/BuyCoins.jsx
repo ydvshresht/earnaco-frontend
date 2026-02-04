@@ -125,10 +125,7 @@ function BuyCoins() {
         <li>Secure payment via Razorpay</li>
       </ul>
 
-      {/* RAZORPAY */}
-      <div className="razorpay">
-        Razorpay
-      </div>
+      
     </div>
   );
 }

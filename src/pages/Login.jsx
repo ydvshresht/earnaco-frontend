@@ -28,7 +28,7 @@ function Login() {
       password
     });
 
-    console.log("LOGIN SUCCESS", res.data);
+    
     navigate("/entry");
 
   } catch (err) {
@@ -56,7 +56,7 @@ function Login() {
         token: credentialResponse.credential
       });
 
-      console.log("GOOGLE LOGIN SUCCESS", res.data);
+      
       navigate("/entry");
     } catch {
       alert("Google login failed");
