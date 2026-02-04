@@ -1,7 +1,7 @@
 import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import API from "../api/api";
-
+import "../styles/test.css";
 function Test() {
   const { testId } = useParams();
   const [searchParams] = useSearchParams();
