@@ -148,7 +148,7 @@ function Register() {
       )}
        <p className="divider">OR</p>
       {/* 🔵 GOOGLE SIGNUP */}
-      <div style={{ textAlign: "center", marginBottom: "15px" }}>
+      <div style={{ display: "flex", justifyContent: "center"  }}>
         <GoogleLogin
           onSuccess={handleGoogleSignup}
           onError={() => alert("Google signup failed")}

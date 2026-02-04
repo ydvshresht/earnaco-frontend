@@ -88,7 +88,12 @@ function Profile() {
         const data = new FormData();
         data.append("photo", imageFile);
 
-        const res = await API.put("/profile/photo", data);
+        const res = await API.put("/profile/photo", data, {
+  headers: {
+    "Content-Type": "multipart/form-data"
+  }
+});
+
 
         setPhoto(
           res.data.photo.startsWith("http")
