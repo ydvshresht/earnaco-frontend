@@ -64,7 +64,7 @@ function Login() {
   };
 
   return (
-    <div className="screen auth-screen">
+    <div className="screen ">
       {/* TITLE */}
       <h2>Login to Earnaco</h2>
 

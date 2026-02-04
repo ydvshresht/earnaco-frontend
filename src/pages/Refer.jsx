@@ -60,7 +60,7 @@ ${WEBSITE_LINK}/register?ref=${refCode}`;
           className="refer-banner"
         />
 
-        <h2>Invite Friends & Earn Coins 🪙</h2>
+       <div> <h2>Invite Friends & Earn Coins 🪙</h2></div>
         <p className="subtitle">
           Share your referral code and earn coins when your friend joins.
         </p>
@@ -82,7 +82,7 @@ ${WEBSITE_LINK}/register?ref=${refCode}`;
         {/* REF CODE */}
         <div className="ref-code">
           <span>{refCode}</span>
-          <button onClick={copyCode}>Copy</button>
+         <div> <button onClick={copyCode}>Copy</button></div>
         </div>
 
         {/* ACTIONS */}

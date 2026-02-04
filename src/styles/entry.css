@@ -63,6 +63,7 @@
         color: #aca7a7;
 
     }
+    h2{color: #fff;}
     .entry.list {
         display: flex;
         
@@ -133,7 +134,7 @@
      }
         
        .row-item.active {
-  background: gold;
+  background: #ffd700;
   color: #000;
   opacity: 1;
   font-weight: bold;
