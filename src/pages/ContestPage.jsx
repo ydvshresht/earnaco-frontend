@@ -157,14 +157,15 @@ function ContestPage() {
         <div className="bottom-section">
           {!alreadyJoined && (
             <>
-             <label>
-                <input
-                  type="checkbox"
-                  checked={agree}
-                  onChange={() => setAgree(!agree)}
-                />{" "} I agree to instructions
-               
-              </label>
+            <label className="agree-row">
+  <input
+    type="checkbox"
+    checked={agree}
+    onChange={() => setAgree(!agree)}
+  />
+  <span>I agree to instructions</span>
+</label>
+
               <button
                 className="agree-btn"
                 disabled={!agree || buying}

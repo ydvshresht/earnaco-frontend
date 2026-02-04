@@ -127,6 +127,11 @@
     flex-direction: column;
     gap: 10px;
 }
+.agree-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
 select {
     padding: 10px;
