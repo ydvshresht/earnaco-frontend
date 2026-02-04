@@ -21,25 +21,7 @@
             transition: 0.3s ease;
             cursor: pointer;
         }
-        .header-item:nth-child(1):hover {
-           
-            background: #ffffff1a;
-            
-            border-radius: 8px;
-
-        }
-        .header-item:nth-child(2):hover {
-             
-            background: #ffffff1a;
-           
-            border-radius: 8px;
-        }
-        .header-item:nth-child(3):hover {
-            background: #ffffff1a;
-           
-            border-radius: 8px;
-
-        }
+        
 
 .header-item.active {
   background: gold;

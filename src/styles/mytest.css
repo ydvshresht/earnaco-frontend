@@ -119,19 +119,9 @@ body {
   cursor: pointer;
 }
 
-.coupon-header {
-  display: flex;
-  justify-content: space-around;
-  margin: 10px 0 20px;
-}
 
-.header-item {
-  padding: 8px 14px;
-  border-radius: 20px;
-  font-size: 13px;
-  cursor: pointer;
-  opacity: 0.6;
-}
+
+
 
 .header-item.active {
   background: gold;

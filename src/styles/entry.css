@@ -132,15 +132,9 @@
             
      }
         
-        .row-item:nth-child(1):hover{
-            background: #ffffff1a;
-            border-radius: 8px;
-            
-            
-           
-        }
-        .row-item:nth-child(2):hover {
-            background: rgb(255,255,255,0.1);
-            border-radius: 8px;
-        }
-
+       .row-item.active {
+  background: gold;
+  color: #000;
+  opacity: 1;
+  font-weight: bold;
+}

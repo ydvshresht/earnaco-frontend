@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/api";
 import "../styles/wallet.css";
+import adImage from "../assets/ad.jpg"; 
 
 function Wallet() {
   const [coins, setCoins] = useState(0);
   const navigate = useNavigate();
+const [showAd, setShowAd] = useState(false);
+const [timeLeft, setTimeLeft] = useState(15);
 
   /* =====================
      LOAD COIN BALANCE
@@ -29,24 +32,44 @@ function Wallet() {
   /* =====================
      WATCH AD → +1 COIN
   ===================== */
-  const watchAd = async () => {
+  const startAd = () => {
+  setTimeLeft(15);
+  setShowAd(true);
+};
+
+useEffect(() => {
+  if (!showAd) return;
+
+  if (timeLeft === 0) {
+    finishAd();
+    return;
+  }
+
+  const timer = setTimeout(() => {
+    setTimeLeft((prev) => prev - 1);
+  }, 1000);
+
+  return () => clearTimeout(timer);
+}, [showAd, timeLeft]);
+const finishAd = async () => {
   try {
     const res = await API.post("/wallet/watch-ad");
-
     alert(res.data.msg);
 
-    // ✅ set coins from backend response
     if (typeof res.data.coins === "number") {
       setCoins(res.data.coins);
     }
   } catch (err) {
     if (err.response?.status === 429) {
-      alert(err.response.data.msg); // "You can watch only 1 ad per day"
+      alert(err.response.data.msg);
     } else {
       alert("Ad reward failed");
     }
+  } finally {
+    setShowAd(false);
   }
 };
+
 
   return (
     <div className="screen">
@@ -96,9 +119,15 @@ function Wallet() {
             <div className="sub-text">Get 1 free coin</div>
           </div>
         </div>
-        <button className="action-btn" onClick={watchAd}>
-          Watch
-        </button>
+      <button
+  className="action-btn"
+  onClick={startAd}
+  disabled={showAd}
+>
+  {showAd ? "Watching..." : "Watch"}
+</button>
+
+
       </div>
 
       {/* REFER */}
@@ -140,6 +169,15 @@ function Wallet() {
         </div>
         <div>›</div>
       </div>
+      {showAd && (
+  <div className="ad-overlay">
+    <img src={adImage} alt="Advertisement" />
+    <div className="ad-timer">
+      Ad ends in {timeLeft}s
+    </div>
+  </div>
+)}
+
     </div>
   );
 }
