@@ -32,25 +32,23 @@ const [timeLeft, setTimeLeft] = useState(15);
   /* =====================
      WATCH AD → +1 COIN
   ===================== */
-  const startAd = () => {
-  setTimeLeft(15);
-  setShowAd(true);
+ const startAd = async () => {
+  try {
+    const res = await API.get("/wallet/can-watch-ad");
+
+    if (!res.data.canWatch) {
+      alert("You can watch only 1 ad per day");
+      return; // 🚫 STOP HERE
+    }
+
+    // ✅ Allowed → show ad
+    setTimeLeft(15);
+    setShowAd(true);
+  } catch (err) {
+    alert("Failed to check ad status");
+  }
 };
 
-useEffect(() => {
-  if (!showAd) return;
-
-  if (timeLeft === 0) {
-    finishAd();
-    return;
-  }
-
-  const timer = setTimeout(() => {
-    setTimeLeft((prev) => prev - 1);
-  }, 1000);
-
-  return () => clearTimeout(timer);
-}, [showAd, timeLeft]);
 const finishAd = async () => {
   try {
     const res = await API.post("/wallet/watch-ad");
@@ -70,6 +68,20 @@ const finishAd = async () => {
   }
 };
 
+useEffect(() => {
+  if (!showAd) return;
+
+  if (timeLeft === 0) {
+    finishAd();
+    return;
+  }
+
+  const timer = setTimeout(() => {
+    setTimeLeft((prev) => prev - 1);
+  }, 1000);
+
+  return () => clearTimeout(timer);
+}, [showAd, timeLeft]);
 
   return (
     <div className="screen">

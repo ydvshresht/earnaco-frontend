@@ -46,7 +46,7 @@ function MyTest() {
   return (
     <div className="screen">
       {/* BACK BUTTON */}
-      <div className="icon-text">
+      
         <i 
           className="material-icons" 
           onClick={() => navigate("/entry")}
@@ -54,7 +54,7 @@ function MyTest() {
         >
           arrow_back
         </i>
-      </div>
+      
 
       {/* NAVIGATION TABS */}
       <div className="coupon-header">
