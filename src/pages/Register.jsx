@@ -98,7 +98,7 @@ function Register() {
   };
 
   return (
-    <div className="auth-screen ">
+    <div className="screen ">
       <h2>Create your Earnaco account</h2>
 
 

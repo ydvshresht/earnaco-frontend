@@ -13,8 +13,8 @@
     }
          h2 {
             font-weight: 600;
-            margin-bottom: 25px;
-            color: #333;
+            margin-bottom: 20px;
+            color: #928d8d;
             text-align: center;
 
          }
@@ -64,10 +64,7 @@
          }
           
          
-.auth-screen {
-  max-width: 420px;
-  margin: auto;
-}
+
 
 .divider {
   margin: 20px 0;
