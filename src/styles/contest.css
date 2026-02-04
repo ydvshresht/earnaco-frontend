@@ -129,8 +129,9 @@
 }
 .agree-row {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  align-items: left;
+  background-color: none;
+  
 }
 
 select {
