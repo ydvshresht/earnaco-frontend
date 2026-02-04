@@ -119,7 +119,7 @@ function ContestPage() {
       </i>
 
       <div className="coupon-header">
-        <div className="header-item active">CONTEST</div>
+        <div className="header-item active">TEST</div>
         <div
           className="header-item"
           onClick={() =>
@@ -134,7 +134,7 @@ function ContestPage() {
           className="header-item"
           onClick={() => navigate(`/my-test/${contestId}`)}
         >
-          MY TEST
+          RESULT
         </div>
       </div>
 
@@ -157,6 +157,14 @@ function ContestPage() {
         <div className="bottom-section">
           {!alreadyJoined && (
             <>
+             <label>
+                <input
+                  type="checkbox"
+                  checked={agree}
+                  onChange={() => setAgree(!agree)}
+                />{" "} I agree to instructions
+               
+              </label>
               <button
                 className="agree-btn"
                 disabled={!agree || buying}
@@ -167,14 +175,7 @@ function ContestPage() {
                   : `Unlock 🪙 ${contest.entryFee}`}
               </button>
 
-              <label>
-                <input
-                  type="checkbox"
-                  checked={agree}
-                  onChange={() => setAgree(!agree)}
-                />{" "}
-                I agree to instructions
-              </label>
+             
             </>
           )}
 

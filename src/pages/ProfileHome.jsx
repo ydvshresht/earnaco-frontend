@@ -85,7 +85,7 @@ function ProfileHome() {
           onClick={() => navigate("/my-entry")}
         >
           <i className="material-icons">assignment</i>
-          My Entry
+          My Contest
           <span>›</span>
         </div>
 

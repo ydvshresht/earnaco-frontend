@@ -31,9 +31,9 @@ function AdminAnalytics() {
           onClick={() => navigate(-1)}
           style={{ cursor: "pointer" }}
         >
-          arrow_back
+          arrow_back Admin Analytics
         </i>
-        <span>Admin Analytics</span>
+       
       </div>
 
       <h2>📊 Platform Overview</h2>

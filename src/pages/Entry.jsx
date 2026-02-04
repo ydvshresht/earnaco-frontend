@@ -63,19 +63,19 @@ function Entry() {
 
       {/* TAB HEADER */}
       <div className="title-row">
-        <div className="row-item active">ENTRY</div>
+        <div className="row-item active">CONTEST</div>
         <div
           className="row-item"
           onClick={() => navigate("/my-entry")}
         >
-          MY ENTRY
+          MY CONTEST
         </div>
       </div>
 
       {/* ENTRY LIST */}
       <div className="entry-list">
         {contests.length === 0 ? (
-          <p2>No contests available.</p2>
+          <p>No contests available.</p>
         ) : (
           contests.map((contest) => (
             <div

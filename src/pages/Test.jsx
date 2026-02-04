@@ -79,49 +79,33 @@ const submitTest = async () => {
   try {
     submittedRef.current = true;
 
-    const res = await API.post("/results/submit", {
+    await API.post("/results/submit", {
       testId,
       contestId,
       answers,
       timeTaken: totalDuration - timeLeft
     });
-const userRes = await API.get("/auth/me");
-    // ✅ clear started flag
-   sessionStorage.removeItem(
-  `started-${contestId}-${userRes.data._id}`
-);
 
-    setResult({
-      total: res.data.totalQuestions,
-      correct: res.data.score,
-      wrong: res.data.totalQuestions - res.data.score
-    });
+    const userRes = await API.get("/auth/me");
+
+    sessionStorage.removeItem(
+      `started-${contestId}-${userRes.data._id}`
+    );
 
     setStarted(false);
-  } catch (err) {
-    // 🔓 allow retry if failed
-    submittedRef.current = false;
 
-    alert(
-      err.response?.data?.msg || "Submit failed, please try again"
-    );
+    // ✅ REDIRECT TO YOUR RESULT PAGE
+    navigate(`/result/${contestId}`);
+  } catch (err) {
+    submittedRef.current = false;
+    alert(err.response?.data?.msg || "Submit failed, please try again");
   }
 };
 
 
+
   if (loading) return <h3>Loading test...</h3>;
-  if (result) {
-    return (
-      <div className="screen">
-        <h2>Result</h2>
-        <p>Correct: {result.correct}</p>
-        <p>Wrong: {result.wrong}</p>
-        <button onClick={() => navigate("/entry")}>
-          Back to Entry
-        </button>
-      </div>
-    );
-  }
+  
 
   const q = questions[currentIndex];
 

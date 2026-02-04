@@ -53,14 +53,14 @@ function Leaderboard() {
           className="header-item"
           onClick={() => navigate(`/contest/${contestId}`)}
         >
-          CONTEST
+          TEST
         </div>
         <div className="header-item active">LEADERBOARD</div>
         <div
           className="header-item"
           onClick={() => navigate(`/my-test/${contestId}`)}
         >
-          MY TEST
+          RESULT
         </div>
       </div>
 

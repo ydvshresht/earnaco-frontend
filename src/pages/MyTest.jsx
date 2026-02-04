@@ -62,7 +62,7 @@ function MyTest() {
           className="header-item" 
           onClick={() => navigate(`/contest/${contestId}`)}
         >
-          CONTEST
+          TEST
         </div>
         
         <div
@@ -79,7 +79,7 @@ function MyTest() {
           LEADERBOARD
         </div>
 
-        <div className="header-item active">MY TEST</div>
+        <div className="header-item active">RESULT</div>
       </div>
 
       {/* RESULT LIST */}

@@ -98,10 +98,10 @@ function MyEntry() {
           className="row-item"
           onClick={() => navigate("/entry")}
         >
-          ENTRY
+          CONTEST
         </div>
         <div className="row-item active">
-          MY ENTRY
+          MY CONTEST
         </div>
       </div>
 

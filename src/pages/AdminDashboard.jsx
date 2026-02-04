@@ -34,7 +34,7 @@ function AdminDashboard() {
         Admin
       </div>
 
-      <h2>⚙️ Admin Dashboard</h2>
+     
 
       {/* STATS GRID */}
       <div className="grid">
