@@ -69,6 +69,7 @@ function Profile() {
     const reader = new FileReader();
     reader.onloadend = () => setPhoto(reader.result);
     reader.readAsDataURL(file);
+console.log(req.file);
 
     e.target.value = null;
   };
