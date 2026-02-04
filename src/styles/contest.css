@@ -129,10 +129,15 @@
 }
 .agree-row {
   display: flex;
-  align-items: left;
-  background-color: none;
-  
+  align-items: center;
+  gap: 8px;
 }
+
+input[type="checkbox"] {
+  width: auto;
+  padding: 0;
+}
+
 
 select {
     padding: 10px;

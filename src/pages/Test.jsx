@@ -95,7 +95,7 @@ const submitTest = async () => {
     setStarted(false);
 
     // ✅ REDIRECT TO YOUR RESULT PAGE
-    navigate(`/result/${contestId}`);
+    navigate(`/my-test/${contestId}`);
   } catch (err) {
     submittedRef.current = false;
     alert(err.response?.data?.msg || "Submit failed, please try again");
