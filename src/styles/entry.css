@@ -135,8 +135,5 @@
      }
         
        .row-item.active {
-  background: #ffd700;
-  color: #000;
-  opacity: 1;
-  font-weight: bold;
+   border-bottom: 3px solid #6fa8ff;
 }

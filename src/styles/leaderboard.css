@@ -21,10 +21,7 @@
 }
 
 .header-item.active {
-  background: gold;
-  color: #000;
-  opacity: 1;
-  font-weight: bold;
+  border-bottom: 3px solid #6fa8ff;
 }
 
 /* TABLE CARD */
