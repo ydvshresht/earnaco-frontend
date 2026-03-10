@@ -13,33 +13,33 @@ const [search, setSearch] = useState("");
   const navigate = useNavigate();
   const { photo } = useProfile();
 
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        // 👤 USER
-        const userRes = await API.get("/auth/me");
-        setUser(userRes.data);
+ useEffect(() => {
+  const loadData = async () => {
+    try {
+      const userRes = await API.get("/auth/me");
+      setUser(userRes.data);
+
+      const walletRes = await API.get("/wallet");
+      setCoins(walletRes.data.coins);
+
+      const contestRes = await API.get("/contests");
+      setContests(contestRes.data);
+
+    } catch (err) {
+      console.error("ENTRY PAGE ERROR:", err);
+      navigate("/");
+    }
+  };
+
+  loadData();
+}, [navigate]);
+
+// ✅ MOVE HERE
 const filteredContests = contests.filter((contest) =>
   contest.test?.testName
     ?.toLowerCase()
     .includes(search.toLowerCase())
 );
-        // 🪙 COINS
-        const walletRes = await API.get("/wallet");
-        setCoins(walletRes.data.coins);
-
-        // 🏆 CONTESTS
-        const contestRes = await API.get("/contests");
-        setContests(contestRes.data);
-
-      } catch (err) {
-        console.error("ENTRY PAGE ERROR:", err);
-        navigate("/");
-      }
-    };
-
-    loadData();
-  }, [navigate]);
 
   return (
     <div className="screen">
