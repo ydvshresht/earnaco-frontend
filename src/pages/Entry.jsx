@@ -68,7 +68,7 @@ const filteredContests = contests.filter((contest) =>
 
       {/* TAB HEADER */}
      {/* 🔍 SEARCH BAR */}
-<div className="search-container">
+<div className="search-box">
   <span className="search-icon">🔍</span>
 
   <input
@@ -79,11 +79,8 @@ const filteredContests = contests.filter((contest) =>
   />
 
   {search && (
-    <span
-      className="clear-btn"
-      onClick={() => setSearch("")}
-    >
-      ✖
+    <span className="clear-icon" onClick={() => setSearch("")}>
+      ✕
     </span>
   )}
 </div>
