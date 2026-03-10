@@ -139,33 +139,25 @@
 }
 /* SEARCH BAR */
 
-/* SEARCH BAR */
-
 .search-box {
-  display: flex;
-  align-items: center;
-  
+  position: relative;
 }
-
-
 
 .search-box input {
-  flex: 1;
-  background: transparent;
-  border: none;
+  width: 100%;
+  padding: 10px 35px 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
   outline: none;
-  font-size: 15px;
-  color: #000000be;
-}
-
-.search-box input::placeholder {
-  color: #000000be;
 }
 
 .clear-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
   cursor: pointer;
-  color: #9a9a9a;
-  font-size: 14px;
+  color: #aaa;
 }
 /* NO RESULT MESSAGE */
 
