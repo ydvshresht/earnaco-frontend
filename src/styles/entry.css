@@ -142,21 +142,17 @@
 /* SEARCH BAR */
 
 .search-box {
-  display: flex;
-  align-items: center;
-  
+  position: relative;
 }
-
-
 
 .search-box input {
-  flex: 1;
-  background: transparent;
-  border: none;
+  width: 100%;
+  padding: 10px 35px 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
   outline: none;
-  font-size: 15px;
-  color: #000000be;
 }
+
 
 .search-box input::placeholder {
   color: #000000be;
@@ -168,7 +164,7 @@
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  color: #000000be;
+  color:  #000000be;
 }
 /* NO RESULT MESSAGE */
 
