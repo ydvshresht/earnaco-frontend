@@ -69,8 +69,6 @@ const filteredContests = contests.filter((contest) =>
       {/* TAB HEADER */}
      {/* 🔍 SEARCH BAR */}
 <div className="search-box">
-  <span className="search-icon">🔍</span>
-
   <input
     type="text"
     placeholder="Search test or contest..."
