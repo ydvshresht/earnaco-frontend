@@ -19,7 +19,11 @@ const [search, setSearch] = useState("");
         // 👤 USER
         const userRes = await API.get("/auth/me");
         setUser(userRes.data);
-
+const filteredContests = contests.filter((contest) =>
+  contest.test?.testName
+    ?.toLowerCase()
+    .includes(search.toLowerCase())
+);
         // 🪙 COINS
         const walletRes = await API.get("/wallet");
         setCoins(walletRes.data.coins);
@@ -63,14 +67,25 @@ const [search, setSearch] = useState("");
       </header>
 
       {/* TAB HEADER */}
-      {/* 🔍 SEARCH BAR */}
-<div className="search-bar">
+     {/* 🔍 SEARCH BAR */}
+<div className="search-container">
+  <span className="search-icon">🔍</span>
+
   <input
     type="text"
-    placeholder="Search contests or tests..."
+    placeholder="Search test or contest..."
     value={search}
     onChange={(e) => setSearch(e.target.value)}
   />
+
+  {search && (
+    <span
+      className="clear-btn"
+      onClick={() => setSearch("")}
+    >
+      ✖
+    </span>
+  )}
 </div>
       <div className="title-row">
         <div className="row-item active">CONTEST</div>
@@ -83,37 +98,29 @@ const [search, setSearch] = useState("");
       </div>
 
       {/* ENTRY LIST */}
-      <div className="entry-list">
-        {contests.length === 0 ? (
-          <p>No contests available.</p>
-        ) : (
-        contests
-  .filter((contest) =>
-    contest.test?.testName
-      ?.toLowerCase()
-      .includes(search.toLowerCase())
-  )
-  .map((contest) => (
-            <div
-              key={contest._id}
-              className="entry-card"
-              onClick={() =>
-                navigate(`/contest/${contest._id}`)
-              }
-            >
-              <div className="entry-left">
-                <span> {contest.test?.testName}</span>
-                <span>🪙 {contest.entryFee}</span>
-                <span>🏆 {contest.prizePool} Coins</span>
-              </div>
+     <div className="entry-list">
+  {filteredContests.length === 0 ? (
+    <p className="no-result">No contests found.</p>
+  ) : (
+    filteredContests.map((contest) => (
+      <div
+        key={contest._id}
+        className="entry-card"
+        onClick={() => navigate(`/contest/${contest._id}`)}
+      >
+        <div className="entry-left">
+          <span>{contest.test?.testName}</span>
+          <span>🪙 {contest.entryFee}</span>
+         
+        </div>
 
-              <div className="entry-right">
-                {contest.joinedUsers?.length || 0}/{contest.maxSpots}
-              </div>
-            </div>
-          ))
-        )}
+        <div className="entry-right">
+          <span>🏆 {contest.prizePool} Coins</span>
+        </div>
       </div>
+    ))
+  )}
+</div>
     </div>
   );
 }
