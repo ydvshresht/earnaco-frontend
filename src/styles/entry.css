@@ -155,11 +155,11 @@
   border: none;
   outline: none;
   font-size: 15px;
-  color: #000;
+  color: #000000be;
 }
 
 .search-box input::placeholder {
-  color: #9a9a9a;
+  color: #000000be;
 }
 
 .clear-icon {
