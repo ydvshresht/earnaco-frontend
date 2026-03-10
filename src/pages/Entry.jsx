@@ -8,6 +8,7 @@ function Entry() {
   const [contests, setContests] = useState([]);
   const [coins, setCoins] = useState(0);
   const [user, setUser] = useState(null);
+const [search, setSearch] = useState("");
 
   const navigate = useNavigate();
   const { photo } = useProfile();
@@ -62,6 +63,15 @@ function Entry() {
       </header>
 
       {/* TAB HEADER */}
+      {/* 🔍 SEARCH BAR */}
+<div className="search-bar">
+  <input
+    type="text"
+    placeholder="Search contests or tests..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+  />
+</div>
       <div className="title-row">
         <div className="row-item active">CONTEST</div>
         <div
@@ -77,7 +87,13 @@ function Entry() {
         {contests.length === 0 ? (
           <p>No contests available.</p>
         ) : (
-          contests.map((contest) => (
+        contests
+  .filter((contest) =>
+    contest.test?.testName
+      ?.toLowerCase()
+      .includes(search.toLowerCase())
+  )
+  .map((contest) => (
             <div
               key={contest._id}
               className="entry-card"
