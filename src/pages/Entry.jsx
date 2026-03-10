@@ -78,7 +78,7 @@ const filteredContests = contests.filter((contest) =>
 
   {search && (
     <span className="clear-icon" onClick={() => setSearch("")}>
-      ✕
+      ×
     </span>
   )}
 </div>
